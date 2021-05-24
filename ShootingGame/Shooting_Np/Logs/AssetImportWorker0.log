@@ -1,0 +1,246 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.8f1 (507919d4fff5) revision 5273881'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 19041.928; Version 2004; 64bit' Language: 'ko' Physical Memory: 16233 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.8f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+F:/UnityProject/ServerDevelopmentLaborUnion/_LaborOutputs/ShootingGame/Shooting_Np
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+51833
+Successfully changed project path to: F:/UnityProject/ServerDevelopmentLaborUnion/_LaborOutputs/ShootingGame/Shooting_Np
+F:/UnityProject/ServerDevelopmentLaborUnion/_LaborOutputs/ShootingGame/Shooting_Np
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 35.21 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.8f1 (507919d4fff5)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.8f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path F:/UnityProject/ServerDevelopmentLaborUnion/_LaborOutputs/ShootingGame/Shooting_Np/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 2060 (ID=0x1f11)
+    Vendor:   
+    VRAM:     5980 MB
+    Driver:   26.21.14.4587
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.8f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.8f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.8f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56180
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.8f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.001841 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 34.21 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.749 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.001316 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 35.68 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+DisplayProgressbar: Restoring NuGet Packages
+Mono: successfully reloaded assembly
+- Completed reload, in  0.992 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 0.73 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1971 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 90.9 MB.
+System memory in use after: 91.0 MB.
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 2419.
+Total: 2.061900 ms (FindLiveObjects: 0.179900 ms CreateObjectMapping: 0.055100 ms MarkObjects: 1.770200 ms  DeleteObjects: 0.056000 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/05Tilemap/타일.asset
+  artifactKey: Guid(171b24e5ad9319b4c90dc8dc61c7ba55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/05Tilemap/타일.asset using Guid(171b24e5ad9319b4c90dc8dc61c7ba55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59d0bb3b44f5821724113dee4d55d851') in 0.084564 seconds
+  Import took 0.087689 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000313 seconds.
+  path: Assets/05Tilemap/New Palette.prefab
+  artifactKey: Guid(dfe52d9d5d608bf408f64fa50242e5bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/05Tilemap/New Palette.prefab using Guid(dfe52d9d5d608bf408f64fa50242e5bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '178421fe7d5a82a053adbaf64bfa9e75') in 0.013934 seconds
+  Import took 0.017426 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 222.511024 seconds.
+  path: Assets/Shader
+  artifactKey: Guid(d7ba4005b49452a449dd62dc85ed9b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Shader using Guid(d7ba4005b49452a449dd62dc85ed9b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c936266749d71ebc09bdf9922ee68698') in 0.006334 seconds
+  Import took 0.009765 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001783 seconds.
+  path: Assets/Shader
+  artifactKey: Guid(d7ba4005b49452a449dd62dc85ed9b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Shader using Guid(d7ba4005b49452a449dd62dc85ed9b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c936266749d71ebc09bdf9922ee68698') in 0.002120 seconds
+  Import took 0.005109 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.194716 seconds.
+  path: Assets/Shaders
+  artifactKey: Guid(d7ba4005b49452a449dd62dc85ed9b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Shaders using Guid(d7ba4005b49452a449dd62dc85ed9b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57904827c775b312045f32e1dd40d56b') in 0.005762 seconds
+  Import took 0.008571 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 39.427808 seconds.
+  path: Assets/Shaders/OutLine.shader
+  artifactKey: Guid(ac1edf2f9b120574faca1e1abf902a24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Shaders/OutLine.shader using Guid(ac1edf2f9b120574faca1e1abf902a24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94446dcb092f014e42ff4c7a8fd0a4c0') in 0.009591 seconds
+  Import took 0.012676 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.003939 seconds.
+  path: Assets/Shaders/OutLine.shader
+  artifactKey: Guid(ac1edf2f9b120574faca1e1abf902a24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Shaders/OutLine.shader using Guid(ac1edf2f9b120574faca1e1abf902a24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94446dcb092f014e42ff4c7a8fd0a4c0') in 0.002444 seconds
+  Import took 0.005302 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.660208 seconds.
+  path: Assets/Shaders/Sprite-Outline.shader
+  artifactKey: Guid(ac1edf2f9b120574faca1e1abf902a24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Shaders/Sprite-Outline.shader using Guid(ac1edf2f9b120574faca1e1abf902a24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2bd8fc4e436cfd7a58bdc37bcc670c36') in 0.007815 seconds
+  Import took 0.011504 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 41.299698 seconds.
+  path: Assets/Shaders/Sprite-Outline.shader
+  artifactKey: Guid(ac1edf2f9b120574faca1e1abf902a24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Shaders/Sprite-Outline.shader using Guid(ac1edf2f9b120574faca1e1abf902a24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a99179fb5ed4abc6ca1ac513258a7b5') in 0.003449 seconds
+  Import took 0.006577 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 23.867262 seconds.
+  path: Assets/01Scripts/SpriteOutline.cs
+  artifactKey: Guid(913fcc6a021fc234db940109ff19385f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/01Scripts/SpriteOutline.cs using Guid(913fcc6a021fc234db940109ff19385f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cdd79020d9ff06947e0c33d7aa899037') in 0.017534 seconds
+  Import took 0.020863 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000669 seconds.
+  path: Assets/01Scripts/SpriteOutline.cs
+  artifactKey: Guid(913fcc6a021fc234db940109ff19385f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/01Scripts/SpriteOutline.cs using Guid(913fcc6a021fc234db940109ff19385f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cdd79020d9ff06947e0c33d7aa899037') in 0.001776 seconds
+  Import took 0.005291 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002399 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.38 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.970 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.48 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1961 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 93.6 MB.
+System memory in use after: 93.7 MB.
+
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 2428.
+Total: 2.428100 ms (FindLiveObjects: 0.266400 ms CreateObjectMapping: 0.095900 ms MarkObjects: 2.010100 ms  DeleteObjects: 0.054500 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.183236 seconds.
+  path: Assets/01Scripts/SpriteOutline.cs
+  artifactKey: Guid(913fcc6a021fc234db940109ff19385f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/01Scripts/SpriteOutline.cs using Guid(913fcc6a021fc234db940109ff19385f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8976a94c9402e1da485103faca936c0') in 0.006050 seconds
+  Import took 0.009015 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 31.867726 seconds.
+  path: Assets/Materials
+  artifactKey: Guid(43f0e78aacb54e34aa923132af33823b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Materials using Guid(43f0e78aacb54e34aa923132af33823b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26e0b87bc95ba8c0219c6bb08c2ce35e') in 0.006097 seconds
+  Import took 0.009121 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 16.126218 seconds.
+  path: Assets/Materials/OutLine.mat
+  artifactKey: Guid(f65ed23d7490cc742bfbce9cb9c734e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Materials/OutLine.mat using Guid(f65ed23d7490cc742bfbce9cb9c734e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd4503ae58702ac5f10b8fdf5804b0013') in 0.070349 seconds
+  Import took 0.085146 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 37.242186 seconds.
+  path: Assets/Materials/OutLine.mat
+  artifactKey: Guid(f65ed23d7490cc742bfbce9cb9c734e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Materials/OutLine.mat using Guid(f65ed23d7490cc742bfbce9cb9c734e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e14108f13770ac0e019355b68e42542') in 0.021261 seconds
+  Import took 0.024530 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001252 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.37 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.903 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.38 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1961 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.0 MB.
+System memory in use after: 94.1 MB.
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2472.
+Total: 2.102900 ms (FindLiveObjects: 0.168600 ms CreateObjectMapping: 0.066500 ms MarkObjects: 1.851600 ms  DeleteObjects: 0.015300 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 248.830667 seconds.
+  path: Assets/06Prefabs/Tank.prefab
+  artifactKey: Guid(9f9016d2deaf7b5449971ef61cae1eb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/06Prefabs/Tank.prefab using Guid(9f9016d2deaf7b5449971ef61cae1eb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '003a53d5dbbdf927ce3efe399da46286') in 0.102155 seconds
+  Import took 0.105513 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.380683 seconds.
+  path: Assets/06Prefabs/Bullet.prefab
+  artifactKey: Guid(c72efe59f37ce794e956ba28fa5b73ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/06Prefabs/Bullet.prefab using Guid(c72efe59f37ce794e956ba28fa5b73ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e9dcc73e9b3f36b7ecbe45056ab6d094') in 0.233283 seconds
+  Import took 0.236492 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
