@@ -51,7 +51,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 59cc7016a7a08b7408d48a0180e74c88, type: 2}
+  - {fileID: 2100000, guid: f65ed23d7490cc742bfbce9cb9c734e1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4646567207789700755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 180177bd749f85d42a081bb72929b590, type: 3}
+  m_Script: {fileID: 11500000, guid: 913fcc6a021fc234db940109ff19385f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}

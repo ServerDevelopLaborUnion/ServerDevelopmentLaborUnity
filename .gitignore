@@ -60,3 +60,6 @@ crashlytics-build.properties
 
 # Node
 node_modules
+/ShootingGame/Shooting_Np/Library
+/ShootingGame/Shooting_Np/Logs
+/ShootingGame/Shooting_Np/Temp
