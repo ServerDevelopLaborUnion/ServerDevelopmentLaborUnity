@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637574609083295151
-    m_Hash: 1903976507
+      ticks: 637575088899389655
+    m_Hash: 2017639705
   m_LockFileStatus:
     m_FilePath: C:/Users/ROG/Documents/ServerDevelopmentLaborUnity/ShootingGame/Shooting_Np/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637574609083305117
-    m_Hash: 345344274
+      ticks: 637575088899449463
+    m_Hash: 467125236
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -905,12 +905,12 @@ m_PackageAssets:
         url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.rider.git
         revision: abb44f053e9a41d2e00e149e32a19bcec76e98b4
         path: 
-    - packageId: com.unity.ide.visualstudio@2.0.7
+    - packageId: com.unity.ide.visualstudio@2.0.8
       testable: 0
       isDirectDependency: 1
-      version: 2.0.7
+      version: 2.0.8
       source: 1
-      resolvedPath: C:\Users\ROG\Documents\ServerDevelopmentLaborUnity\ShootingGame\Shooting_Np\Library\PackageCache\com.unity.ide.visualstudio@2.0.7
+      resolvedPath: C:\Users\ROG\Documents\ServerDevelopmentLaborUnity\ShootingGame\Shooting_Np\Library\PackageCache\com.unity.ide.visualstudio@2.0.8
       assetPath: Packages/com.unity.ide.visualstudio
       name: com.unity.ide.visualstudio
       displayName: Visual Studio Editor
@@ -980,13 +980,13 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 637486638490000000
+      datePublishedTicks: 637562620210000000
       documentationUrl: 
       hasRepository: 1
       repository:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.visualstudio.git
-        revision: dec282022c7a95fada560c36f53da9dd155a142c
+        revision: 5cdf5d932e6ecbbd83bbe6a40eec2a94b4979501
         path: 
     - packageId: com.unity.ide.vscode@1.2.3
       testable: 0
@@ -3422,12 +3422,16 @@ m_PackageAssets:
         - 1.2.0-preview.1
         - 2.0.1
         - 2.0.2
+        - 2.1.0
         - 3.0.0
         - 3.0.1
         - 4.0.0
         - 4.0.1
         - 4.0.2
         - 4.0.3
+        - 5.0.0-pre.1
+        - 5.0.0-pre.2
+        - 5.0.0
         compatible:
         - 4.0.2
         - 4.0.3
@@ -3464,7 +3468,7 @@ m_PackageAssets:
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
-      datePublishedTicks: 0
+      datePublishedTicks: 637408843940000000
       documentationUrl: 
       hasRepository: 1
       repository:
@@ -3501,11 +3505,15 @@ m_PackageAssets:
         - 2.0.4
         - 2.0.5
         - 2.0.6
+        - 2.1.0
         - 3.0.0
         - 3.0.1
         - 3.0.2
         - 4.0.0
         - 4.0.1
+        - 5.0.0-pre.1
+        - 5.0.0-pre.2
+        - 5.0.0
         compatible:
         - 4.0.1
         verified: 4.0.1
