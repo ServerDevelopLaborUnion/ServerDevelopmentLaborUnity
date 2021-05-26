@@ -1,7 +1,7 @@
 const WebSocket = require('ws');
 const Vector3 = require('./Vector3');
 const Vector2 = require('./Vector2');
-const port = 32000;
+const port = 56789;
 
 let socketIdx = 0;
 let connectedSocket = {};
@@ -54,10 +54,10 @@ wsService.on("connection", socket => {
     socket.on("close", () => {
         console.log(`${socket.id} 접속 해제`);
         delete connectedSocket[socket.id];
-        if(socket.state === State.IN_GAME){
+        if (socket.state === State.IN_GAME) {
             delete userList[socket.id];
-            wsService.clients.forEach(s=>{
-                s.send(JSON.stringify({type:"Disconnect", payload:socket.id }))
+            wsService.clients.forEach(s => {
+                s.send(JSON.stringify({ type: "Disconnect", payload: socket.id }))
             })
         }
     });
@@ -71,10 +71,10 @@ wsService.on("connection", socket => {
         if (data.type === "Transform") {
             TransformHandler(data, socket);
         }
-        if(data.type === "OnDamage"){
+        if (data.type === "OnDamage") {
             OnDamageHandler(data, socket);
         }
-        if(data.type === "Shoot"){
+        if (data.type === "Shoot") {
             ShootHandler(data, socket);
         }
     });
@@ -92,8 +92,8 @@ function LoginHandler(data, socket) {
     const { name } = data;
     const maxMap = 154;
 
-    let x = Math.floor(Math.random() * maxMap - (maxMap/2));
-    let y = Math.floor(Math.random() * maxMap - (maxMap/2));
+    let x = Math.floor(Math.random() * maxMap - (maxMap / 2));
+    let y = Math.floor(Math.random() * maxMap - (maxMap / 2));
     let point = new Vector2(x, y);
 
     socket.state = State.IN_GAME;
@@ -116,7 +116,7 @@ function OnDamageHandler(data, socket) {
 
     let sendData = JSON.stringify({
         type: "OnDamage",
-        payload: JSON.stringify({socketId:payload.socketId, damage:payload.damage})
+        payload: JSON.stringify({ socketId: payload.socketId, damage: payload.damage })
     });
 
     wsService.clients.forEach(s => {
@@ -129,7 +129,7 @@ function ShootHandler(data, socket) {
 
     let sendData = JSON.stringify({
         type: "Shoot",
-        payload: JSON.stringify({rotation:payload.rotation, socketId:socket.id})
+        payload: JSON.stringify({ rotation: payload.rotation, socketId: socket.id })
     });
 
     //모든 소켓에 데이터 갱신해줌.
