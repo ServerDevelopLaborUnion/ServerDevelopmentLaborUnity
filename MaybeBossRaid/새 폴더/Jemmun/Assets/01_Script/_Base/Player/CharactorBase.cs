@@ -4,15 +4,16 @@ using UnityEngine;
 
 abstract public class CharactorBase : MonoBehaviour, IDamageable
 {
-    protected int hp = 100;
-    protected int mp = 100;
-    protected int pos = 0; // 뭐 하는 변수인지는 이번 동아리 시간에 설명 해 드리겠슴
+    public int hp  = 100;
+    public int mp  = 100;
+    public int pos = 0; // 뭐 하는 변수인지는 이번 동아리 시간에 설명 해 드리겠슴
     //protected string name; // 일단 주석처리 해 두겟스빈다.
 
     public bool isRemote = false; // 본인 캐릭터인지
 
-    public virtual void OnDamage(int damage)
-    {
-        hp -= damage;
-    }
+    /// <summary>
+    /// 데미지 처리 하는 함수
+    /// </summary>
+    /// <param name="damage">데미지, 힐인 경우 음수로 들어와요</param>
+    abstract public void OnDamage(int damage);
 }

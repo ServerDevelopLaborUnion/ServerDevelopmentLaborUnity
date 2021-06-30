@@ -8,8 +8,10 @@ public class ExampleSkill : Skills
     {
         base.Awake();
 
+        if (charactor.isRemote) return;   
+
         SetSkillData("매우 강력한 공격", "엄청나게 강력하게 공격한다", 10, SkillEnum.ExampleAtk);
-        SetSkillData("매우 강력한 힐링", "완벽하게 힐을 한다.",       30, SkillEnum.ExampleHeal);
+        SetSkillData("매우 강력한 힐링", "완벽하게 힐을 한다",        30, SkillEnum.ExampleHeal);
 
         SetButton(0, SkillA);
         SetButton(1, SkillB);
@@ -18,12 +20,20 @@ public class ExampleSkill : Skills
 
     public override void SkillA()
     {
-        selectedTarget.GetComponent<IDamageable>().OnDamage(10);
+        IDamageable damage = selectedTarget.GetComponent<IDamageable>();
+        if (damage != null) return;
+
+        damage.OnDamage(10);
+        charactor.mp -= GetSkillData(SkillEnum.ExampleAtk).mpCost;
     }
 
     public override void SkillB()
     {
-        selectedTarget.GetComponent<IDamageable>().OnDamage(-10);
+        IDamageable damage = selectedTarget.GetComponent<IDamageable>();
+        if (damage != null) return;
+
+        damage.OnDamage(-10);
+        charactor.mp -= GetSkillData(SkillEnum.ExampleHeal).mpCost;
     }
 
     public override void SkillC()

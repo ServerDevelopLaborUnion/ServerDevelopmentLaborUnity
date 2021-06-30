@@ -18,6 +18,9 @@ public class PlayerInput : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// 스킬 시전 목표를 정해요. Skillbase 의 selectedTarget 에 들어감
+    /// </summary>
     private void SetTarget()
     {
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0.0f);

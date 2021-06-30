@@ -22,7 +22,7 @@ public class SkillData
 abstract public class Skills : SkillBase
 {
     // 본인의 스킬 정보를 담아 둘 예정인 사전
-    protected Dictionary<SkillEnum, SkillData> skillData = new Dictionary<SkillEnum, SkillData>();
+    private Dictionary<SkillEnum, SkillData> skillData = new Dictionary<SkillEnum, SkillData>();
 
     [Header("스킬 시전 버튼들")]
     [SerializeField] protected UnityEngine.UI.Button[] btnSkills = new UnityEngine.UI.Button[2];
@@ -50,6 +50,12 @@ abstract public class Skills : SkillBase
             skillData.Add(skillEnum, new SkillData(name, info, mpCost));
         }
     }
+
+    protected SkillData GetSkillData(SkillEnum skillEnum)
+    {
+        return skillData[skillEnum];
+    }
+
 
     /// <summary>
     /// 버튼에 스킬을 묶어주는 함수

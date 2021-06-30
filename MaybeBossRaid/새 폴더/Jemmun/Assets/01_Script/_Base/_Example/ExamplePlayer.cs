@@ -10,6 +10,11 @@ public class ExamplePlayer : CharactorBase
         
     }
 
+    public override void OnDamage(int damage)
+    {
+        hp -= damage;
+        Debug.Log($"Hit, hp: {hp}, damage: {damage}");
+    }
 
 
 }
