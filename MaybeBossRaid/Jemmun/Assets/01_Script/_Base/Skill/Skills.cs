@@ -23,6 +23,11 @@ abstract public class Skills : SkillBase
 {
     // 본인의 스킬 정보를 담아 둘 예정인 사전
     private Dictionary<SkillEnum, SkillData> skillData = new Dictionary<SkillEnum, SkillData>();
+    /*
+    List<string> 
+    Dictionary<Key, Data>
+    */
+
 
     [Header("스킬 시전 버튼들")]
     [SerializeField] protected UnityEngine.UI.Button[] btnSkills = new UnityEngine.UI.Button[2];

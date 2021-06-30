@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ExamplePlayer : CharactorBase
 {
-
     private void Awake()
     {
         
     }
+
+
 
     public override void OnDamage(int damage)
     {

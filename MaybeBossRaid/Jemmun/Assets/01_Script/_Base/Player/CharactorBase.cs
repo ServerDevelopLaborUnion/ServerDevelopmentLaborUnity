@@ -17,3 +17,4 @@ abstract public class CharactorBase : MonoBehaviour, IDamageable
     /// <param name="damage">데미지, 힐인 경우 음수로 들어와요</param>
     abstract public void OnDamage(int damage);
 }
+ 
