@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
+    // Singleton?
     public static TurnManager instance;
 
-
+    // Task
     public    delegate void  TurnTask();
-    protected List<TurnTask> turnTasks = new List<TurnTask>(); // 턴이 끝날 때 마다 리스트 안에 있는 함수를 전부 실행시킴
+    protected List<TurnTask> endTurnTasks = new List<TurnTask>(); // 턴이 끝날 때 마다 리스트 안에 있는 함수를 전부 실행시킴
+    protected List<TurnTask> midTurnTasks = new List<TurnTask>(); // 턴이 끝날 때 마다 리스트 안에 있는 함수를 전부 실행시킴
 
+    // Turn
+    public int turn { get; private set; }
 
     private void Awake()
     {
@@ -18,37 +22,62 @@ public class TurnManager : MonoBehaviour
     }
 
 
-
     /// <summary>
     /// 턴을 끝낼때 호출되야하는 함수들을 여기에 넣을 수 있어요.
     /// </summary>
     /// <param name="task">턴이 끝날 때 호출되는 함수</param>
-    public void AddTask(TurnTask task)
+    public void AddEndTask(TurnTask task)
     {
         NullChecker.CheckNULL(task, true);
-        turnTasks.Add(task);
+        endTurnTasks.Add(task);
     }
 
-    
+    /// <summary>
+    /// 필요할 때 불려서 턴 중간에 실행되는 함수들을 여기에 넣을 수 있어요.
+    /// </summary>
+    /// <param name="task"></param>
+    public void AddMidTask(TurnTask task)
+    {
+        NullChecker.CheckNULL(task, true);
+        midTurnTasks.Add(task);
+    }
 
     /// <summary>
     /// 턴이 끝날 때 호출되는 함수
     /// </summary>
     public void EndTurn()
     {
+        ++turn;
         DoTurnEndTasks();
+    }
 
+    /// <summary>
+    /// 필요한 경우 턴 중간에 실행되는 함수
+    /// </summary>
+    public void MidTurn()
+    {
+        DoMidTurnTasks();
 
+        // UI 나 그런 것들
     }
 
 
-    #region EndTurn 에서 사용되는 함수들
+    #region EndTurn, MidTurn 에서 사용되는 함수들
 
     private void DoTurnEndTasks()
     {
-        for (int i = 0; i < turnTasks.Count; ++i)
+        // turnTasks 에 들어 있는 모든 함수를 돌림
+        for (int i = 0; i < endTurnTasks.Count; ++i)
         {
-            turnTasks[i]();
+            endTurnTasks[i]();
+        }
+    }
+
+    private void DoMidTurnTasks()
+    {
+        for (int i = 0; i < midTurnTasks.Count; ++i)
+        {
+            midTurnTasks[i]();
         }
     }
 

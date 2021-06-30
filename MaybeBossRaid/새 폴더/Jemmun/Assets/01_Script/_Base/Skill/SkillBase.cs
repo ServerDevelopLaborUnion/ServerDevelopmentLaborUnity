@@ -5,21 +5,15 @@ using UnityEngine;
 // 맴버 변수, 초기화
 abstract public partial class SkillBase : MonoBehaviour, ISkill
 {
-    protected CharactorBase player = null;
+    protected CharactorBase charactor = null;
 
-
-    #region 초기화, Awake()
+    // TODO : 시전 대상
 
     protected virtual void Awake()
     {
-        player = GetComponent<CharactorBase>();
-
-        NullChecker.CheckNULL(player, true);
+        charactor = GetComponent<CharactorBase>();
+        NullChecker.CheckNULL(charactor, true);
     }
-
-    #endregion
-
-
 }
 
 // partial 을 사용하면 한 클래스를 조각조각 나눠 둘 수 있어요.
