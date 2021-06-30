@@ -29,6 +29,7 @@ public class SocketClient : MonoBehaviour
             ReceiveData((WebSocket)sender, e);
         };
     }
+
     private void ReceiveData(WebSocket sender, MessageEventArgs e)
     {
         // 아직 구현 안 되었음

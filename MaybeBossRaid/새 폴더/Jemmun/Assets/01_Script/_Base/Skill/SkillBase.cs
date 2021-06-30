@@ -14,7 +14,7 @@ abstract public partial class SkillBase : MonoBehaviour, ISkill
     {
         player = GetComponent<CharactorBase>();
 
-        NullChecker.CheckNULL(player);
+        NullChecker.CheckNULL(player, true);
     }
 
     #endregion
