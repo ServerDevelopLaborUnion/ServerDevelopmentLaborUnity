@@ -18,12 +18,12 @@ public class ExampleSkill : Skills
 
     public override void SkillA()
     {
-        
+        selectedTarget.GetComponent<IDamageable>().OnDamage(10);
     }
 
     public override void SkillB()
     {
-        
+        selectedTarget.GetComponent<IDamageable>().OnDamage(-10);
     }
 
     public override void SkillC()
