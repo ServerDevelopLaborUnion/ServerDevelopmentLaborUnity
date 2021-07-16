@@ -6,6 +6,21 @@ const wsService = new ws.Server({ port }, () => {
 
 });
 
+
+// 플레이어들의 스텟을 가지고 있는 list
+// List<PlayerStat> playerStats = new List<PlayerStat>(); 와 같아요.
+let playerStats = [];
+
+// 플레이어들의 위치를 가지고 있는 list
+let playerLocation = [];
+
+// 플레이어들의 정보를 가지고 있는 list
+// HP, MP 등을 가지고 있어요.
+// 클라이언트에서 직접 HP, MP를 조정하는 것이 아닌 서버에서 건드릴 예정
+let playerData = [];
+
+
+
 // on 뒤에 붙는 문자열과 왜 Json 으로 보내는지에 대한 주석
 //#region
 /*
@@ -37,50 +52,54 @@ wsService.on("connection", socket => {
         const type = data.type;
         const payload = data.payload;
 
-        // 타입 명 곳 정해서 갈아 낄 예정
         switch (type) {
 
             //#region 메뉴 타입
 
-            case "": // 로그인 시
+            case "login": // 로그인 시
+                // 이 것은 2학기 성과물로
                 break;
             
-            case "": // 방 입장 시
+            case "entry": // 방 입장 시
+                // 아마도 2학기 성과물로
                 break;
             
-            case "": // 게임 시작 시
+            case "gamestart": // 게임 시작 시
+                // 아마도 2학기 성과물로
                 break;
             
             //#endregion
 
             //#region 준비 단계 타입
             
-            case "": // 직업 선택 시
+            case "jobselect": // 직업 선택 시
                 break;
             
-            case "": // 스텟 배분 시
+            case "stat": // 스텟 배분 시
+                // 아마도 2학기 성과물로
                 break;
 
             //#endregion
 
             //#region 인게임 타입
             
-            case "": // 공격 시
+            case "attack": // 공격 시
                 break;
 
-            case "": // 사망 시
+            case "dead": // 사망 시
                 break;
 
-            case "": // 아이탬 사용 시
+            case "item": // 아이탬 사용 시
                 break;
 
-            case "": // 위치 이동 시
+            case "moved": // 위치 이동 시
                 break;
 
-            case "": // 턴 종료 시
+            case "endturn": // 턴 종료 시
                 break;
 
-            case "": // 탈주 시
+            case "exitted": // 탈주 시
+                // 아마도 2학기 성과물로
                 break;
 
             //#endregion
