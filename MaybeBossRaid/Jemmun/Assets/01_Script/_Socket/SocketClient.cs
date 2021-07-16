@@ -17,11 +17,9 @@ public class SocketClient : MonoBehaviour
         // 서버에 연결
         // 나중에 바로 연결 안 할수도 있으니 함수로 뺴둠
         ConnectSocket();
-    }
 
-    private void Start()
-    {
-        ws.Send("Hello Server!");
+        // 그저 디버그 용도였스빈다.
+        ws.Send("와 센즈 아시는구나");
     }
 
     private void ConnectSocket()
