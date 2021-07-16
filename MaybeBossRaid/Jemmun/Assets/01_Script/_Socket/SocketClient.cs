@@ -19,6 +19,11 @@ public class SocketClient : MonoBehaviour
         ConnectSocket();
     }
 
+    private void Start()
+    {
+        ws.Send("Hello Server!");
+    }
+
     private void ConnectSocket()
     {
         ws = new WebSocket($"{url}:{port}");
