@@ -3,14 +3,17 @@ using System;
 [Serializable]
 public class DataVO
 {
-    // 서버에 데이터를 PROTOCOL:PAYLOAD 형식으로 보낼 거에요.
-    
-    public string protocol;
-    public string payload;
+    // 보내는 데이터와 받는 데이터는 모두
+    // { "type": "type",  "payload": "payload" }
+    // 형식으로 되어 있어요.
 
-    public DataVO(string protocol, string payload)
+    // 서버랑 변수명이 다르면 작동하지 않아요.
+    public string type;
+    public string payload;
+    
+    public DataVO(string type, string payload)
     {
-        this.protocol = protocol;
+        this.type    = type;
         this.payload = payload;
     }
 }

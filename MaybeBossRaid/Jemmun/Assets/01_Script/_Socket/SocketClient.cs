@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +13,16 @@ public class SocketClient : MonoBehaviour
     // 웹소켓
     private WebSocket ws;
 
-    private void Awake()
+    private void Start()
     {
         // 서버에 연결
         // 나중에 바로 연결 안 할수도 있으니 함수로 뺴둠
         ConnectSocket();
 
         // 그저 디버그 용도였스빈다.
-        ws.Send("와 센즈 아시는구나");
+        LoginVO login = new LoginVO("hello", "world");
+        DataVO vo = new DataVO("login", JsonUtility.ToJson(login));
+        ws.Send(JsonUtility.ToJson(vo));
     }
 
     private void ConnectSocket()
@@ -35,11 +38,12 @@ public class SocketClient : MonoBehaviour
 
     private void ReceiveData(WebSocket sender, MessageEventArgs e)
     {
-        // 아직 구현 안 되었음
-
         // 들어온 메세지를 DataVO 에 넣어줘요.
         DataVO vo = JsonUtility.FromJson<DataVO>(e.Data);
+        // Handler에게 넘겨줘요.
+        BufferHandler.HandleBuffer(vo.type, vo.payload);
     }
+
 
     private void OnDestroy()
     {
