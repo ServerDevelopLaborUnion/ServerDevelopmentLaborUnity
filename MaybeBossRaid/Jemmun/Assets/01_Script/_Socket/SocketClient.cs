@@ -18,11 +18,6 @@ public class SocketClient : MonoBehaviour
         // 서버에 연결
         // 나중에 바로 연결 안 할수도 있으니 함수로 뺴둠
         ConnectSocket();
-
-        // 그저 디버그 용도였스빈다.
-        LoginVO login = new LoginVO("hello", "world");
-        DataVO vo = new DataVO("login", JsonUtility.ToJson(login));
-        ws.Send(JsonUtility.ToJson(vo));
     }
 
     private void ConnectSocket()

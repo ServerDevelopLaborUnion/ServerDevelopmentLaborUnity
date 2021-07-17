@@ -1,6 +1,7 @@
 // npm i --s ws, npm i --s mysql2 를 실행해 줘야 해요.
-import ws from 'ws';
-import parse from '../ParseBuffer.js';
+import ws    from 'ws';
+import parse from '../ParseBuffer.js'; // json 파싱 용
+import pData from '../Data/Player/PlayerData.js'; // 플레이어 데이터 가지고 있는 클레스
 
 //#region VO require
 
@@ -10,7 +11,10 @@ import LoginVO from '../VO/LoginVO.js';
 
 //#region Handler require
 
-import LoginHandler from '../Handler/LoginHandler.js';
+// 유니티에서의 핸들러와 같은 역할을 합니다.
+import LoginHandler   from '../Handler/LoginHandler.js';
+import AttackHandler  from '../Handler/AttackHandler.js';
+import InitPlayerData from '../Handler/InitPlayerData.js';
 
 //#endregion
 
@@ -30,10 +34,13 @@ let playerStats = [];
 let playerLocation = [];
 
 // 플레이어들의 정보를 가지고 있는 list
-// HP, MP 등을 가지고 있어요.
+// ID, HP, MP 등을 가지고 있어요.
 // 클라이언트에서 직접 HP, MP를 조정하는 것이 아닌 서버에서 건드릴 예정
 let playerData = [];
 
+// 플레이어 고유 id.
+// 사람이 접속할때마다 1 식 증가합니다.
+let id = 1;
 
 
 // on 뒤에 붙는 문자열과 왜 Json 으로 보내는지에 대한 주석
@@ -53,11 +60,18 @@ socket.on("message 또는 close 등등");
 // 서버와 클라이언트의 연결이 이루어진 소켓을 socket 에 넣어 줘요. (socket 말고 다른 이름이어도 됩니다.)
 // WinSocket 의 "SOCKET sClient = accept(sListening, ...);" 함수와 같은 기능을 해요. (좀 더 쉬울 뿐이지)
 wsService.on("connection", socket => {
-    console.log("클라이언트 접속");
+    
+    // js는 클래스에 없는 변수를 접근하려고 하면 알아서 만들어 줍니다.
+    // 엄청난 언어임.
+    socket.socketId = id++;
+    console.log(`클라이언트 접속, id: ${socket.socketId}`);
+    new InitPlayerData(socket);
+
+
 
     // 클라이언트의 연결이 끊겼을 때 실행됩니다.
     socket.on("close", () => {
-        console.log("클라이언트 접속 종료");
+        console.log(`클라이언트 접속 종료, id: ${socket.socketId}`);
     });
 
     // 클라이언트에게서 메세지가 도착할때마다 실행됩니다.
@@ -74,7 +88,7 @@ wsService.on("connection", socket => {
             case "login": // 로그인 시
                 // 이 것은 2학기 성과물로
                 // 아레는 디버그 위한 코드들
-                let vo = new LoginHandler(payload);
+                //new LoginHandler(socket, payload);
 
                 break;
             
@@ -102,6 +116,7 @@ wsService.on("connection", socket => {
             //#region 인게임 타입
             
             case "attack": // 공격 시
+                new AttackHandler(socket, payload);
                 break;
 
             case "dead": // 사망 시

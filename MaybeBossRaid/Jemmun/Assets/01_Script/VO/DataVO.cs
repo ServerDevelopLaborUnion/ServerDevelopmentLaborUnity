@@ -10,10 +10,10 @@ public class DataVO
     // 서버랑 변수명이 다르면 작동하지 않아요.
     public string type;
     public string payload;
-    
+
     public DataVO(string type, string payload)
     {
-        this.type    = type;
+        this.type = type;
         this.payload = payload;
     }
 }
