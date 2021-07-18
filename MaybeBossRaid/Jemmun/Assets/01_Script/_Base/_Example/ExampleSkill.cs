@@ -6,44 +6,37 @@ public class ExampleSkill : Skills
 {
     sealed protected override void Awake()
     {
-
-
-
         base.Awake();
 
-        //if (charactor.isRemote) return;   
+        // 중복되는 캐릭터가 없으니 중복되는 스킬도 없을 것이라고 생각했어요.
+        // 나중을 위해서 일단 전부 dictionary 에 넣어두겟슴
+        SetSkillData("매우 강력한 공격", "엄청나게 강력하게 공격한다", 10, 20, OnSkillAHit, SkillEnum.ExampleAtk);
+        SetSkillData("매우 강력한 힐링", "완벽하게 힐을 한다",        30, -10, OnSkillBHit, SkillEnum.ExampleHeal);
 
-        SetSkillData("매우 강력한 공격", "엄청나게 강력하게 공격한다", 10, SkillEnum.ExampleAtk);
-        SetSkillData("매우 강력한 힐링", "완벽하게 힐을 한다",        30, SkillEnum.ExampleHeal);
+        if (charactor.isRemote) return;
 
         SetButton(0, SkillA);
         SetButton(1, SkillB);
     }
 
 
-    public override void SkillA()
+    sealed protected override void SkillA()
     {
-        IDamageable damage = selectedTarget.GetComponent<IDamageable>();
-        //Rigidbody2D damage = selectedTarget.GetComponent<Rigidbody2D>();
-        if (damage != null) return;
-
-        damage.OnDamage(10);
-        //damage.AddForce(new Vector2(10, 10), ForceMode2D.Impulse);
-        charactor.mp -= GetSkillData(SkillEnum.ExampleAtk).mpCost;
+        Skill(SkillEnum.ExampleAtk);
     }
 
-    public override void SkillB()
+    sealed protected override void SkillB()
     {
-        IDamageable damage = selectedTarget.GetComponent<IDamageable>();
-        if (damage != null) return;
-
-        damage.OnDamage(-10);
-        charactor.mp -= GetSkillData(SkillEnum.ExampleHeal).mpCost;
+        Skill(SkillEnum.ExampleHeal);
     }
 
-    public override void SkillC()
+    protected sealed override void OnSkillAHit()
     {
-        // 아마 사용하지 않을 듯 하지만
+        // 피격받은 상대 기준으로 처리해야 하는데요...
     }
 
+    protected sealed override void OnSkillBHit()
+    {
+        // 피격받은 상대 기준으로 처리해야 하는데요...
+    }
 }

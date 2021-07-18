@@ -65,8 +65,8 @@ wsService.on("connection", socket => {
     // 엄청난 언어임.
     socket.socketId = id++;
     console.log(`클라이언트 접속, id: ${socket.socketId}`);
-    new InitPlayerData(socket);
-
+    
+    
 
 
     // 클라이언트의 연결이 끊겼을 때 실행됩니다.
@@ -98,6 +98,7 @@ wsService.on("connection", socket => {
             
             case "gamestart": // 게임 시작 시
                 // 아마도 2학기 성과물로
+                new InitPlayerData(socket);
                 break;
             
             //#endregion

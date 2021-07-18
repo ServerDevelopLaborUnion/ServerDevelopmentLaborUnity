@@ -13,6 +13,15 @@ public class SocketClient : MonoBehaviour
     // 웹소켓
     private WebSocket ws;
 
+    // static 접근 용
+    static private SocketClient instance = null;
+
+    private void Awake()
+    {
+        // 싱글턴 패턴 용도가 아니에요.
+        instance = this;
+    }
+
     private void Start()
     {
         // 서버에 연결
@@ -39,6 +48,21 @@ public class SocketClient : MonoBehaviour
         BufferHandler.HandleBuffer(vo.type, vo.payload);
     }
 
+    /// <summary>
+    /// 서버로 메세지를 보내는 함수
+    /// </summary>
+    /// <param name="data">버퍼</param>
+    static public void Send(string data)
+    {
+        try
+        {
+            instance.ws.Send(data);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"서버에 데이터를 보내는 중 문제가 생겼어요.\r\n{e.Message}");
+        }
+    }
 
     private void OnDestroy()
     {

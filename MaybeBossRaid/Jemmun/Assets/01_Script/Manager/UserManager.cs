@@ -48,7 +48,7 @@ public class UserManager : MonoBehaviour
     {
         instance.players[instance.playerIndex].hp = vo.hp;
         instance.players[instance.playerIndex].mp = vo.mp;
-        instance.players[instance.playerIndex].id = vo.id;
+        instance.players[instance.playerIndex].ID = vo.id;
     }
     
 }

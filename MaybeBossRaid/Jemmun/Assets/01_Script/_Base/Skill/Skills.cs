@@ -6,15 +6,22 @@ using UnityEngine;
 // UI 출력을 위해 만들었어요.
 public class SkillData
 {
+    public delegate void SkillHitCallback();
+
     public readonly string name;
     public readonly string info;
     public readonly int mpCost;
+    public readonly int damage;
+    public readonly SkillHitCallback skillHitCallback;
 
-    public SkillData(string name, string info, int mpCost)
+
+    public SkillData(string name, string info, int mpCost, int damage, SkillHitCallback skillHitCallback)
     {
         this.name = name;
         this.info = info;
         this.mpCost = mpCost;
+        this.damage = damage;
+        this.skillHitCallback = skillHitCallback;
     }
 }
 
@@ -43,8 +50,10 @@ abstract public class Skills : SkillBase
     /// <param name="name">스킬의 이름</param>
     /// <param name="info">스킬 설명</param>
     /// <param name="mpCost">MP 소모량</param>
+    /// <param name="damage">스킬의 데미지</param>
+    /// <param name="skillHitCallbackFunction">스킬 피격 시 벌어지는 행동을 담은 함수</param>
     /// <param name="skillEnum">스킬의 Enum</param>
-    protected void SetSkillData(string name, string info, int mpCost, SkillEnum skillEnum)
+    protected void SetSkillData(string name, string info, int mpCost, int damage, SkillData.SkillHitCallback skillHitCallbackFunction, SkillEnum skillEnum)
     {
         if (skillData.ContainsKey(skillEnum))
         {
@@ -52,7 +61,7 @@ abstract public class Skills : SkillBase
         }
         else
         {
-            skillData.Add(skillEnum, new SkillData(name, info, mpCost));
+            skillData.Add(skillEnum, new SkillData(name, info, mpCost, damage, skillHitCallbackFunction));
         }
     }
 
@@ -61,6 +70,26 @@ abstract public class Skills : SkillBase
         return skillData[skillEnum];
     }
 
+    /// <summary>
+    /// 서버로 스킬을 사용했다는 것을 보내기 위한 함수<br></br>
+    /// 스킬의 Enum 만 넘겨주면 됩니다.
+    /// </summary>
+    /// <param name="skillEnum">스킬의 Enum</param>
+    public void Skill(SkillEnum skillEnum)
+    {
+        IDamageable damage = selectedTarget.GetComponent<IDamageable>();
+        //Rigidbody2D damage = selectedTarget.GetComponent<Rigidbody2D>();
+        if (damage != null) return;
+
+        SkillData skillData = GetSkillData(skillEnum);
+        this.charactor.mp -= skillData.mpCost;
+
+        // 새로운 AttackVO 인스턴스를 만들고 그 안에 타깃의 id, 데미지를 넣어 준 다음 JSON 으로 변환해요.
+        // 그리고 그걸 새로운 DataVO 안에 payload 로 넣어줍니다.
+        DataVO vo = new DataVO("attack", JsonUtility.ToJson(new AttackVO(damage.ID, skillEnum))); // 나아아중에 damage 대신 스킬 인덱스를 넣어줄까 라고 생각하고잇스빈다.
+
+        SocketClient.Send(JsonUtility.ToJson(vo));
+    }
 
     /// <summary>
     /// 버튼에 스킬을 묶어주는 함수

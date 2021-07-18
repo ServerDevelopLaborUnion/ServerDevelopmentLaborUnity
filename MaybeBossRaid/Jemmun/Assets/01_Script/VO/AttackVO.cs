@@ -3,12 +3,12 @@ using System;
 [Serializable]
 public class AttackVO
 {
-    public int target;
-    public int damage;
+    public int       target;
+    public SkillEnum skillEnum;
 
-    public AttackVO(int target, int damage)
+    public AttackVO(int target, SkillEnum skillEnum)
     {
-        this.target = target;
-        this.damage = damage;
+        this.target    = target;
+        this.skillEnum = skillEnum;
     }
 }

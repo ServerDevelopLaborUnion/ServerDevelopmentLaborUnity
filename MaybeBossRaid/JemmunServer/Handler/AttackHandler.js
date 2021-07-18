@@ -6,9 +6,9 @@ import DataVO   from '../VO/DataVO.js';
 export default class AttackHandler{
     constructor(socket, payload) {
         let data = parse.parseBuffer(payload);
-        let { target, damage } = data;
+        let { target, skillEnum } = data;
         
-        let attack = JSON.stringify(new AttackVO(target, damage));
+        let attack = JSON.stringify(new AttackVO(target, skillEnum));
         let vo = new DataVO("attacked", attack);
 
         socket.send(JSON.stringify(vo));
