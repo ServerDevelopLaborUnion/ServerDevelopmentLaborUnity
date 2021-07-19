@@ -10,4 +10,6 @@ public class ExamplePlayer : CharactorBase
         hp -= damage;
         Debug.Log($"Hit, hp: {hp}, damage: {damage}");
     }
+
+    // 여기에 특정한 변수가 필요할 시 넣어줘요
 }
