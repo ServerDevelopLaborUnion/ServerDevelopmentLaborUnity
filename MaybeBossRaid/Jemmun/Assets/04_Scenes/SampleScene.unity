@@ -301,6 +301,7 @@ Transform:
   - {fileID: 527233916}
   - {fileID: 1262223093}
   - {fileID: 109300413}
+  - {fileID: 696228094}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -818,7 +819,6 @@ MonoBehaviour:
   hp: 100
   mp: 100
   pos: 0
-  id: 0
   isRemote: 0
 --- !u!114 &663743999
 MonoBehaviour:
@@ -858,6 +858,49 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &696228093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 696228094}
+  - component: {fileID: 696228095}
+  m_Layer: 0
+  m_Name: SkillManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &696228094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696228093}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 260483369}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &696228095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696228093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e8b921cd06bcc408663a2e54b7b1bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &713202738
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,7 +954,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713202738}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 016be9a62c86b9746bf484719eca1ca4, type: 3}
   m_Name: 
@@ -1000,7 +1043,6 @@ MonoBehaviour:
   hp: 100
   mp: 100
   pos: 0
-  id: 0
   isRemote: 1
 --- !u!1 &863825576
 GameObject:
@@ -1489,6 +1531,7 @@ GameObject:
   - component: {fileID: 1124274422}
   - component: {fileID: 1124274423}
   - component: {fileID: 1124274424}
+  - component: {fileID: 1124274425}
   m_Layer: 0
   m_Name: Handler
   m_TagString: Untagged
@@ -1544,6 +1587,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b24c8ea172dacca4d9009ec0041d958b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1124274425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124274420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61dc9cd1f7766d740882d69c83ea97be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1262223092

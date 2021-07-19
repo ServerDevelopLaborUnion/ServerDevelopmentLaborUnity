@@ -19,11 +19,11 @@ abstract public partial class SkillBase : MonoBehaviour
 // 스킬 함수
 abstract public partial class SkillBase : MonoBehaviour
 {
-    // 사용되는 스킬
+    // 사용을 위한 함수
     abstract protected void SkillA();
     abstract protected void SkillB();
 
     // 스킬 피격 시 사용되는 함수
-    abstract protected void OnSkillAHit();
-    abstract protected void OnSkillBHit();
+    abstract protected void OnSkillAHit(CharactorBase targetBase);
+    abstract protected void OnSkillBHit(CharactorBase targetBase);
 }

@@ -66,7 +66,7 @@ wsService.on("connection", socket => {
     socket.socketId = id++;
     console.log(`클라이언트 접속, id: ${socket.socketId}`);
     
-    
+    new InitPlayerData(socket);
 
 
     // 클라이언트의 연결이 끊겼을 때 실행됩니다.
@@ -80,7 +80,7 @@ wsService.on("connection", socket => {
         const data = parse.parseBuffer(msg);
         if (data == -1) return;
         const { type, payload } = data; // 구조 분해 할당이에요. type = data.type, payload = data.payload 와 같은 의미입니다.
-        
+        console.log(payload);
         switch (type) {
 
             //#region 메뉴 타입
@@ -98,7 +98,7 @@ wsService.on("connection", socket => {
             
             case "gamestart": // 게임 시작 시
                 // 아마도 2학기 성과물로
-                new InitPlayerData(socket);
+                //new InitPlayerData(socket);
                 break;
             
             //#endregion
@@ -118,6 +118,8 @@ wsService.on("connection", socket => {
             
             case "attack": // 공격 시
                 new AttackHandler(socket, payload);
+                console.log("Attack msg arrived");
+                console.log(payload);
                 break;
 
             case "dead": // 사망 시

@@ -48,7 +48,26 @@ public class UserManager : MonoBehaviour
     {
         instance.players[instance.playerIndex].hp = vo.hp;
         instance.players[instance.playerIndex].mp = vo.mp;
-        instance.players[instance.playerIndex].ID = vo.id;
+        instance.players[instance.playerIndex].id = vo.id;
     }
     
+    /// <summary>
+    /// id에 따라 플레이어를 찾아 옵니다.
+    /// </summary>
+    /// <param name="id">찾을 플레이어의 id</param>
+    /// <returns>찾은 플레이어의 CharactorBase</returns>
+    static public CharactorBase GetPlayerBase(int id)
+    {
+        for (int i = 0; i < instance.players.Length; ++i)
+        {
+            if (instance.players[i].id == id)
+            {
+                return instance.players[i];
+            }
+        }
+
+        Debug.LogError($"Cannot find requested player.\r\nID: {id}");
+        return null;
+    }
+
 }
