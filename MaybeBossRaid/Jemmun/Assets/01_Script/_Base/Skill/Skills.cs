@@ -21,7 +21,7 @@ abstract public class Skills : SkillBase
     {
         CharactorBase damage = selectedTarget.GetComponent<CharactorBase>();
         Debug.Log(damage);
-        if (damage != null) return;
+        if (damage == null) return;
         
         SkillData skillData = SkillManager.instance.GetSkillData(skillEnum);
         this.charactor.mp -= skillData.mpCost;
