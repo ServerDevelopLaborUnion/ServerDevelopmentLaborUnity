@@ -20,7 +20,6 @@ abstract public class Skills : SkillBase
     public void Skill(SkillEnum skillEnum)
     {
         CharactorBase damage = selectedTarget.GetComponent<CharactorBase>();
-        Debug.Log(damage);
         if (damage == null) return;
         
         SkillData skillData = SkillManager.instance.GetSkillData(skillEnum);

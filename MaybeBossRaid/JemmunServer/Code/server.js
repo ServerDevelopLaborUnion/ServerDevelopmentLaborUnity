@@ -80,7 +80,6 @@ wsService.on("connection", socket => {
         const data = parse.parseBuffer(msg);
         if (data == -1) return;
         const { type, payload } = data; // 구조 분해 할당이에요. type = data.type, payload = data.payload 와 같은 의미입니다.
-        console.log(payload);
         switch (type) {
 
             //#region 메뉴 타입
@@ -118,8 +117,6 @@ wsService.on("connection", socket => {
             
             case "attack": // 공격 시
                 new AttackHandler(socket, payload);
-                console.log("Attack msg arrived");
-                console.log(payload);
                 break;
 
             case "dead": // 사망 시

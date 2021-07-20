@@ -7,7 +7,7 @@ public class AttackHandler : MonoBehaviour, IBufHandler
     {
         AttackVO vo = JsonUtility.FromJson<AttackVO>(payload);
 
-        // 목표의 CharactorBase 를 얻은 다음 목표의 OnSkillHit 을 호출합니다.
-        UserManager.GetPlayerBase(vo.target)?.OnSkillHit(vo.skillEnum);
+        // 공격당했다는 정보를 UserManager 로 넘겨줍니다.
+        UserManager.SetAttacked(vo);
     }
 }

@@ -22,12 +22,6 @@ abstract public partial class CharactorBase : MonoBehaviour
     public bool isRemote = false; // 본인 캐릭터인지
 
     /// <summary>
-    /// 데미지 처리 하는 함수
-    /// </summary>
-    /// <param name="damage">데미지, 힐인 경우 음수로 들어와요</param>
-    abstract public void OnDamage(int damage);
-
-    /// <summary>
     /// 스킬 피격 처리 하는 함수
     /// </summary>
     /// <param name="skillEnum">스킬의 Enum</param>
@@ -39,4 +33,5 @@ abstract public partial class CharactorBase : MonoBehaviour
 
         hp -= (int)(skillData.damage / def);
     }
+    // 유니티 메인스레드에서 실행이 안 되는듯 함
 }
