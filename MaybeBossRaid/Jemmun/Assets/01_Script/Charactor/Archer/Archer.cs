@@ -11,9 +11,9 @@ public class Archer : CharactorBase
         atk = 1.25f;
         def = 1.2f;
     }
-    public override void OnDamage(int damage)
-    {
-        hp -= damage;
-        Debug.Log($"Hit, hp: {hp}, damage: {damage}");
-    }
+    //public override void OnDamage(int damage)
+    //{
+    //    hp -= damage;
+    //    Debug.Log($"Hit, hp: {hp}, damage: {damage}");
+    //}
 }
