@@ -8,7 +8,7 @@ public class TurnManager : MonoBehaviour
     public static TurnManager instance;
 
     // Task
-    public    delegate void  TurnTask();
+    public delegate void  TurnTask();
     protected List<TurnTask> endTurnTasks = new List<TurnTask>(); // 턴이 끝날 때 마다 리스트 안에 있는 함수를 전부 실행시킴
     protected List<TurnTask> midTurnTasks = new List<TurnTask>(); // 턴이 끝날 때 마다 리스트 안에 있는 함수를 전부 실행시킴
 

@@ -20,7 +20,6 @@ public class SkillManager : MonoBehaviour
 
 
 
-
     /// <summary>
     /// 본인의 스킬 정보를 담아 두는 사전을 초기화하는 함수
     /// </summary>
@@ -63,4 +62,5 @@ public class SkillManager : MonoBehaviour
     {
         return skillData[skillEnum];
     }
+
 }
