@@ -41,7 +41,6 @@ public class UserManager : MonoBehaviour
             }
         }
     }
-    #endregion
 
     // 직접 만든 클레스 변수 수정이라 돌아갑니다.
     static public void InitPlayerData(PlayerDataVO vo)
@@ -50,6 +49,7 @@ public class UserManager : MonoBehaviour
         instance.players[instance.playerIndex].mp = vo.mp;
         instance.players[instance.playerIndex].id = vo.id;
     }
+    #endregion
     
     /// <summary>
     /// id에 따라 플레이어를 찾아 옵니다.
@@ -68,6 +68,48 @@ public class UserManager : MonoBehaviour
 
         Debug.LogError($"Cannot find requested player.\r\nID: {id}");
         return null;
+    }
+
+
+
+    // CRITICAL_SECTION 과 비슷한 역할을 하는 변수에요.
+    public object lockObj = new object();
+
+    // 만약 공격당한경우 true 가 되는 변수에요.
+    public bool attacked = false;
+
+    public Queue<AttackVO> atkQueue = new Queue<AttackVO>();
+
+    // 공격 당했을 시 vo 를 queue 에 Enqueue 해주는 함수
+    static public void SetAttacked(AttackVO vo)
+    {
+        lock (instance.lockObj)
+        {
+            instance.atkQueue.Enqueue(vo);
+            instance.attacked = true;
+        }
+    }
+
+    private void Update()
+    {
+        lock (lockObj)
+        {
+            // attacked 변수는 유니티 스레드와 웹소켓 스레드에서 접근하기 때문
+            if (!attacked) return;
+        }
+
+        // 플래그 용도로 사용함
+        attacked = false;
+
+        AttackVO vo;
+        lock (lockObj)
+        {
+            // 큐가 비어있지 않다면 Dequeue();
+            vo = atkQueue.Count != 0 ? atkQueue.Dequeue() : null;
+        }
+
+        // 타깃의 OnSkillHit 호출함
+        GetPlayerBase(vo.target).OnSkillHit(vo.skillEnum);
     }
 
 }

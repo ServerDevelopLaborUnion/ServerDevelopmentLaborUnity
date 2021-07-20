@@ -36,19 +36,18 @@ public class ExampleSkill : Skills
     sealed protected override void SkillA()
     {
         Skill(SkillEnum.ExampleAtk);
+        this.charactor.mp -= exampleAtk.mpCost;
     }
 
     sealed protected override void SkillB()
     {
         Skill(SkillEnum.ExampleHeal);
+        this.charactor.mp -= exampleAtk.mpCost;
     }
 
     // 
     protected sealed override void OnSkillAHit(CharactorBase targetBase)
     {
-        targetBase.hp -= exampleAtk.damage;
-        this.charactor.mp -= exampleAtk.mpCost;
-
         Debug.Log($"{targetBase.gameObject.name}: Hit!");
 
         // 화려한 이팩트 뭔가 일단 무언가 부와앙앍 하는것들
@@ -56,9 +55,6 @@ public class ExampleSkill : Skills
 
     protected sealed override void OnSkillBHit(CharactorBase targetBase)
     {
-        targetBase.hp -= exampleAtk.damage;
-        this.charactor.mp -= exampleAtk.mpCost;
-
         Debug.Log($"{targetBase.gameObject.name}: Hit!");
 
         // 화려한 이팩트 뭔가 일단 무언가 부와앙앍 하는것들
