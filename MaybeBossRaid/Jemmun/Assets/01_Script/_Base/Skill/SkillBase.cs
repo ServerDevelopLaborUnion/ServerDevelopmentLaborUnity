@@ -5,7 +5,7 @@ using UnityEngine;
 // 맴버 변수, 초기화
 abstract public partial class SkillBase : MonoBehaviour
 {
-    protected CharactorBase charactor      = null;
+    protected CharactorBase charactor      = null; // 본인의 CharactorBase
     public    GameObject    selectedTarget = null; // 스킬을 시전할 게임 오브젝트
 
     protected virtual void Awake()

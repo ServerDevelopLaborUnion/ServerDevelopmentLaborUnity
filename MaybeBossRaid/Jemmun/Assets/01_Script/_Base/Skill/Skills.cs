@@ -28,7 +28,7 @@ abstract public class Skills : SkillBase
 
         // 새로운 AttackVO 인스턴스를 만들고 그 안에 타깃의 id, 데미지를 넣어 준 다음 JSON 으로 변환해요.
         // 그리고 그걸 새로운 DataVO 안에 payload 로 넣어줍니다.
-        DataVO vo = new DataVO("attack", JsonUtility.ToJson(new AttackVO(damage.id, skillEnum)));
+        DataVO vo = new DataVO("attack", JsonUtility.ToJson(new AttackVO((int)(damage.id * charactor.atk), skillEnum)));
 
         SocketClient.Send(JsonUtility.ToJson(vo));
     }

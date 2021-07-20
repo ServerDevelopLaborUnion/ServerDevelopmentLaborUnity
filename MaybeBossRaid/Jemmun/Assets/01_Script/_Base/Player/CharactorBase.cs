@@ -10,6 +10,15 @@ abstract public partial class CharactorBase : MonoBehaviour
     public int id;
     //protected string name; // 일단 주석처리 해 두겟스빈다.
 
+    // 스텟
+    // 공격력 * atk
+    // 데미지 / def 로 들어갑니다.
+    public float atk = 1.0f;
+    public float def = 1.0f;
+
+    // 사망 또는 행동 불가능 상태
+    public bool isDead = false;
+    
     public bool isRemote = false; // 본인 캐릭터인지
 
     /// <summary>
@@ -25,6 +34,9 @@ abstract public partial class CharactorBase : MonoBehaviour
     public void OnSkillHit(SkillEnum skillEnum)
     {
         // 해당하는 스킬 피격 효과를 재생시킵니다.
-        SkillManager.instance.GetSkillData(skillEnum).skillHitCallback(this);
+        SkillData skillData = SkillManager.instance.GetSkillData(skillEnum);
+        skillData.skillHitCallback(this);
+
+        hp -= (int)(skillData.damage / def);
     }
 }
