@@ -19,11 +19,12 @@ abstract public class Skills : SkillBase
     /// <param name="skillEnum">스킬의 Enum</param>
     public void Skill(SkillEnum skillEnum)
     {
+        SkillData skillData = SkillManager.instance.GetSkillData(skillEnum);
+        if (this.charactor.mp < skillData.mpCost) return;
+        this.charactor.mp -= skillData.mpCost;
+
         CharactorBase damage = selectedTarget.GetComponent<CharactorBase>();
         if (damage == null) return;
-        
-        SkillData skillData = SkillManager.instance.GetSkillData(skillEnum);
-        this.charactor.mp -= skillData.mpCost;
 
         // 새로운 AttackVO 인스턴스를 만들고 그 안에 타깃의 id, 데미지를 넣어 준 다음 JSON 으로 변환해요.
         // 그리고 그걸 새로운 DataVO 안에 payload 로 넣어줍니다.
