@@ -1,6 +1,7 @@
 export default class AttackVO{
-    constructor(target, damage) {
+    constructor(target, skillEnum) {
         this.target = target;
-        this.damage = damage;
+        this.skillEnum = skillEnum;
+;
     }
 }

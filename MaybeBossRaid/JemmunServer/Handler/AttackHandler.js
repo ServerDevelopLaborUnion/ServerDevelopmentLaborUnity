@@ -11,7 +11,6 @@ export default class AttackHandler{
         let attack = JSON.stringify(new AttackVO(target, skillEnum));
         let vo = new DataVO("attacked", attack);
 
-        console.log(target);
         console.log(skillEnum);
 
         socket.send(JSON.stringify(vo));

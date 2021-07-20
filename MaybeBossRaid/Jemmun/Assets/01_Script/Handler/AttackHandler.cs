@@ -7,6 +7,8 @@ public class AttackHandler : MonoBehaviour, IBufHandler
     {
         AttackVO vo = JsonUtility.FromJson<AttackVO>(payload);
 
+        Debug.Log(payload);
+
         // 공격당했다는 정보를 UserManager 로 넘겨줍니다.
         UserManager.SetAttacked(vo);
     }
