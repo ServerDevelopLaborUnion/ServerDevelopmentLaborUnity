@@ -819,6 +819,10 @@ MonoBehaviour:
   hp: 100
   mp: 100
   pos: 0
+  id: 0
+  atk: 1
+  def: 1
+  isDead: 0
   isRemote: 0
 --- !u!114 &663743999
 MonoBehaviour:
@@ -916,7 +920,7 @@ GameObject:
   - component: {fileID: 713202740}
   m_Layer: 0
   m_Name: AnotherPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1043,6 +1047,10 @@ MonoBehaviour:
   hp: 100
   mp: 100
   pos: 0
+  id: 0
+  atk: 1
+  def: 1
+  isDead: 0
   isRemote: 1
 --- !u!1 &863825576
 GameObject:
@@ -1644,6 +1652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea672b2ae747154cb9d7a5028b12abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attacked: 0
 --- !u!1 &1341631634
 GameObject:
   m_ObjectHideFlags: 0
