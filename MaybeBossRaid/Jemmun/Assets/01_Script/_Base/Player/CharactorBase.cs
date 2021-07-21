@@ -21,17 +21,28 @@ abstract public partial class CharactorBase : MonoBehaviour
     
     public bool isRemote = false; // 본인 캐릭터인지
 
+    // 마지막으로 맞은 스킬 저장용
+    public SkillData LastHitSkill { get; private set; }
+
     /// <summary>
-    /// 스킬 피격 처리 하는 함수
+    /// 스킬 피격시 효과 재생 + 맞은 스킬 저장
     /// </summary>
     /// <param name="skillEnum">스킬의 Enum</param>
-    public void OnSkillHit(SkillEnum skillEnum)
+    public virtual void OnSkillHit(SkillEnum skillEnum)
     {
         // 해당하는 스킬 피격 효과를 재생시킵니다.
-        SkillData skillData = SkillManager.instance.GetSkillData(skillEnum);
-        skillData.skillHitCallback(this);
+        LastHitSkill = SkillManager.instance.GetSkillData(skillEnum);
+        LastHitSkill.skillHitCallback(this);
 
-        hp -= (int)(skillData.damage / def);
+        //hp -= (int)(skillData.damage / def);
     }
-    // 유니티 메인스레드에서 실행이 안 되는듯 함
+
+    /// <summary>
+    /// 데미지 처리를 하는 함수
+    /// </summary>
+    /// <param name="damage"></param>
+    protected void TakeDamage(int damage)
+    {
+        hp -= (int)(damage / def);
+    }
 }
