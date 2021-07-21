@@ -8,14 +8,14 @@ public class Wizard : CharactorBase
 
     private void Start()
     {
-        wizardSkills = FindObjectOfType<WizardSkills>();    
+        wizardSkills = FindObjectOfType<WizardSkills>();
     }
 
     public override void OnSkillHit(SkillEnum skillEnum)
     {
+        base.OnSkillHit(skillEnum);
         if (!wizardSkills.GetInv())
         {
-            base.OnSkillHit(skillEnum);
             TakeDamage(LastHitSkill.damage);
             wizardSkills.SetInv(false);
         }

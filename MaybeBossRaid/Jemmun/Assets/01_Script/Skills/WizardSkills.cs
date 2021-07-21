@@ -15,6 +15,7 @@ public class WizardSkills : Skills
 
     private bool inv = false;
 
+  
     sealed protected override void Awake()
     {
         base.Awake();
