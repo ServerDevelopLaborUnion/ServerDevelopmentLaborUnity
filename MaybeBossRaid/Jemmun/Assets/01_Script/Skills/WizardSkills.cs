@@ -7,6 +7,11 @@ public class WizardSkills : Skills
     SkillData fireBall;
     SkillData vision;
 
+    [SerializeField]
+    private GameObject fireBallPref = null;
+
+    private Vector3 diff = Vector3.zero;
+    private float rotationZ = 0f;
 
     sealed protected override void Awake()
     {
@@ -45,9 +50,18 @@ public class WizardSkills : Skills
 
 
     protected sealed override void OnSkillAHit(CharactorBase targetBase)
-    {
-        targetBase.hp -= fireBall.damage;
+    { 
         this.charactor.mp -= fireBall.mpCost;
+        targetBase.hp -= fireBall.damage;
+
+        GameObject fB = null;
+        fB = Instantiate(fireBallPref, transform);
+        fB.transform.SetParent(null);
+        diff = transform.position - selectedTarget.transform.position;
+        diff.Normalize();
+        rotationZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        fB.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ + 90f);
+        
 
         Debug.Log($"{targetBase.gameObject.name}: Hit!");
 
@@ -56,8 +70,7 @@ public class WizardSkills : Skills
 
     protected sealed override void OnSkillBHit(CharactorBase targetBase)
     {
-        targetBase.hp -= fireBall.damage;
-        this.charactor.mp -= fireBall.mpCost;
+        //1회 무적 판정
 
         Debug.Log($"{targetBase.gameObject.name}: Hit!");
 
