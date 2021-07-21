@@ -11,6 +11,7 @@ public class WarriorSkills : Skills
     GameObject[] effectObject = new GameObject[2];
     SpriteRenderer[] effectSpriteRenderer = new SpriteRenderer[2];
     [SerializeField] Sprite effectSprite = null;
+    [SerializeField] ParticleSystem particleSystem = null;
 
 
     sealed protected override void Awake()
@@ -67,7 +68,7 @@ public class WarriorSkills : Skills
 
     protected sealed override void OnSkillAHit(CharactorBase targetBase)
     {
-
+        particleSystem.Play();
         Debug.Log($"{targetBase.gameObject.name}: HitA!");
 
         // 화려한 이팩트 뭔가 일단 무언가 부와앙앍 하는것들
@@ -93,12 +94,14 @@ public class WarriorSkills : Skills
         if (!CheckChild(this.gameObject, "Shield"))
         {
             effectObject[0] = Instantiate(new GameObject("Shield"), this.transform);
+            effectObject[0].transform.position += Vector3.back;
         }
         else
             effectObject[0].SetActive(true);
         if (!CheckChild(target.gameObject, "Shield"))
         {
             effectObject[1] = Instantiate(new GameObject("Shield"), target.transform);
+            effectObject[1].transform.position += Vector3.back;
         }
         else
         {
