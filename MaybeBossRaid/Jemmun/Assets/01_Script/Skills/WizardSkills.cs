@@ -78,4 +78,14 @@ public class WizardSkills : Skills
 
         // 화려한 이팩트 뭔가 일단 무언가 부와앙앍 하는것들
     }
+
+    public bool GetInv()
+    {
+        return inv;
+    }
+
+    public void SetInv(bool setInv)
+    {
+        inv = setInv;
+    }
 }
