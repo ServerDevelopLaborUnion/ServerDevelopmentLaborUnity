@@ -13,6 +13,8 @@ public class WizardSkills : Skills
     private Vector3 diff = Vector3.zero;
     private float rotationZ = 0f;
 
+    private bool inv = false;
+
     sealed protected override void Awake()
     {
         base.Awake();
@@ -71,7 +73,7 @@ public class WizardSkills : Skills
     protected sealed override void OnSkillBHit(CharactorBase targetBase)
     {
         //1회 무적 판정
-
+        inv = true;
         Debug.Log($"{targetBase.gameObject.name}: Hit!");
 
         // 화려한 이팩트 뭔가 일단 무언가 부와앙앍 하는것들
