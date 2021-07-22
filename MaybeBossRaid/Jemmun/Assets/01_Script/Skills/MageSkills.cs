@@ -1,3 +1,5 @@
+// 유원석 개발
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,8 +31,12 @@ public class MageSkills : Skills
 
     private void Start()
     {
-        SkillManager.instance.SetSkillData(Explosion, SkillEnum.ExampleAtk);
-        SkillManager.instance.SetSkillData(PracticeExplosion, SkillEnum.ExampleHeal);
+        // Enum 을 바꿔주는걸 까먹었어요.
+        //SkillManager.instance.SetSkillData(Explosion, SkillEnum.ExampleAtk);
+        //SkillManager.instance.SetSkillData(PracticeExplosion, SkillEnum.ExampleHeal);
+
+        SkillManager.instance.SetSkillData(Explosion, SkillEnum.Explosion);
+        SkillManager.instance.SetSkillData(PracticeExplosion, SkillEnum.PracticeExplosion);
     }
 
 

@@ -1,4 +1,4 @@
-import parse    from '../ParseBuffer.js';
+import parse    from '../Utility/ParseBuffer.js';
 import AttackVO from '../VO/AttackVO.js';
 import DataVO   from '../VO/DataVO.js';
 

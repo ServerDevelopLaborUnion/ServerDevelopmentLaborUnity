@@ -1,4 +1,4 @@
-import parseBuffer from '../ParseBuffer.js';
+import parseBuffer from '../Utility/ParseBuffer.js';
 
 export default class LoginHandler {
     constructor(payload) {
