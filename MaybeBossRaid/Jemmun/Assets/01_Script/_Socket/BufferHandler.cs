@@ -18,6 +18,8 @@ public class BufferHandler : MonoBehaviour
         handlerDictionary.Add("attacked",    GetComponent<AttackHandler>());
         handlerDictionary.Add("initdata",    GetComponent<InitDataHandler>());
         handlerDictionary.Add("gamestart",   GetComponent<GameStartHandler>());
+        handlerDictionary.Add("jobselect",   GetComponent<JobHandler>());
+        handlerDictionary.Add("battlestart", GetComponent<BattleStartHandler>());
     }
 
     static public void HandleBuffer(string type, string payload)

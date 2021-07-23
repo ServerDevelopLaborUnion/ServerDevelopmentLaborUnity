@@ -10,8 +10,8 @@ import SocketStatus from '../Enum/SocketStatus.js'; // enum 비스무리한 것
 import LoginHandler   from '../Handler/LoginHandler.js';
 import AttackHandler  from '../Handler/AttackHandler.js';
 import InitPlayerData from '../Handler/InitPlayerData.js';
+import JobHandler     from '../Handler/JobHandler.js';
 import MatchMakingHandler from '../Handler/MatchMakingHandler.js';
-
 //#endregion
 
 const port = 32000;
@@ -115,7 +115,8 @@ wsService.on("connection", socket => {
 
             //#region 준비 단계 타입
             
-            case "jobselect": // 직업 선택 시
+            case "jobselect": // 직업 선택 
+                new JobHandler(wsService, socket, payload);
                 break;
             
             case "stat": // 스텟 배분 시

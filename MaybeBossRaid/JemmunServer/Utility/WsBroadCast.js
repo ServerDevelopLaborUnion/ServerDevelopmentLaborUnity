@@ -1,9 +1,18 @@
-export default function broadCast(ws, msg, matchmaking = false) {
+export default function broadCast(ws, msg, matchmaking = false, socket = null, noSender = false) {
 
     if (matchmaking) {
         ws.clients.forEach(socket => {
             if (socket.matchmaking == true) {
                 socket.send(msg);
+            }
+        });
+        return;
+    }
+
+    if (noSender) {
+        ws.clients.forEach(s => {
+            if (s.socketId != socket.socketId) {
+                s.send(msg);
             }
         });
         return;

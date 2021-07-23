@@ -10,6 +10,8 @@ public class SocketClient : MonoBehaviour
     [SerializeField] private string url = "ws://localhost";
     [SerializeField] private int port = 32000; // <= 선한쌤 서버 사용할 예정이여서 어쩔 수 없이 56789를 버렸습니다. 슬프네요
 
+    public bool instaConnect = false;
+
     // 웹소켓
     private WebSocket ws;
 
@@ -23,6 +25,14 @@ public class SocketClient : MonoBehaviour
     {
         // 싱글턴 패턴 용도가 아니에요.
         instance = this;
+    }
+
+    private void Start()
+    {
+        if (instaConnect)
+        {
+            ConnectToServer();
+        }
     }
 
     /// <summary>
