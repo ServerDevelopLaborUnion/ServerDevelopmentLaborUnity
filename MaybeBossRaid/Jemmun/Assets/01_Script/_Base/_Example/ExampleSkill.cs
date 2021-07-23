@@ -22,8 +22,8 @@ public class ExampleSkill : Skills
 
         if (charactor.isRemote) return;
 
-        SetButton(0, SkillA);
-        SetButton(1, SkillB);
+        SetButton(0, "매우 강력한 공격", SkillA);
+        SetButton(1, "매우 강력한 힐링", SkillB);
     }
 
     private void Start()

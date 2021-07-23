@@ -32,8 +32,8 @@ public class WizardSkills : Skills
 
         if (charactor.isRemote) return;
 
-        SetButton(0, SkillA);
-        SetButton(1, SkillB);
+        SetButton(0, "파이어볼", SkillA);
+        SetButton(1, "비전", SkillB);
     }
 
     private void Start()

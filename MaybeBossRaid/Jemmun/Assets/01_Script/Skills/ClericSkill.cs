@@ -24,8 +24,8 @@ public class ClericSkill : Skills
 
         if (charactor.isRemote) return;
 
-        SetButton(0, SkillA);
-        SetButton(1, SkillB);
+        SetButton(0, "Èú", SkillA);
+        SetButton(1, "°­È­", SkillB);
     }
 
     private void Start()

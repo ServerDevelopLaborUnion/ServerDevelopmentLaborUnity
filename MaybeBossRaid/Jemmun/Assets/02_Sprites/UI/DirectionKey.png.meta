@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: dde0c6cc471475b458a26c371e0d4291
+guid: 1612f58c05ca60c439a304799565b39e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6904076826552021363
-    second: Pause and Dialog_0
+      213: -8684561896395091753
+    second: DirectionKey_0
   - first:
-      213: 3362386321049734938
-    second: Pause and Dialog_1
+      213: -3308576782981126124
+    second: DirectionKey_1
+  - first:
+      213: -4178479467606529583
+    second: DirectionKey_2
+  - first:
+      213: -7730324660359777357
+    second: DirectionKey_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,7 +103,49 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Pause and Dialog_0
+      name: DirectionKey_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d05a7fc7fc3a7780800000000000000
+      internalID: -8684561896395091753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DirectionKey_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4182e4a02f29512d0800000000000000
+      internalID: -3308576782981126124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DirectionKey_2
       rect:
         serializedVersion: 2
         x: 0
@@ -106,19 +154,19 @@ TextureImporter:
         height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 116, y: 62, z: 102, w: 165}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 371b3ac5b4530df50800000000000000
-      internalID: 6904076826552021363
+      spriteID: 1d9ac00101f0306c0800000000000000
+      internalID: -4178479467606529583
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pause and Dialog_1
+      name: DirectionKey_3
       rect:
         serializedVersion: 2
         x: 256
@@ -132,8 +180,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1f4dc75b8899ae20800000000000000
-      internalID: 3362386321049734938
+      spriteID: 3b330dcadae58b490800000000000000
+      internalID: -7730324660359777357
       vertices: []
       indices: 
       edges: []

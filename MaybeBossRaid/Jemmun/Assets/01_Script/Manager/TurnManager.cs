@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
+    [SerializeField] private Transform trmTurnIndicator = null;
+
     // Singleton?
     public static TurnManager instance;
 
@@ -19,17 +21,21 @@ public class TurnManager : MonoBehaviour
 
     private void Awake()
     {
+        NullChecker.CheckNULL(trmTurnIndicator, true);
+
         // 사실 체크를 하나 해 줘야 하는데 귀찮았스빈다.
         instance = this;
-
-        SocketClient.Send(JsonUtility.ToJson(new DataVO("gamestart", "null")));
 
         turn = 0;
     }
 
     private void Start()
     {
+        SocketClient.Send(JsonUtility.ToJson(new DataVO("gamestart", "")));
+
         playerList = UserManager.GetAllPlayerBase();
+        SetTurnStatus(); // 처음에 설정해줘야죠...
+        SetTurnIndicatorLocation();
     }
 
 
@@ -59,6 +65,8 @@ public class TurnManager : MonoBehaviour
     public void EndTurn()
     {
         ++turn;
+        SetTurnStatus();
+        SetTurnIndicatorLocation();
         DoTurnEndTasks();
     }
 
@@ -98,6 +106,23 @@ public class TurnManager : MonoBehaviour
     // 캐릭터들의 턴 상태를 설정함
     private void SetTurnStatus()
     {
-        // 턴
+        for (int i = 0; i < playerList.Count; ++i)
+        {
+            playerList[i].isTurn = false;
+        }
+
+        playerList[playerList.Count == 0 ? 0 : turn % playerList.Count].isTurn = true;
     }
+
+
+
+    // 턴 인디케이터 움직임
+    private void SetTurnIndicatorLocation()
+    {
+        Vector2 targetPos = playerList[turn % playerList.Count].gameObject.transform.position;
+        targetPos.y += 2.5f;
+
+        trmTurnIndicator.position = targetPos;
+    }
+
 }

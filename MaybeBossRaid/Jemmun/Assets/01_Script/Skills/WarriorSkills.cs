@@ -30,8 +30,8 @@ public class WarriorSkills : Skills
 
         if (charactor.isRemote) return;
 
-        SetButton(0, SkillA);
-        SetButton(1, SkillB);
+        SetButton(0, "휘두르기",  SkillA);
+        SetButton(1, "용기의 함성", SkillB);
     }
 
     private void Start()

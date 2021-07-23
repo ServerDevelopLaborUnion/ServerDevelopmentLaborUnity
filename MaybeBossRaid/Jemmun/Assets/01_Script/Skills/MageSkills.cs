@@ -24,8 +24,8 @@ public class MageSkills : Skills
 
         if (charactor.isRemote) return;
 
-        SetButton(0, SkillA);
-        SetButton(1, SkillB);
+        SetButton(0, "폭렬 마법", SkillA);
+        SetButton(1, "마법 연습", SkillB);
     }
 
     private void Start()

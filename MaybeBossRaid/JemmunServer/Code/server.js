@@ -72,6 +72,7 @@ wsService.on("connection", socket => {
     // js는 클래스에 없는 변수를 접근하려고 하면 알아서 만들어 줍니다.
     // 엄청난 언어임.
     socket.socketId = id++;
+    socket.selectedJob = -1;
     clients[socket.socketId] = socket;
     console.log(`클라이언트 접속, id: ${socket.socketId}`);
 
@@ -108,7 +109,7 @@ wsService.on("connection", socket => {
                 break;
             
             case "gamestart": // 게임 시작 시
-                new InitPlayerData(socket);
+                new InitPlayerData(wsService);
                 break;
             
             //#endregion
@@ -128,7 +129,7 @@ wsService.on("connection", socket => {
             //#region 인게임 타입
             
             case "attack": // 공격 시
-                new AttackHandler(clients, payload);
+                new AttackHandler(wsService, payload);
                 break;
 
             case "dead": // 사망 시

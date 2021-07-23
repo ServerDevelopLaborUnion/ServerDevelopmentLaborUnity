@@ -19,10 +19,6 @@ public partial class UserManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
-
-    private void Start()
-    {
         InitData();
     }
 
@@ -49,9 +45,20 @@ public partial class UserManager : MonoBehaviour
     /// <param name="vo">PlayerDataVO</param>
     static public void InitPlayerData(PlayerDataVO vo)
     {
-        instance.players[instance.playerIndex].hp = vo.hp;
-        instance.players[instance.playerIndex].mp = vo.mp;
-        instance.players[instance.playerIndex].id = vo.id;
+        int targetIdx = -1;
+
+        for (int i = 0; i < instance.players.Count; ++i)
+        {
+            if (instance.players[i].job == vo.job)
+            {
+                targetIdx = i;
+                break;
+            }
+        }
+
+        instance.players[targetIdx].hp = vo.hp;
+        instance.players[targetIdx].mp = vo.mp;
+        instance.players[targetIdx].id = vo.id;
     }
     #endregion
 
@@ -91,7 +98,7 @@ public partial class UserManager : MonoBehaviour
     public object lockObj = new object();
 
     // 만약 공격당한경우 true 가 되는 변수에요.
-    public bool attacked = false;
+    [HideInInspector] public bool attacked = false;
 
     public Queue<AttackVO> atkQueue = new Queue<AttackVO>();
 

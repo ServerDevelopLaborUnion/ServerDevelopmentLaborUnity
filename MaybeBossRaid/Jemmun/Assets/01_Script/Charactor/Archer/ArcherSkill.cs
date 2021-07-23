@@ -21,8 +21,8 @@ public class ArcherSkill : Skills
 
         if (charactor.isRemote) return;
 
-        SetButton(0, SkillA);
-        SetButton(1, SkillB);
+        SetButton(0, "속사", SkillA);
+        SetButton(1, "강사", SkillB);
 
     }
 

@@ -6,10 +6,20 @@ abstract public class Skills : SkillBase
 {
     [Header("스킬 시전 버튼들")]
     [SerializeField] protected UnityEngine.UI.Button[] btnSkills = new UnityEngine.UI.Button[2];
+                     protected UnityEngine.UI.Text[] txtBtnSkill = new UnityEngine.UI.Text[2];
 
     protected override void Awake()
     {
         base.Awake();
+
+        if (charactor.isRemote) return;
+
+        // 버튼 텍스트 가져옴
+        for (int i = 0; i < btnSkills.Length; ++i)
+        {
+            txtBtnSkill[i] = btnSkills[i].transform.GetChild(0).GetComponent<UnityEngine.UI.Text>();
+        }
+
     }
 
     /// <summary>
@@ -19,7 +29,9 @@ abstract public class Skills : SkillBase
     /// <param name="skillEnum">스킬의 Enum</param>
     public void Skill(SkillEnum skillEnum)
     {
-        
+        // 자신의 턴이 아니면 실행하지 않음
+        if (!charactor.isTurn) return;
+
         CharactorBase damage = selectedTarget.GetComponent<CharactorBase>();
         if (damage == null) return;
         SkillData skillData = SkillManager.instance.GetSkillData(skillEnum);
@@ -33,6 +45,8 @@ abstract public class Skills : SkillBase
         DataVO vo = new DataVO("attack", JsonUtility.ToJson(new AttackVO((int)(damage.id * charactor.atk), skillEnum)));
 
         SocketClient.Send(JsonUtility.ToJson(vo));
+
+        TurnManager.instance.EndTurn();
     }
 
     /// <summary>
@@ -40,8 +54,9 @@ abstract public class Skills : SkillBase
     /// </summary>
     /// <param name="btnIndex">버튼의 인덱스. 0 ~ 1</param>
     /// <param name="function">버튼을 눌렀을 때 실행할 함수</param>
-    protected void SetButton(int btnIndex, UnityEngine.Events.UnityAction function)
+    protected void SetButton(int btnIndex, string skillName, UnityEngine.Events.UnityAction function)
     {
         btnSkills[btnIndex].onClick.AddListener(function);
+        txtBtnSkill[btnIndex].text = skillName;
     }
 }
