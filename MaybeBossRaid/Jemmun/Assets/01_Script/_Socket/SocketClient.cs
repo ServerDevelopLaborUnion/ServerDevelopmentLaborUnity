@@ -32,7 +32,11 @@ public class SocketClient : MonoBehaviour
     //    ConnectSocket();
     //}
 
-    static public void ConnectToServer(OnConnected callback)
+    /// <summary>
+    /// 서버에 연결하는 함수
+    /// </summary>
+    /// <param name="callback"></param>
+    static public void ConnectToServer(OnConnected callback = null)
     {
         instance.ws = new WebSocket($"{instance.url}:{instance.port}");
         instance.ws.Connect();
@@ -44,6 +48,29 @@ public class SocketClient : MonoBehaviour
 
         callback?.Invoke();
     }
+
+    /// <summary>
+    /// 서버에 연결하는 함수
+    /// </summary>
+    /// <param name="ip">서버의 ip<br></br>ws://"이 부분":port</param>
+    /// <param name="port">포트<br></br>ws://ip:"이 부분"</param>
+    /// <param name="callback"></param>
+    static public void ConnectToServer(string ip, int port, OnConnected callback = null)
+    {
+        instance.url = $"ws://{ip}";
+        instance.port = port;
+
+        instance.ws = new WebSocket($"{instance.url}:{instance.port}");
+        instance.ws.Connect();
+
+        instance.ws.OnMessage += (sender, e) =>
+        {
+            instance.ReceiveData((WebSocket)sender, e);
+        };
+
+        callback?.Invoke();
+    }
+
 
     private void ReceiveData(WebSocket sender, MessageEventArgs e)
     {

@@ -13,10 +13,11 @@ public class BufferHandler : MonoBehaviour
     {
         instance = this;
 
-        handlerDictionary.Add("matchmaking",GetComponent<MatchMakingHandler>());
-        handlerDictionary.Add("login",      GetComponent<LoginHandler>());
-        handlerDictionary.Add("attacked",   GetComponent<AttackHandler>());
-        handlerDictionary.Add("initdata",   GetComponent<InitDataHandler>());
+        handlerDictionary.Add("matchmaking", GetComponent<MatchMakingHandler>());
+        handlerDictionary.Add("login",       GetComponent<LoginHandler>());
+        handlerDictionary.Add("attacked",    GetComponent<AttackHandler>());
+        handlerDictionary.Add("initdata",    GetComponent<InitDataHandler>());
+        handlerDictionary.Add("gamestart",   GetComponent<GameStartHandler>());
     }
 
     static public void HandleBuffer(string type, string payload)

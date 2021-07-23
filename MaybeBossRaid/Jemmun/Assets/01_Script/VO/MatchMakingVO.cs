@@ -12,6 +12,6 @@ public class MatchMakingVO
     public MatchMakingVO(int players, bool start)
     {
         this.players = players;
-        this.start = start;
+        this.start = start; // true 일시 취소
     }
 }

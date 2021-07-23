@@ -2,12 +2,7 @@
 import ws    from 'ws';
 import parse from '../Utility/ParseBuffer.js'; // json 파싱 용
 import pData from '../Data/Player/PlayerData.js'; // 플레이어 데이터 가지고 있는 클레스
-
-//#region VO require
-
-import LoginVO from '../VO/LoginVO.js';
-
-//#endregion
+import SocketStatus from '../Enum/SocketStatus.js'; // enum 비스무리한 것
 
 //#region Handler require
 
@@ -25,6 +20,7 @@ const wsService = new ws.Server({ port }, () => {
     console.log(`서버가 ${port} 에서 실행중입니다.`);
 });
 
+//#region 변수들
 
 // 접속되어있는 소켓들
 let clients = {};
@@ -47,7 +43,11 @@ let id = 1;
 
 // 플레이어 접속 카운트
 // 메치메이킹용 변수
-let playerCount = 0;
+// 참조 전달 위함
+class playerCount { constructor() { this.count = 0; } };
+let pCount = new playerCount();
+
+//#endregion 변수들
 
 // on 뒤에 붙는 문자열과 왜 Json 으로 보내는지에 대한 주석
 //#region
@@ -66,6 +66,8 @@ socket.on("message 또는 close 등등");
 // 서버와 클라이언트의 연결이 이루어진 소켓을 socket 에 넣어 줘요. (socket 말고 다른 이름이어도 됩니다.)
 // WinSocket 의 "SOCKET sClient = accept(sListening, ...);" 함수와 같은 기능을 해요. (좀 더 쉬울 뿐이지)
 wsService.on("connection", socket => {
+    
+
     
     // js는 클래스에 없는 변수를 접근하려고 하면 알아서 만들어 줍니다.
     // 엄청난 언어임.
@@ -93,12 +95,12 @@ wsService.on("connection", socket => {
             case "login": // 로그인 시
                 // 이 것은 2학기 성과물로
                 // 아레는 디버그 위한 코드들
-                //new LoginHandler(socket, payload);
+                new LoginHandler(socket, payload);
 
                 break;
             
             case "matchmaking": // 메치 메이킹 시
-                new MatchMakingHandler(wsService, ++playerCount);
+                new MatchMakingHandler(wsService, socket, payload, pCount);
                 break;
             
             case "entry": // 방 입장 시
