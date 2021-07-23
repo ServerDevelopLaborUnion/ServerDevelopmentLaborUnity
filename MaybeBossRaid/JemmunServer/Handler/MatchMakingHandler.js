@@ -6,8 +6,10 @@ import SocketStatus from "../Enum/SocketStatus.js";
 
 export default class MatchMakingHandler{
     constructor(ws, socket, payload, playercount) {
+        let matchmakeSize = 5;
+
         let { players, start } = ParseBuffer.parseBuffer(payload);
-        
+
         // 메치메이킹 취소 체크
         if (start) {
             --playercount.count;
@@ -17,7 +19,7 @@ export default class MatchMakingHandler{
             socket.matchmaking = true;
         }
 
-        let gameStart = playercount.count == 4 ? true : false; // 게임 시작 여부 저장
+        let gameStart = playercount.count == matchmakeSize ? true : false; // 게임 시작 여부 저장
         let msg = JSON.stringify(new DataVO("matchmaking", JSON.stringify(new MatchMakingVO(playercount.count, gameStart))));
 
         broadCast(ws, msg);

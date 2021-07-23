@@ -16,10 +16,10 @@ abstract public partial class CharactorBase : MonoBehaviour
     public float atk = 1.0f;
     public float def = 1.0f;
 
-    // 사망 또는 행동 불가능 상태
-    public bool isDead = false;
-    
+    public bool isDead = false; // 사망 또는 행동 불가능 상태
     public bool isRemote = false; // 본인 캐릭터인지
+    public bool isTurn = false; // 본인 턴인지
+
 
     // 마지막으로 맞은 스킬 저장용
     public SkillData LastHitSkill { get; private set; }

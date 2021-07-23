@@ -15,6 +15,7 @@ public class GameStartHandler : MonoBehaviour, IBufHandler
     {
         if (bStarted)
         {
+            bStarted = false;
             UnityEngine.SceneManagement.SceneManager.LoadScene("Battle");
         }
     }

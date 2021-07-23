@@ -12,6 +12,8 @@ public class TurnManager : MonoBehaviour
     protected List<TurnTask> endTurnTasks = new List<TurnTask>(); // 턴이 끝날 때 마다 리스트 안에 있는 함수를 전부 실행시킴
     protected List<TurnTask> midTurnTasks = new List<TurnTask>(); // 턴이 끝날 때 마다 리스트 안에 있는 함수를 전부 실행시킴
 
+    protected List<CharactorBase> playerList = new List<CharactorBase>();
+
     // Turn
     public int turn { get; private set; }
 
@@ -19,6 +21,15 @@ public class TurnManager : MonoBehaviour
     {
         // 사실 체크를 하나 해 줘야 하는데 귀찮았스빈다.
         instance = this;
+
+        SocketClient.Send(JsonUtility.ToJson(new DataVO("gamestart", "null")));
+
+        turn = 0;
+    }
+
+    private void Start()
+    {
+        playerList = UserManager.GetAllPlayerBase();
     }
 
 
@@ -62,7 +73,7 @@ public class TurnManager : MonoBehaviour
     }
 
 
-    #region EndTurn, MidTurn 에서 사용되는 함수들
+    #region EndTurn, MidTurn Tasks
 
     private void DoTurnEndTasks()
     {
@@ -82,4 +93,11 @@ public class TurnManager : MonoBehaviour
     }
 
     #endregion
+
+
+    // 캐릭터들의 턴 상태를 설정함
+    private void SetTurnStatus()
+    {
+        // 턴
+    }
 }

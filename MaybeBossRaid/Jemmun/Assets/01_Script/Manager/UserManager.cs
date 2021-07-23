@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 접속한 유저들에 관한 것들을 해 주는 클레스
-public class UserManager : MonoBehaviour
+public partial class UserManager : MonoBehaviour
 {
     static private UserManager instance = null;
 
     // 접속한 유저들의 CharactorBase 를 가진 배열
-    private CharactorBase[] players = new CharactorBase[4];
+    private List<CharactorBase> players = new List<CharactorBase>();
 
     // 실제로 이 컴퓨터의 유저가 플레이하고있는 플레이어
     // players 배열의 인덱스
@@ -32,7 +32,7 @@ public class UserManager : MonoBehaviour
         GameObject[] tempPlayerArr = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < tempPlayerArr.Length; ++i)
         {
-            players[i] = tempPlayerArr[i].GetComponent<CharactorBase>();
+            players.Add(tempPlayerArr[i].GetComponent<CharactorBase>());
 
             // isRemote 가 false 라면 직접 플레이하고있는 캐릭터
             if (!players[i].isRemote)
@@ -43,6 +43,10 @@ public class UserManager : MonoBehaviour
     }
 
     // 직접 만든 클레스 변수 수정이라 돌아갑니다.
+    /// <summary>
+    /// 자신이 플레이하는 캐릭터의 변수를 초기화합니다.
+    /// </summary>
+    /// <param name="vo">PlayerDataVO</param>
     static public void InitPlayerData(PlayerDataVO vo)
     {
         instance.players[instance.playerIndex].hp = vo.hp;
@@ -50,7 +54,7 @@ public class UserManager : MonoBehaviour
         instance.players[instance.playerIndex].id = vo.id;
     }
     #endregion
-    
+
     /// <summary>
     /// id에 따라 플레이어를 찾아 옵니다.
     /// </summary>
@@ -58,7 +62,7 @@ public class UserManager : MonoBehaviour
     /// <returns>찾은 플레이어의 CharactorBase</returns>
     static public CharactorBase GetPlayerBase(int id)
     {
-        for (int i = 0; i < instance.players.Length; ++i)
+        for (int i = 0; i < instance.players.Count; ++i)
         {
             if (instance.players[i].id == id)
             {
@@ -70,8 +74,19 @@ public class UserManager : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// 같은 방에 있는 모든 플레이어들의 CharactorBase 를 반환합니다.
+    /// </summary>
+    /// <returns>List of CharactorBase</returns>
+    static public List<CharactorBase> GetAllPlayerBase()
+    {
+        return instance.players;
+    }
 
+}
 
+public partial class UserManager : MonoBehaviour
+{
     // CRITICAL_SECTION 과 비슷한 역할을 하는 변수에요.
     public object lockObj = new object();
 

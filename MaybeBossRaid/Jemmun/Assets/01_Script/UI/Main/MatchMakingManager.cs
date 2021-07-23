@@ -89,7 +89,7 @@ public class MatchMakingManager : MonoBehaviour
 
     private void SetStatusText()
     {
-        txtMatchMakingStat.text = $"({playersWaiting} / 4) 명이 대기중입니다.";
+        txtMatchMakingStat.text = $"({playersWaiting} / {playerStatus.Length}) 명이 대기중입니다.";
     }
 
     #endregion
@@ -130,6 +130,8 @@ public class MatchMakingManager : MonoBehaviour
         onMatchMaking = false;
 
         SetUIVisiblity();
+
+        SocketClient.DisconnectToServer();
     }
 
     // UI enable 상태 바꿔주는 함수

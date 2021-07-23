@@ -25,13 +25,6 @@ public class SocketClient : MonoBehaviour
         instance = this;
     }
 
-    //private void Start()
-    //{
-    //    // 서버에 연결
-    //    // 나중에 바로 연결 안 할수도 있으니 함수로 뺴둠
-    //    ConnectSocket();
-    //}
-
     /// <summary>
     /// 서버에 연결하는 함수
     /// </summary>
@@ -71,6 +64,13 @@ public class SocketClient : MonoBehaviour
         callback?.Invoke();
     }
 
+
+    static public void DisconnectToServer(OnConnected callback = null)
+    {
+        instance.ws.Close();
+
+        callback?.Invoke();
+    }
 
     private void ReceiveData(WebSocket sender, MessageEventArgs e)
     {
