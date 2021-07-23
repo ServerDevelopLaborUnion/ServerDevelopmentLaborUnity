@@ -1,9 +1,9 @@
-import parseBuffer from '../ParseBuffer.js';
+import parseBuffer from '../Utility/ParseBuffer.js';
 
 export default class LoginHandler {
-    constructor(payload) {
-        this.data = parseBuffer.parseBuffer(payload);
+    constructor(socket, payload) {
+        let data = parseBuffer.parseBuffer(payload); // 추후 사용 예정
 
-        console.log(this.data);
+        socket.send(JSON.stringify("login", JSON.stringify({ "success": true, "whyfailed": "" })));
     }
 }

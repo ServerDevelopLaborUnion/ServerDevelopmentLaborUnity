@@ -16,29 +16,61 @@ public class SocketClient : MonoBehaviour
     // static 접근 용
     static private SocketClient instance = null;
 
+    // 연결 되었을 시 콜백 함수 용
+    public delegate void OnConnected();
+
     private void Awake()
     {
         // 싱글턴 패턴 용도가 아니에요.
         instance = this;
     }
 
-    private void Start()
-    {
-        // 서버에 연결
-        // 나중에 바로 연결 안 할수도 있으니 함수로 뺴둠
-        ConnectSocket();
-    }
+    //private void Start()
+    //{
+    //    // 서버에 연결
+    //    // 나중에 바로 연결 안 할수도 있으니 함수로 뺴둠
+    //    ConnectSocket();
+    //}
 
-    private void ConnectSocket()
+    /// <summary>
+    /// 서버에 연결하는 함수
+    /// </summary>
+    /// <param name="callback"></param>
+    static public void ConnectToServer(OnConnected callback = null)
     {
-        ws = new WebSocket($"{url}:{port}");
-        ws.Connect();
+        instance.ws = new WebSocket($"{instance.url}:{instance.port}");
+        instance.ws.Connect();
 
-        ws.OnMessage += (sender, e) =>
+        instance.ws.OnMessage += (sender, e) =>
         {
-            ReceiveData((WebSocket)sender, e);
+            instance.ReceiveData((WebSocket)sender, e);
         };
+
+        callback?.Invoke();
     }
+
+    /// <summary>
+    /// 서버에 연결하는 함수
+    /// </summary>
+    /// <param name="ip">서버의 ip<br></br>ws://"이 부분":port</param>
+    /// <param name="port">포트<br></br>ws://ip:"이 부분"</param>
+    /// <param name="callback"></param>
+    static public void ConnectToServer(string ip, int port, OnConnected callback = null)
+    {
+        instance.url = $"ws://{ip}";
+        instance.port = port;
+
+        instance.ws = new WebSocket($"{instance.url}:{instance.port}");
+        instance.ws.Connect();
+
+        instance.ws.OnMessage += (sender, e) =>
+        {
+            instance.ReceiveData((WebSocket)sender, e);
+        };
+
+        callback?.Invoke();
+    }
+
 
     private void ReceiveData(WebSocket sender, MessageEventArgs e)
     {

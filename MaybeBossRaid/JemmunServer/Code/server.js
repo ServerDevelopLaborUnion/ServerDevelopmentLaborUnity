@@ -1,13 +1,8 @@
 // npm i --s ws, npm i --s mysql2 를 실행해 줘야 해요.
 import ws    from 'ws';
-import parse from '../ParseBuffer.js'; // json 파싱 용
+import parse from '../Utility/ParseBuffer.js'; // json 파싱 용
 import pData from '../Data/Player/PlayerData.js'; // 플레이어 데이터 가지고 있는 클레스
-
-//#region VO require
-
-import LoginVO from '../VO/LoginVO.js';
-
-//#endregion
+import SocketStatus from '../Enum/SocketStatus.js'; // enum 비스무리한 것
 
 //#region Handler require
 
@@ -15,6 +10,7 @@ import LoginVO from '../VO/LoginVO.js';
 import LoginHandler   from '../Handler/LoginHandler.js';
 import AttackHandler  from '../Handler/AttackHandler.js';
 import InitPlayerData from '../Handler/InitPlayerData.js';
+import MatchMakingHandler from '../Handler/MatchMakingHandler.js';
 
 //#endregion
 
@@ -24,7 +20,10 @@ const wsService = new ws.Server({ port }, () => {
     console.log(`서버가 ${port} 에서 실행중입니다.`);
 });
 
+//#region 변수들
 
+// 접속되어있는 소켓들
+let clients = {};
 
 // 플레이어들의 스텟을 가지고 있는 list
 // List<PlayerStat> playerStats = new List<PlayerStat>(); 와 같아요.
@@ -42,6 +41,13 @@ let playerData = [];
 // 사람이 접속할때마다 1 식 증가합니다.
 let id = 1;
 
+// 플레이어 접속 카운트
+// 메치메이킹용 변수
+// 참조 전달 위함
+class playerCount { constructor() { this.count = 0; } };
+let pCount = new playerCount();
+
+//#endregion 변수들
 
 // on 뒤에 붙는 문자열과 왜 Json 으로 보내는지에 대한 주석
 //#region
@@ -61,17 +67,19 @@ socket.on("message 또는 close 등등");
 // WinSocket 의 "SOCKET sClient = accept(sListening, ...);" 함수와 같은 기능을 해요. (좀 더 쉬울 뿐이지)
 wsService.on("connection", socket => {
     
+
+    
     // js는 클래스에 없는 변수를 접근하려고 하면 알아서 만들어 줍니다.
     // 엄청난 언어임.
     socket.socketId = id++;
+    clients[socket.socketId] = socket;
     console.log(`클라이언트 접속, id: ${socket.socketId}`);
-    
-    new InitPlayerData(socket);
 
 
     // 클라이언트의 연결이 끊겼을 때 실행됩니다.
     socket.on("close", () => {
         console.log(`클라이언트 접속 종료, id: ${socket.socketId}`);
+        delete clients[socket.socketId];
     });
 
     // 클라이언트에게서 메세지가 도착할때마다 실행됩니다.
@@ -87,8 +95,12 @@ wsService.on("connection", socket => {
             case "login": // 로그인 시
                 // 이 것은 2학기 성과물로
                 // 아레는 디버그 위한 코드들
-                //new LoginHandler(socket, payload);
+                new LoginHandler(socket, payload);
 
+                break;
+            
+            case "matchmaking": // 메치 메이킹 시
+                new MatchMakingHandler(wsService, socket, payload, pCount);
                 break;
             
             case "entry": // 방 입장 시
@@ -96,8 +108,7 @@ wsService.on("connection", socket => {
                 break;
             
             case "gamestart": // 게임 시작 시
-                // 아마도 2학기 성과물로
-                //new InitPlayerData(socket);
+                new InitPlayerData(socket);
                 break;
             
             //#endregion
@@ -116,7 +127,7 @@ wsService.on("connection", socket => {
             //#region 인게임 타입
             
             case "attack": // 공격 시
-                new AttackHandler(socket, payload);
+                new AttackHandler(clients, payload);
                 break;
 
             case "dead": // 사망 시
