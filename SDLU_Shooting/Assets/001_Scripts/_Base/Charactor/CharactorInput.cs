@@ -2,22 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 모든 캐릭터가 상속받는 이동 클레스
+// 모든 캐릭터가 사용하는 이동 클레스
 
 public class CharactorInput : MonoBehaviour
 {
-    [Header("최대 속도")]
-    [SerializeField] protected float maxSpeed = 10.0f;
+    public bool Shoot { get; private set; }
+    public bool Aim { get; private set; }
 
+    public bool Foward { get; private set; }
+    public bool Backward { get; private set; }
+    public bool Left { get; private set; }
+    public bool Right { get; private set; }
+    public bool Up { get; private set; }
+    public bool Down { get; private set; }
+    public bool Run { get; private set; }
 
-
-
-    // TODO : 임시 스크립트
     void Update()
     {
-        if(Input.GetMouseButton(0))
-        {
-            BasicControl.Play(MouseButton.Left);
-        }
+        Shoot = Input.GetMouseButton((int)MouseButton.Left);
+        Aim   = Input.GetMouseButton((int)MouseButton.Right);
+
+        Foward   = Input.GetKey(OptionInput.instance.foward);
+        Backward = Input.GetKey(OptionInput.instance.backward);
+        Left     = Input.GetKey(OptionInput.instance.left);
+        Right    = Input.GetKey(OptionInput.instance.right);
+        Up       = Input.GetKey(OptionInput.instance.up);
+        Down     = Input.GetKey(OptionInput.instance.down);
+        Run      = Input.GetKey(OptionInput.instance.run);
     }
 }

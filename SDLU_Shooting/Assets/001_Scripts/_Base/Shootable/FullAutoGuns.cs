@@ -11,8 +11,10 @@ public class FullAutoGuns : Shootable
     public bool Burst { get; protected set; }    // 점사
     public bool Semi { get; protected set; }     // 단발
 
-    public float lastFireTime = 0;
+    private float lastFireTime = 0; // 총 발사 속도 용도
 
+    [SerializeField] private float pushbackDecrease = 80.0f; // 작용 반작용 효과 용
+    
 
     // TODO : 엄청난 SRP 위반
     // 추후에 나누어 두겟스빈다.
@@ -30,7 +32,7 @@ public class FullAutoGuns : Shootable
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * launchForce, ForceMode.Impulse);
         
         // 작용 반작용
-        GameManager.instance.playerRigid.AddForce(Vector3.back * launchForce / 10.0f, ForceMode.Impulse); // launchForce 그대로 쓰면 미친듯이 플레이어가 날라가니
+        GameManager.instance.playerRigid.AddForce(-transform.forward * launchForce / pushbackDecrease, ForceMode.Impulse); // launchForce 그대로 쓰면 미친듯이 플레이어가 날라가니
     }
 
 
