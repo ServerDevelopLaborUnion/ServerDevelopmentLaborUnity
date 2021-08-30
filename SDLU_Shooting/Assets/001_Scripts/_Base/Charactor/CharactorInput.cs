@@ -6,11 +6,18 @@ using UnityEngine;
 
 public class CharactorInput : MonoBehaviour
 {
-    
+    [Header("최대 속도")]
+    [SerializeField] protected float maxSpeed = 10.0f;
 
 
+
+
+    // TODO : 임시 스크립트
     void Update()
     {
-        
+        if(Input.GetMouseButton(0))
+        {
+            BasicControl.Play(MouseButton.Left);
+        }
     }
 }
