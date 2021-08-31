@@ -16,6 +16,8 @@ public class FullAutoGuns : Shootable
     [SerializeField] private float pushbackDecrease = 80.0f; // 작용 반작용 효과 용
     
 
+    [SerializeField] private CharactorInput input = null;
+
     // TODO : 엄청난 SRP 위반
     // 추후에 나누어 두겟스빈다.
     protected override void Shoot() // 총 발사
@@ -27,17 +29,25 @@ public class FullAutoGuns : Shootable
 
         // 총알을 가져옴
         GameObject bullet = Instantiate(projectile, fireTrm.position, GameManager.instance.player.rotation, GameManager.instance.player); // TODO : Needs pooling
-
+        bullet.transform.rotation = Quaternion.Euler(bullet.transform.rotation.x + 90.0f, bullet.transform.rotation.y, bullet.transform.rotation.z); // 총알 방향 지대로 설정
         // 총알을 발사함
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * launchForce, ForceMode.Impulse);
         
         // 작용 반작용
         GameManager.instance.playerRigid.AddForce(-transform.forward * launchForce / pushbackDecrease, ForceMode.Impulse); // launchForce 그대로 쓰면 미친듯이 플레이어가 날라가니
+
+        // 반동
+        float xRecoil = Random.Range(minRecoil, maxRecoil);
+        float yRecoil = Random.Range(-minRecoil, minRecoil);
+
+        GameManager.instance.playerRigid.rotation *= Quaternion.Euler(GameManager.instance.playerRigid.rotation.x - xRecoil, GameManager.instance.playerRigid.rotation.y + yRecoil, GameManager.instance.playerRigid.rotation.z);
     }
 
-
-    private void Start()
+    private void Update()
     {
-        BasicControl.AddCharactorAction(MouseButton.Left, Shoot);
+        if(input.Shoot)
+        {
+            Shoot();
+        }
     }
 }

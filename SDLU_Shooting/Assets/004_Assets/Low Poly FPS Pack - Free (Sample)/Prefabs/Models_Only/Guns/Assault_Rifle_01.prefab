@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 778918848}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778918847}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: 0.43}
+  m_LocalPosition: {x: 0, y: 0.01, z: -0.032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4398818239886518}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 4855779723070608}
   - component: {fileID: 33956013492418462}
   - component: {fileID: 23055741742906218}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Assault_Rifle_01_Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 4111954246492966}
   - component: {fileID: 33029372708599344}
   - component: {fileID: 23903626206078244}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Assault_Rifle_01_Iron_Sights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 4688580131535408}
   - component: {fileID: 33200716571164942}
   - component: {fileID: 23187835727001738}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Assault_Rifle_01_Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,8 @@ GameObject:
   - component: {fileID: 33934467893997080}
   - component: {fileID: 23294498579475270}
   - component: {fileID: 289253605}
-  m_Layer: 0
+  - component: {fileID: 647133373}
+  m_Layer: 6
   m_Name: Assault_Rifle_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,10 +372,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6cd810b18e6198cab53368a4644bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
+  projectile: {fileID: 4448162029078408209, guid: 08bcbe6fcda8c7b3abdf5f4f46b55bcc, type: 3}
   fireTrm: {fileID: 778918848}
   launchForce: 20
-  maxAmmo: 30
-  fireInterval: 0.25
+  maxAmmo: 100
+  fireInterval: 0.1
   reloadDuration: 2
-  lastFireTime: 0
+  pushbackDecrease: 80
+  input: {fileID: 0}
+--- !u!95 &647133373
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719131515888008}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 425d06488e4cf5d4b92a88cdc9ff35b2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

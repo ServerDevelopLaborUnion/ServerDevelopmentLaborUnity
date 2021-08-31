@@ -14,6 +14,10 @@ abstract public class Shootable : MonoBehaviour
 
     [Header("총알 발사 힘")]
     [SerializeField] protected float launchForce = 20.0f;
+    
+    [Header("반동")]
+    [SerializeField] protected float maxRecoil = 1.0f;
+    [SerializeField] protected float minRecoil = 0.8f;
 
     [Header("탄창 용량")]
     [SerializeField] protected int maxAmmo = 0;

@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharactorMove : MonoBehaviour
+public partial class CharactorMove : MonoBehaviour
 {
     private CharactorInput input = null;
     private Rigidbody rigid = null;
 
     [Header("이동 속도")]
     [SerializeField] private float speed = 2.0f;
+
+    [Header("최대 속도")]
+    [SerializeField] private float   maxVelocity       = 10.0f;
+
+    [Header("회전 속도")]
+    [SerializeField] private float rotateSpeed = 2.0f;
+
+
 
     private void Awake()
     {
@@ -18,15 +26,47 @@ public class CharactorMove : MonoBehaviour
 
     private void Update()
     {
-        if(input.Run)
+        Move();
+        Rotation();
+        ClipVecocity();
+    }
+
+
+
+    private void ClipVecocity() // 가속도 제한
+    {
+        rigid.velocity = Vector3.ClampMagnitude(rigid.velocity, maxVelocity); // TODO : 속도가 낮을 때 클램프
+    }
+
+
+}
+
+public partial class CharactorMove : MonoBehaviour
+{
+    private void Rotation()
+    {
+        float x = Input.GetAxis("Mouse X") * OptionInput.instance.mouseSensitivity;
+        float y = Input.GetAxis("Mouse Y") * OptionInput.instance.mouseSensitivity;
+        float z = 0;
+
+        if(input.RollLeft)
         {
-            speed *= 1.2f; // TODO : 바꿔야 함
+            z = rotateSpeed * Time.deltaTime;
         }
-        else
+        if(input.RollRight)
         {
-            speed *= 0.8f; // TODO : 바꿔야 함
+            z = -rotateSpeed * Time.deltaTime;
         }
 
+        rigid.rotation *= Quaternion.Euler(new Vector3(-y, x, z));
+    }
+}
+
+// 이동 함수들
+public partial class CharactorMove : MonoBehaviour
+{
+     private void Move()
+     {
         if(input.Foward)
         {
             Foward();
@@ -52,7 +92,8 @@ public class CharactorMove : MonoBehaviour
         {
             Down();
         }
-    }
+     }
+
 
 
     // 이동 함수들

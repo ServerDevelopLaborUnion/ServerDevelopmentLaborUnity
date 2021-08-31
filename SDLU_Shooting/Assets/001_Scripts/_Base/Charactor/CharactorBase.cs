@@ -7,13 +7,5 @@ using UnityEngine;
 abstract public class CharactorBase : MonoBehaviour
 {
     public bool IsRemote { get; set; }
-    
-    protected Rigidbody rigid = null; // 이동 위한
-
-
-    protected virtual void Awake()
-    {
-        rigid = GetComponent<Rigidbody>();
-    }
 
 }

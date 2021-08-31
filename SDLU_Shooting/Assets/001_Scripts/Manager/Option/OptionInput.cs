@@ -31,6 +31,8 @@ public class OptionInput : MonoBehaviour
     public KeyCode right          = KeyCode.D;            // 오른쪽으로 가는 키
     public KeyCode up             = KeyCode.Space;        // 상승 키
     public KeyCode down           = KeyCode.LeftControl;  // 하강 키
+    public KeyCode rollLeft       = KeyCode.Q;            // 왼쪽 회전 키
+    public KeyCode rollRight      = KeyCode.E;            // 오른쪽 회전 키
     public KeyCode run            = KeyCode.LeftShift;    // 달리기 키
     public KeyCode walk           = KeyCode.LeftAlt;      // 걷기 키
     // 캐릭터 이동
