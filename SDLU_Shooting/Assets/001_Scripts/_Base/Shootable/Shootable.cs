@@ -41,6 +41,8 @@ abstract public class Shootable : MonoBehaviour
 
     protected virtual void Reload() // 재장전 시작
     {
+        if(reloading) return;
+        
         reloading = true;
 
         Invoke(nameof(OnReloadFinish), reloadDuration);

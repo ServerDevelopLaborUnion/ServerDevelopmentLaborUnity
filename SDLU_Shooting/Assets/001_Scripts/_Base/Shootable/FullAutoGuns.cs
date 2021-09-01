@@ -22,19 +22,19 @@ public class FullAutoGuns : Shootable
     // 추후에 나누어 두겟스빈다.
     protected override void Shoot() // 총 발사
     {
-        if(ammo <= 0 || Time.time < lastFireTime + fireInterval) return; // 총알이 없거나 아직 발사 텀이 안 됬을 때
+        if(reloading || ammo <= 0 || Time.time < lastFireTime + fireInterval) return; // 총알이 없거나 아직 발사 텀이 안 됬을 때
         --ammo;
 
         lastFireTime = Time.time; // 마지막 발사 시간을 현제 시간으로
 
         // 총알을 가져옴
-        GameObject bullet = Instantiate(projectile, fireTrm.position, GameManager.instance.player.rotation, GameManager.instance.player); // TODO : Needs pooling
-        bullet.transform.rotation = Quaternion.Euler(bullet.transform.rotation.x + 90.0f, bullet.transform.rotation.y, bullet.transform.rotation.z); // 총알 방향 지대로 설정
+        GameObject bullet = BulletPool.Get();
+
         // 총알을 발사함
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * launchForce, ForceMode.Impulse);
-        
-        // 작용 반작용
-        GameManager.instance.playerRigid.AddForce(-transform.forward * launchForce / pushbackDecrease, ForceMode.Impulse); // launchForce 그대로 쓰면 미친듯이 플레이어가 날라가니
+
+        // reaction
+        ReactionManager.Reaction(GameManager.instance.playerRigid, launchForce, pushbackDecrease);
 
         // 반동
         float xRecoil = Random.Range(minRecoil, maxRecoil);
@@ -43,11 +43,21 @@ public class FullAutoGuns : Shootable
         GameManager.instance.playerRigid.rotation *= Quaternion.Euler(GameManager.instance.playerRigid.rotation.x - xRecoil, GameManager.instance.playerRigid.rotation.y + yRecoil, GameManager.instance.playerRigid.rotation.z);
     }
 
+    protected override void Reload()
+    {
+        base.Reload();
+    }
+
     private void Update()
     {
         if(input.Shoot)
         {
             Shoot();
+        }
+        
+        if(input.Reload)
+        {
+            Reload();
         }
     }
 }

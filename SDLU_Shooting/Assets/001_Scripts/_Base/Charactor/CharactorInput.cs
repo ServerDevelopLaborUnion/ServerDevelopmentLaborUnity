@@ -18,6 +18,7 @@ public class CharactorInput : MonoBehaviour
     public bool RollLeft  { get; private set; }
     public bool RollRight { get; private set; }
     public bool Run       { get; private set; }
+    public bool Reload    { get; private set; }
 
     void Update()
     {
@@ -33,5 +34,7 @@ public class CharactorInput : MonoBehaviour
         RollLeft  = Input.GetKey(OptionInput.instance.rollLeft);
         RollRight = Input.GetKey(OptionInput.instance.rollRight);
         Run       = Input.GetKey(OptionInput.instance.run);
+
+        Reload    = Input.GetKey(OptionInput.instance.reload);
     }
 }

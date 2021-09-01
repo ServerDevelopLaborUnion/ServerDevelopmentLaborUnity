@@ -10,8 +10,8 @@ public partial class CharactorMove : MonoBehaviour
     [Header("이동 속도")]
     [SerializeField] private float speed = 2.0f;
 
-    [Header("최대 속도")]
-    [SerializeField] private float   maxVelocity       = 10.0f;
+    // [Header("최대 속도")]
+    // [SerializeField] private float maxVelocity = 10.0f;
 
     [Header("회전 속도")]
     [SerializeField] private float rotateSpeed = 2.0f;
@@ -28,15 +28,15 @@ public partial class CharactorMove : MonoBehaviour
     {
         Move();
         Rotation();
-        ClipVecocity();
+        //ClipVecocity();
     }
 
 
 
-    private void ClipVecocity() // 가속도 제한
-    {
-        rigid.velocity = Vector3.ClampMagnitude(rigid.velocity, maxVelocity); // TODO : 속도가 낮을 때 클램프
-    }
+    // private void ClipVecocity() // 가속도 제한
+    // {
+    //     rigid.velocity = Vector3.ClampMagnitude(rigid.velocity, maxVelocity); // TODO : 속도가 낮을 때 클램프
+    // }
 
 
 }
