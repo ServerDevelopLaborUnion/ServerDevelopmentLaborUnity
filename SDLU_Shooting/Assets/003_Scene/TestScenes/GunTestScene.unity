@@ -445,6 +445,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 18071273}
     - target: {fileID: 289253605, guid: 33f6247810b654041bccca4adbd93f45, type: 3}
+      propertyPath: maxAmmo
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 289253605, guid: 33f6247810b654041bccca4adbd93f45, type: 3}
       propertyPath: reloadDuration
       value: 0.75
       objectReference: {fileID: 0}

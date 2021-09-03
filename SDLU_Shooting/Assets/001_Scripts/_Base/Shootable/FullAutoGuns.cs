@@ -11,10 +11,7 @@ public class FullAutoGuns : Shootable
     public bool Burst { get; protected set; }    // 점사
     public bool Semi { get; protected set; }     // 단발
 
-    private float lastFireTime = 0; // 총 발사 속도 용도
 
-    [SerializeField] private float pushbackDecrease = 80.0f; // 작용 반작용 효과 용
-    
 
     [SerializeField] private CharactorInput input = null;
 
@@ -22,25 +19,15 @@ public class FullAutoGuns : Shootable
     // 추후에 나누어 두겟스빈다.
     protected override void Shoot() // 총 발사
     {
-        if(reloading || ammo <= 0 || Time.time < lastFireTime + fireInterval) return; // 총알이 없거나 아직 발사 텀이 안 됬을 때
-        --ammo;
+        if(Fireable()) { return; } // 총알이 없거나 아직 발사 텀이 안 됬을 때
 
         lastFireTime = Time.time; // 마지막 발사 시간을 현제 시간으로
 
-        // 총알을 가져옴
-        GameObject bullet = BulletPool.Get();
+        base.Shoot(); // 발사
+        Recoil();
 
-        // 총알을 발사함
-        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * launchForce, ForceMode.Impulse);
-
-        // reaction
+        // 반작용
         ReactionManager.Reaction(GameManager.instance.playerRigid, launchForce, pushbackDecrease);
-
-        // 반동
-        float xRecoil = Random.Range(minRecoil, maxRecoil);
-        float yRecoil = Random.Range(-minRecoil, minRecoil);
-
-        GameManager.instance.playerRigid.rotation *= Quaternion.Euler(GameManager.instance.playerRigid.rotation.x - xRecoil, GameManager.instance.playerRigid.rotation.y + yRecoil, GameManager.instance.playerRigid.rotation.z);
     }
 
     protected override void Reload()
