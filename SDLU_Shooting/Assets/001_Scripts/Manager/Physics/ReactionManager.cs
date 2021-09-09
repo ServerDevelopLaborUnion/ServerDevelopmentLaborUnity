@@ -15,7 +15,6 @@ public class ReactionManager : MonoBehaviour
 
     ///<summary>
     ///Adds reaction force to target,
-    ///default force direction is back.
     ///</summary>
     ///<param name="target">target you want to add reaction force</param>
     ///<param name="force">reaction force</param>
@@ -24,4 +23,17 @@ public class ReactionManager : MonoBehaviour
     {
         target.AddForce(-target.transform.forward * force / decreaseAmount, ForceMode.Impulse);
     }
+
+    ///<summary>
+    ///Adds reaction force to target,
+    ///</summary>
+    ///<param name="target">target you want to add reaction force</param>
+    ///<param name="force">reaction force</param>
+    ///<param name="direction">direction you want to add reaction force</param>
+    ///<param name="decreaseAmount">reaction force / decreaseAmount</param>
+    static public void Reaction(Rigidbody target, float force, Vector3 direction, float decreaseAmount = 1.0f)
+    {
+        target.AddForce(direction * force / decreaseAmount, ForceMode.Impulse);
+    }
+    
 }

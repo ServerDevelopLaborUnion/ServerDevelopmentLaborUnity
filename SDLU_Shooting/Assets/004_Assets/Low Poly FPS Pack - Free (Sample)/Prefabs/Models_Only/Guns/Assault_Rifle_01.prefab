@@ -1,50 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &778918847
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 778918848}
-  - component: {fileID: 2033247599}
-  m_Layer: 6
-  m_Name: FirePosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &778918848
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 778918847}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: -0.032}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4398818239886518}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2033247599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 778918847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b8fd11aa8b3f996c8af820c0db2c942, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4448162029078408209, guid: 08bcbe6fcda8c7b3abdf5f4f46b55bcc, type: 3}
-  instnaceCount: 31
 --- !u!1 &1155008502347162
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +279,6 @@ Transform:
   - {fileID: 4855779723070608}
   - {fileID: 3168133663836192125}
   - {fileID: 4688580131535408}
-  - {fileID: 778918848}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -390,14 +344,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 4448162029078408209, guid: 08bcbe6fcda8c7b3abdf5f4f46b55bcc, type: 3}
-  fireTrm: {fileID: 778918848}
+  fireTrm: {fileID: 0}
   launchForce: 50
+  pushbackDecrease: 120
   maxRecoil: 1.2
   minRecoil: 0.8
   maxAmmo: 100
   fireInterval: 0.1
   reloadDuration: 2
-  pushbackDecrease: 120
   input: {fileID: 0}
 --- !u!114 &4653359008911741574
 MonoBehaviour:
