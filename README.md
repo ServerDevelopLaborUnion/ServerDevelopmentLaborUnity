@@ -11,7 +11,16 @@
 * * *
 
 ## 폴더
-* FPS_Base
+
+* Class
+	* 동아리 시간에 유니티를 사용해서 만들고 있는 간단한 채팅 프로그램
+
+* SDLU_Shooting
+	* 동아리 3 ~ 4차 성과물로 개발된 예정인 프로젝트
+
+* * *
+
+* FPS_Base (Archive 로 이동됨)
 	* 동아리 3차 성과물로 개발될 예정인 프로젝트
 
 * ShootingGame (Archive 로 이동됨)
