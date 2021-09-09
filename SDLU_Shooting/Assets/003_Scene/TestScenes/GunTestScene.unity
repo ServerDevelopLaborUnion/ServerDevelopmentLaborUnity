@@ -224,6 +224,7 @@ Transform:
   - {fileID: 1266779981}
   - {fileID: 1616865969}
   - {fileID: 1135297694}
+  - {fileID: 1800836635}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
@@ -469,11 +470,15 @@ PrefabInstance:
     - target: {fileID: 289253605, guid: 33f6247810b654041bccca4adbd93f45, type: 3}
       propertyPath: defaultPos
       value: 
-      objectReference: {fileID: 1616865969}
+      objectReference: {fileID: 1800836635}
     - target: {fileID: 289253605, guid: 33f6247810b654041bccca4adbd93f45, type: 3}
       propertyPath: GunPosition
       value: 
       objectReference: {fileID: 1616865969}
+    - target: {fileID: 289253605, guid: 33f6247810b654041bccca4adbd93f45, type: 3}
+      propertyPath: aimingDuration
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 1719131515888008, guid: 33f6247810b654041bccca4adbd93f45, type: 3}
       propertyPath: m_Name
       value: Assault_Rifle_01
@@ -1246,7 +1251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1616865969}
   m_Layer: 0
-  m_Name: WeaponPosition
+  m_Name: AK47
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1375,6 +1380,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27aca441b642b54ea9d191f3c1f86b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1800836634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1800836635}
+  m_Layer: 0
+  m_Name: DefaultPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1800836635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800836634}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.35600004, y: 0.232, z: 1.311}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 18071272}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2043224825
 GameObject:
   m_ObjectHideFlags: 0

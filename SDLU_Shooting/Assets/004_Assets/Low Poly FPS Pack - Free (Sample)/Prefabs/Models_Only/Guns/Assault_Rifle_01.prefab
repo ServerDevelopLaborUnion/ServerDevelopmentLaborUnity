@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 0}
+  gunCamrea: {fileID: 0}
   projectile: {fileID: 4448162029078408209, guid: 08bcbe6fcda8c7b3abdf5f4f46b55bcc, type: 3}
   fireTrm: {fileID: 621010420}
   launchForce: 50
@@ -404,6 +405,8 @@ MonoBehaviour:
   aimPos: {fileID: 0}
   defaultPos: {fileID: 0}
   GunPosition: {fileID: 0}
+  gunCameraAimFoV: 16.5
+  gunCameraDefaultFoV: 45
 --- !u!114 &4653359008911741574
 MonoBehaviour:
   m_ObjectHideFlags: 0
