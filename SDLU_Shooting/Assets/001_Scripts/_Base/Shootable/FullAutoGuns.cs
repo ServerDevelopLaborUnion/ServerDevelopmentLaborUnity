@@ -11,12 +11,6 @@ public class FullAutoGuns : Shootable
     public bool Burst { get; protected set; }    // 점사
     public bool Semi { get; protected set; }     // 단발
 
-
-
-    [SerializeField] private CharactorInput input = null;
-
-    // TODO : 엄청난 SRP 위반
-    // 추후에 나누어 두겟스빈다.
     protected override void Shoot() // 총 발사
     {
         if(Fireable()) { return; } // 총알이 없거나 아직 발사 텀이 안 됬을 때

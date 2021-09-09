@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2639254195802047557}
   - component: {fileID: 2889660170921014444}
   - component: {fileID: -3539101586100649053}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,8 +111,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.013895588, y: 0.09211148, z: 0.013895591}
-  m_Center: {x: -2.3283064e-10, y: 0.008117119, z: -0.000000013969839}
+  m_Size: {x: 0.013895588, y: 0.023519907, z: 0.013895591}
+  m_Center: {x: 1.2264038e-20, y: 0.042412907, z: -0.000000013969841}
 --- !u!114 &-3539101586100649053
 MonoBehaviour:
   m_ObjectHideFlags: 0

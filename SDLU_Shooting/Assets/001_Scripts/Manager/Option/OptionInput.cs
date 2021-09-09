@@ -8,8 +8,8 @@ using UnityEngine;
 public enum MouseButton // 마우스 버튼
 {
     Left = 0,
-    Middle = 1,
-    Right = 2
+    Middle = 2,
+    Right = 1
 }
 
 [Serializable] // 저장을 위한
