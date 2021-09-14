@@ -78,6 +78,7 @@ public class SocketClient : MonoBehaviour
             msgQueue.Enqueue(message.Data);
         }
     
+    
     }
 
     private void Update()
