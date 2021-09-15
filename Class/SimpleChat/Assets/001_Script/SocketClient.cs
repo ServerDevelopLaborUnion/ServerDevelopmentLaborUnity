@@ -6,14 +6,14 @@ using WebSocketSharp;
 
 public class SocketClient : MonoBehaviour
 {
+    private static SocketClient inst;
+
     WebSocket ws;
 
     string addr = "ws://localhost"; // 주소
     int port = 32000; // 포트
 
-    public InputField 사용자_입력; // 사용자 입력
-    public Button btnSend; // 보내기 버튼
-    public Text textBox; // 메세지가 표시될 텍스트
+
 
     private Queue<string> msgQueue = new Queue<string>(); // 받은 메세지를 모두 넣어줄것
 
@@ -37,6 +37,8 @@ public class SocketClient : MonoBehaviour
 
     private void Awake()
     {
+        inst = this;
+
         ws = new WebSocket($"{addr}:{port}"); // 새 웹소켓 인스턴스를 만듬
         // ws://localhost:32000
 
@@ -62,24 +64,13 @@ public class SocketClient : MonoBehaviour
         {
             msgQueue.Enqueue(message.Data);
         }
+        
     
     }
 
-    private void Update()
+    static public void Send(string msg)
     {
-        if(msgQueue.Count != 0)
-        {
-            lock(lockObj)
-            {
-                textBox.text = string.Concat(msgQueue.Dequeue() + "\r\n", textBox.text);
-            }
-        }
-    }
-
-    private void SendMessage()
-    {
-        string data = 사용자_입력.text;
-        ws.Send(data);
+        inst.ws.Send(msg); // 대신 보내드리는 함수
     }
 
 
