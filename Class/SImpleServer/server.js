@@ -13,6 +13,15 @@ wsServer.on("connection", socket => {
     socket.on("message", data => {
         console.log(data.toString());
 
+        const { type, payload } = JSON.parse(data); // 설명해야함?
+        
+        switch (type)
+        {
+            case "nickname":
+                socket.nickname = payload;
+                break;
+        }
+
         broadcast(data.toString());
     });
 
