@@ -15,6 +15,8 @@ public class SocketClient : MonoBehaviour
 
     private object lockObj = new object(); // Critical session 보호 용도
 
+    static public SocketClient instnace;
+
     // c++
     /*
     CRITICAL_SESSION cs;
@@ -48,7 +50,9 @@ public class SocketClient : MonoBehaviour
             inst.RecvData((WebSocket)socket, e);
         };
 
-        inst.ws.Send("클라 등장");
+        //inst.ws.Send("클라 등장");
+
+        
     }
 
     // 웹소켓 스레드에서 돌림

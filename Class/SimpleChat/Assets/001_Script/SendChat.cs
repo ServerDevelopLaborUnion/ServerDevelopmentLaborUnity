@@ -16,7 +16,9 @@ public class SendChat : MonoBehaviour
     {
         btnSend.onClick.AddListener(() =>
         {
-             SocketClient.Send(inputChat.text);
+            DataVO vo = new DataVO("msg", inputChat.text);
+
+            SocketClient.Send(JsonUtility.ToJson(vo));
         });
     }
 

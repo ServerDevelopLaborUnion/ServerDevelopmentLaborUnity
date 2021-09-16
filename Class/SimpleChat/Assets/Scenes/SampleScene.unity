@@ -1266,6 +1266,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1285273752}
   - component: {fileID: 1285273751}
+  - component: {fileID: 1285273754}
+  - component: {fileID: 1285273753}
   m_Layer: 0
   m_Name: SocketClient
   m_TagString: Untagged
@@ -1285,9 +1287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d81bb9abde6cdfdc87908803996f31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "\uC0AC\uC6A9\uC790_\uC785\uB825": {fileID: 172831282}
-  btnSend: {fileID: 843151253}
-  textBox: {fileID: 1344132680}
 --- !u!4 &1285273752
 Transform:
   m_ObjectHideFlags: 0
@@ -1302,6 +1301,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1285273753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285273750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2e2ac0bb5a702c4abfa9fa5338ced15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputChat: {fileID: 172831282}
+  btnSend: {fileID: 843151253}
+  textBox: {fileID: 1344132680}
+--- !u!114 &1285273754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285273750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f749cd44510244d963a88dd3a19cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nickname: {fileID: 811840404}
+  btnSend: {fileID: 1935273041}
 --- !u!1 &1344132678
 GameObject:
   m_ObjectHideFlags: 0

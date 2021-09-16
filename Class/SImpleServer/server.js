@@ -1,4 +1,4 @@
-import { WebSocketServer } from "ws";
+import { createWebSocketStream, WebSocketServer } from "ws";
 
 const port = 32000;
 
@@ -13,16 +13,24 @@ wsServer.on("connection", socket => {
     socket.on("message", data => {
         console.log(data.toString());
 
-        const { type, payload } = JSON.parse(data); // 설명해야함?
-        
-        switch (type)
-        {
-            case "nickname":
-                socket.nickname = payload;
-                break;
+        try {
+            const { type, payload } = JSON.parse(data);
+
+            switch (type) {
+                case "nickname":
+                    socket.nickname = payload;
+                    break;
+                
+                case "msg":
+                    broadcast(`${socket.nickname}: ${payload}`); // C# => $"{var}";
+                    break;
+            }
+
+        }
+        catch (e) {
+            console.log(e);
         }
 
-        broadcast(data.toString());
     });
 
 });
