@@ -5,16 +5,24 @@ using UnityEngine.UI;
 
 public class SendChat : MonoBehaviour
 {
-    public InputField inputChat; // »ç¿ëÀÚ ÀÔ·Â
-    public Button btnSend; // º¸³»±â ¹öÆ°
-    public Text textBox; // ¸Þ¼¼Áö°¡ Ç¥½ÃµÉ ÅØ½ºÆ®
+    public InputField inputChat; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½
+    public Button btnSend; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+    public Text textBox; // ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½Ãµï¿½ ï¿½Ø½ï¿½Æ®
+    static private Queue<string> msgQueue = new Queue<string>(); // ë°›ì€ ë©”ì„¸ì§€ë¥¼ ëª¨ë‘ ë„£ì–´ì¤„ê²ƒ
+
+    private object lockObj = new object(); // Critical session ë³´í˜¸ ìš©ë„
 
     private void Start()
     {
         btnSend.onClick.AddListener(() =>
         {
-            Send(inputChat.text);
+             SocketClient.Send(inputChat.text);
         });
+    }
+
+    static public void HandleMessage(string msg)
+    {
+        msgQueue.Enqueue(msg);
     }
 
     private void Update()

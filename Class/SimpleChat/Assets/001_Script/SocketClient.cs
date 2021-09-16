@@ -13,10 +13,6 @@ public class SocketClient : MonoBehaviour
     string addr = "ws://localhost"; // 주소
     int port = 32000; // 포트
 
-
-
-    private Queue<string> msgQueue = new Queue<string>(); // 받은 메세지를 모두 넣어줄것
-
     private object lockObj = new object(); // Critical session 보호 용도
 
     // c++
@@ -38,20 +34,21 @@ public class SocketClient : MonoBehaviour
     private void Awake()
     {
         inst = this;
+    }
 
-        ws = new WebSocket($"{addr}:{port}"); // 새 웹소켓 인스턴스를 만듬
+    static public void Connect()
+    {
+        inst.ws = new WebSocket($"{inst.addr}:{inst.port}"); // 새 웹소켓 인스턴스를 만듬
         // ws://localhost:32000
 
-        ws.Connect();
+        inst.ws.Connect();
 
-        ws.OnMessage += (socket, e) =>
+        inst.ws.OnMessage += (socket, e) =>
         {
-            RecvData((WebSocket)socket, e);
+            inst.RecvData((WebSocket)socket, e);
         };
 
-        ws.Send("클라 등장");
-
-        btnSend.onClick.AddListener(SendMessage);
+        inst.ws.Send("클라 등장");
     }
 
     // 웹소켓 스레드에서 돌림
@@ -62,7 +59,7 @@ public class SocketClient : MonoBehaviour
         
         lock(lockObj)
         {
-            msgQueue.Enqueue(message.Data);
+            SendChat.HandleMessage(message.Data);
         }
         
     
