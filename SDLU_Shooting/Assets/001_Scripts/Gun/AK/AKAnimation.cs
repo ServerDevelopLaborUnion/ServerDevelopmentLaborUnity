@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AKAnimation : MonoBehaviour
 {
-    private Animator anim = null; // 에니메이션
-    private CharactorInput input = null; // 키 입력
+    [SerializeField] private Animator anim = null; // 에니메이션
     private FullAutoGuns gun = null; // 총 상태
+    private CharactorInput input = null; // 키 입력
 
     // 이렇게 하면 조금 더 빨라집니다.
     private readonly int fireHash   = Animator.StringToHash("Fire"); 
@@ -15,7 +15,6 @@ public class AKAnimation : MonoBehaviour
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
         gun = GetComponent<FullAutoGuns>();
     }
 

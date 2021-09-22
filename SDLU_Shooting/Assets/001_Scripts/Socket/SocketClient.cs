@@ -60,7 +60,14 @@ public class SocketClient : MonoBehaviour
     ///</summary>
     static public void Send(DataVO vo)
     {
-        inst.ws.Send(JsonUtility.ToJson(vo));
+        try
+        {
+            inst.ws.Send(JsonUtility.ToJson(vo));
+        }
+        catch(System.Exception e)
+        {
+            Debug.LogError($"서버에 메세지를 보내는 중 오류가 발생했어요.\r\n{e.Message}\r\n{e.StackTrace}");
+        }
     }
 
 #endregion

@@ -34,24 +34,18 @@ abstract public class Shootable : MonoBehaviour
     [Header("조준")]
     [SerializeField] protected float     aimMultiplier       = 1.25f;        // 조준 배율
     [SerializeField] protected float     aimingDuration      = 1.0f;         // 조준 시간
-    [SerializeField] private   Transform aimPos              = null;         // 조준 포지션
-                     private   Vector3   aimVector           = Vector3.zero; // 조준 위치
-    [SerializeField] private   Transform defaultPos          = null;         // 일반 포지션
-                     private   Vector3   idleVector          = Vector3.zero; // 일반 위치
-    [SerializeField] private   Transform GunPosition         = null;         // 현재 총의 위치
-    [SerializeField] private   float     gunCameraAimFoV     = 16.5f;        // 총 카메라 조준 FoV
-    [SerializeField] private   float     gunCameraDefaultFoV = 45.0f;        // 총 카메라 일반 FoV
-                     private   float     camDefaultFoV       = 85.0f;        // 일반 FoV
-                     private   float     camAimFoV;                          // 조준 FoV
 
+    static public event System.Action<float> OnAim; // 조준 상태에 따라 t 가 전달될 것
+    static public event System.Action OnReloaded; // 재장전 끝났다면 호출
+    static public event System.Action OnFire; // 발사 시 호출
 
     protected virtual void Awake()
     {
-        ammo      = maxAmmo;
-        camAimFoV = camDefaultFoV / aimMultiplier; // 매번 연산하기 싫어서 흠흠
+        ammo = maxAmmo;
 
-        aimVector = aimPos.localPosition;
-        idleVector = defaultPos.localPosition;
+        OnAim      = (t) => { };
+        OnReloaded = () => { };
+        OnFire     = () => { };
 
         StartCoroutine(Aim());
     }
@@ -68,6 +62,8 @@ abstract public class Shootable : MonoBehaviour
 
         // 총알을 발사함
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * launchForce, ForceMode.Impulse);
+
+        OnFire(); // TODO : 반동도 여기서
     } 
 
     protected virtual void Recoil() // 반동
@@ -81,7 +77,7 @@ abstract public class Shootable : MonoBehaviour
                                          GameManager.instance.playerRigid.rotation.z);
     }
 
-    ///<returns>true when unable</returns>
+    ///<returns>true when unable</returns> // TODO : 잠만 뭔가 잘못됬어
     protected virtual bool Fireable()
     {
         return reloading || MagEmpty
@@ -106,11 +102,7 @@ abstract public class Shootable : MonoBehaviour
             t += input.Aim ? (Time.deltaTime / aimingDuration) : -(Time.deltaTime / aimingDuration);
             t  = Mathf.Clamp(t, 0.0f, 1.0f); // 범위 밖에 안 나가게
 
-
-            Camera.main.fieldOfView   = Mathf.Lerp(camDefaultFoV, camAimFoV, t);
-            GunPosition.localPosition = Vector3.Lerp(idleVector, aimVector, t);
-            gunCamrea.fieldOfView     = Mathf.Lerp(gunCameraDefaultFoV, gunCameraAimFoV, t);
-            
+            OnAim(t);
 
             yield return null;
         }
@@ -121,6 +113,8 @@ abstract public class Shootable : MonoBehaviour
         reloading = false;
         ammo      = maxAmmo;
         MagEmpty  = false;
+
+        OnReloaded();
     }
 
 
