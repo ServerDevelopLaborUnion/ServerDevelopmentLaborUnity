@@ -9,12 +9,15 @@ public class GunTransformManager : MonoBehaviour
     private Vector3 aimPos;
     private Vector3 defaultPos;
 
-    [SerializeField] private float shakeAmount = 2.0f;
-    [SerializeField] private float pushbackAmount = 0.2f;
-    [SerializeField] private float recoilAmount = 0.5f;
+    [Header("총기 반동")]
+    [SerializeField] private float shakeAmount  = 2.0f; // z 축 기준 총기 랜덤 회전 크기 ( -shakeAmount ~ +shakeAmount)
+    [SerializeField] private float aimRecoil    = 0.10f; // 조준 시 뒤로 밀리는 반동 ( z 좌표 )
+    [SerializeField] private float freeRecoil   = 0.05f; // 비 조준 시 뒤로 밀리는 반동 ( z 좌표 )
+    [SerializeField] private float recoilAmount = 0.5f; // x 축 기준 총기 반동
 
 
-    private float t = 1.0f; // 총을 기본 위치로 돌리기 위해
+    private float ep = 1.0f; // 총을 기본 위치로 돌리기 위해
+    private float aimStatus = 0.0f; // 1 = 조준, 0 = 비 조준
 
     private void Awake()
     {
@@ -39,30 +42,27 @@ public class GunTransformManager : MonoBehaviour
     void Start()
     {
         Shootable.OnAim += (t1) => {
-            transform.localPosition = Vector3.Lerp(defaultPos, aimPos, t1);
+            aimStatus = t1;
+            transform.localPosition = Vector3.Lerp(defaultPos, aimPos, aimStatus);
         };
 
         Shootable.OnFire += () => {
             gunTrm.localEulerAngles += Vector3.forward * Random.Range(-shakeAmount, shakeAmount); // 좌후 흔들림
-            // gunTrm.localEulerAngles += Vector3.up * Random.Range(-shakeAmount, shakeAmount);
             gunTrm.localEulerAngles += Vector3.left * recoilAmount; // 반동 (위로 들리는)
-            // gunTrm.localEulerAngles += new Vector3(-recoilAmount, Random.Range(-shakeAmount, shakeAmount), Random.Range(-shakeAmount, shakeAmount));
 
-            gunTrm.localPosition    += Vector3.back * pushbackAmount; // 반동 (뒤로 밀리는)
-            t = 0.0f;
+            gunTrm.localPosition    += Vector3.back * Mathf.Lerp(freeRecoil, aimRecoil, aimStatus); // 반동 (뒤로 밀리는)
+            ep = 0.0f;
         };
     }
 
     IEnumerator GunEntropy()
     {
-        
-
         while(true)
         {
-            gunTrm.localPosition    = Vector3.Lerp(gunTrm.localPosition,    Vector3.zero,        t);
-            gunTrm.localRotation    = Quaternion.Lerp(gunTrm.localRotation, Quaternion.identity, t);
+            gunTrm.localPosition    = Vector3.Lerp(gunTrm.localPosition,    Vector3.zero,        ep);
+            gunTrm.localRotation    = Quaternion.Lerp(gunTrm.localRotation, Quaternion.identity, ep);
 
-            t += Time.deltaTime;
+            ep += Time.deltaTime;
 
             yield return null;
         }

@@ -8,7 +8,10 @@ using UnityEngine;
 public class CharactorInput : MonoBehaviour
 {
     public bool Shoot     { get; private set; }
+    public bool StopShoot { get; private set; }
     public bool Aim       { get; private set; }
+    public bool FireMode  { get; private set; }
+
     public bool Foward    { get; private set; }
     public bool Backward  { get; private set; }
     public bool Left      { get; private set; }
@@ -22,8 +25,12 @@ public class CharactorInput : MonoBehaviour
 
     void Update()
     {
-        Shoot = Input.GetMouseButton((int)MouseButton.Left);
-        Aim   = Input.GetMouseButton((int)MouseButton.Right);
+        Shoot     = Input.GetMouseButton((int)MouseButton.Left);
+        Aim       = Input.GetMouseButton((int)MouseButton.Right);
+        StopShoot = Input.GetMouseButtonUp((int)MouseButton.Left);
+        
+        FireMode  = Input.GetKey(OptionInput.instance.firemode);
+        Reload    = Input.GetKey(OptionInput.instance.reload);
 
         Foward    = Input.GetKey(OptionInput.instance.foward);
         Backward  = Input.GetKey(OptionInput.instance.backward);
@@ -35,6 +42,5 @@ public class CharactorInput : MonoBehaviour
         RollRight = Input.GetKey(OptionInput.instance.rollRight);
         Run       = Input.GetKey(OptionInput.instance.run);
 
-        Reload    = Input.GetKey(OptionInput.instance.reload);
     }
 }
