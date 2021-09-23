@@ -35,7 +35,7 @@ abstract public class Shootable : MonoBehaviour
 
     static public event System.Action<float> OnAim; // 조준 상태에 따라 t 가 전달될 것
     static public event System.Action OnReloaded; // 재장전 끝났다면 호출
-    static public event System.Action OnFire; // 발사 시 호출
+    static public event System.Action OnFire; // 발사 시 호출 TODO : 초탄 여부를 bool 로 념겨줘야하나
 
     protected virtual void Awake()
     {

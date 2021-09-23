@@ -5,7 +5,7 @@ using UnityEngine;
 public class GunTransformManager : MonoBehaviour
 {
     [SerializeField] private Transform aimTrm = null; // 조준 포지션
-    [SerializeField] private Transform gunTrm = null; // 실제 총 포지션
+    [SerializeField] private Transform gunTrm = null; // 총 모델 포지션
     private Vector3 aimPos;
     private Vector3 defaultPos;
 
@@ -14,6 +14,7 @@ public class GunTransformManager : MonoBehaviour
     [SerializeField] private float aimRecoil    = 0.10f; // 조준 시 뒤로 밀리는 반동 ( z 좌표 )
     [SerializeField] private float freeRecoil   = 0.05f; // 비 조준 시 뒤로 밀리는 반동 ( z 좌표 )
     [SerializeField] private float recoilAmount = 0.5f; // x 축 기준 총기 반동
+    [SerializeField] private float randomAmount = 1.0f; // Random(freeRecoil - this, freeRecoil + this);
 
 
     private float ep = 1.0f; // 총을 기본 위치로 돌리기 위해
@@ -47,10 +48,21 @@ public class GunTransformManager : MonoBehaviour
         };
 
         Shootable.OnFire += () => {
-            gunTrm.localEulerAngles += Vector3.forward * Random.Range(-shakeAmount, shakeAmount); // 좌후 흔들림
-            gunTrm.localEulerAngles += Vector3.left * recoilAmount; // 반동 (위로 들리는)
 
-            gunTrm.localPosition    += Vector3.back * Mathf.Lerp(freeRecoil, aimRecoil, aimStatus); // 반동 (뒤로 밀리는)
+            float gunRotRandAmount = Random.Range(shakeAmount - randomAmount, shakeAmount + randomAmount);
+            float gunPosRandAmount = randomAmount / 10.0f;
+
+            gunTrm.localEulerAngles += Vector3.forward * Random.Range(-gunRotRandAmount, gunRotRandAmount); // 좌후 흔들림
+
+            gunTrm.localEulerAngles += Vector3.left * Random.Range(
+                recoilAmount - gunPosRandAmount,
+                recoilAmount + gunPosRandAmount); // 반동 (위로 들리는)
+
+            gunTrm.localPosition    += Vector3.back * Mathf.Lerp(
+                        Random.Range(freeRecoil - gunPosRandAmount, freeRecoil + gunPosRandAmount),
+                        Random.Range(aimRecoil - gunPosRandAmount, aimRecoil + gunPosRandAmount),
+                        aimStatus); // 반동 (뒤로 밀리는)
+
             ep = 0.0f;
         };
     }
