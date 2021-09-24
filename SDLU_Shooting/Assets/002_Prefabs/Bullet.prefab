@@ -51,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4448162029078408209}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -126,7 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c741e554007dfe95f837fd100cf040c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletDamage: 10
 --- !u!96 &3343729774585212322
 TrailRenderer:
   serializedVersion: 2

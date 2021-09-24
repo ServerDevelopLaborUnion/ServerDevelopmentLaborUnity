@@ -37,11 +37,11 @@ public class SocketClient : MonoBehaviour
             inst.RecvData((WebSocket)socket, e);
         };
 
-        Send(new DataVO("null", "wa sans")); // TODO : Debug code
+        Send(new DataVO("msg", "wa sans")); // TODO : Debug code
     }
     private void RecvData(WebSocket sender, MessageEventArgs message)
     {
-        // TODO : Toss data to bufferhandler
+        BufferHandler.Instance.Handle(message.Data);
         Debug.Log(message.Data);
     }
     
