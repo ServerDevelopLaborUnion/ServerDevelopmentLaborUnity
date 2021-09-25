@@ -1,6 +1,7 @@
 const { WebSocketServer } = require("ws");
 const { parseBuffer } = require("./Utils/ParseBuffer.js");
 const { broadcast } = require("./Utils/Broadcast.js");
+const { DataVO } = require("./VO/DataVO.js")
 
 const port = 32000;
 
@@ -25,7 +26,7 @@ wsServer.on("connection", socket => {
             switch (type)
             {
                 case "msg":
-                    broadcast(wsServer, socket.id, payload);
+                    broadcast(wsServer, socket.id, JSON.stringify(new DataVO("msg", payload)));
                     break;
                 // dictionary 에 저장한 다음 불러오는 것도 나쁘지 않을수도
 

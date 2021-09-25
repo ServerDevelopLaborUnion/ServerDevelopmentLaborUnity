@@ -36,13 +36,11 @@ public class SocketClient : MonoBehaviour
         inst.ws.OnMessage += (socket, e) => {
             inst.RecvData((WebSocket)socket, e);
         };
-
-        Send(new DataVO("msg", "wa sans")); // TODO : Debug code
     }
     private void RecvData(WebSocket sender, MessageEventArgs message)
     {
-        BufferHandler.Instance.Handle(message.Data);
         Debug.Log(message.Data);
+        BufferHandler.Instance.Handle(message.Data);
     }
     
 #region Send Function

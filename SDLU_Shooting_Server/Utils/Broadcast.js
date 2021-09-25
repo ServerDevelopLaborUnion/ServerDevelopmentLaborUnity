@@ -1,9 +1,9 @@
 function broadcast(wsServer, senderid, msg)
 {
     wsServer.clients.forEach(s => {
-        if (senderid != s.id) {
+        //if (senderid != s.id) {
             s.send(msg);    
-        }
+        //}
     });
 }
 

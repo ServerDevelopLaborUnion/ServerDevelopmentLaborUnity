@@ -414,8 +414,9 @@ GameObject:
   m_Component:
   - component: {fileID: 161879978}
   - component: {fileID: 161879979}
+  - component: {fileID: 161879980}
   m_Layer: 0
-  m_Name: Buffers
+  m_Name: BufferHandlers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -445,6 +446,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e7612b5acb86e70aaf1a22b03823af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &161879980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161879977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42b4c73633758847a8c8e391b985f422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &165836113
