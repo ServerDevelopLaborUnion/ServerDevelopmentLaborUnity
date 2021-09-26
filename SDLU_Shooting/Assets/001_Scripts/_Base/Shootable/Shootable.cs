@@ -57,7 +57,7 @@ abstract public class Shootable : MonoBehaviour
         --Ammo;
 
         // 총알을 가져옴
-        GameObject bullet = BulletPool.Get();
+        GameObject bullet = BulletPool.Instance.Get();
 
         // 총알을 발사함
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * launchForce, ForceMode.Impulse);

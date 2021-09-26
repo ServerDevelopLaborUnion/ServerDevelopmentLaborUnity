@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class BulletPool : MonoBehaviour
 {
-    static public BulletPool inst = null; // for static functions
+    static public BulletPool Instance { get; private set; }
 
     [SerializeField] private GameObject bulletPrefab = null;
 
@@ -18,7 +18,11 @@ public class BulletPool : MonoBehaviour
 
     private void Awake()
     {
-        inst = this; // TODO : 잠만 이거 뭔가 문제가 있을 거 같은데
+        if(Instance != null)
+        {
+            Debug.LogWarning("Bulletmaker are running more than one in same scene");
+        }
+        Instance = this; // TODO : 잠만 이거 뭔가 문제가 있을 거 같은데
     }
 
     private void Start()
@@ -51,15 +55,15 @@ public class BulletPool : MonoBehaviour
     ///<summary>
     /// Returns bullet object
     ///</summary>
-    static public GameObject Get() // TODO : 요청한 오브젝트의 좌표와 FirePosition 을 넘겨 줘야 할거 같은데
+    public GameObject Get()
     {
         // This code finds not activated gameobject. When null, it means there is no Object passes the condition.
-        GameObject bullet = inst.pool.Find(x => !x.activeSelf);
+        GameObject bullet = pool.Find(x => !x.activeSelf);
 
         if(bullet == null) // when every bullets in pool are active.
         {
-            bullet = inst.MakeBullet();
-            inst.pool.Add(bullet);
+            bullet = MakeBullet();
+            pool.Add(bullet);
         }
 
         bullet.SetActive(true);
@@ -68,7 +72,7 @@ public class BulletPool : MonoBehaviour
                                                      GameManager.instance.player.rotation.eulerAngles.y,
                                                      GameManager.instance.player.rotation.eulerAngles.z);
 
-        bullet.transform.position = inst.transform.position;
+        bullet.transform.position = transform.position;
         bullet.GetComponent<TrailRenderer>().Clear();
 
         return bullet;

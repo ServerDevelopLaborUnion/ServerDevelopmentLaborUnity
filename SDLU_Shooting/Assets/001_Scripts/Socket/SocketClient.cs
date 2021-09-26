@@ -7,11 +7,15 @@ using WebSocketSharp;
 
 public class SocketClient : MonoBehaviour
 {
-    static SocketClient inst = null;
+    static public SocketClient Instance { get; private set; }
 
     private void Awake()
     {
-        inst = this;
+        if(Instance != null)
+        {
+            Debug.LogWarning("SocketClient are running more than one in same scene");
+        }
+        Instance = this;
 
         Connect("localhost", "32000"); // TODO : Debug code
     }
@@ -19,22 +23,20 @@ public class SocketClient : MonoBehaviour
     private WebSocket ws; // connect 에서 인스턴스 할것
 
 
-
-
-    static public void Connect(string ip, string port) // 나중에는 json 에 있는 파일을 읽어서 ip, url 입력할 필요 없게 해봐도 좋을 듯 함
+    public void Connect(string ip, string port) // 나중에는 json 에 있는 파일을 읽어서 ip, url 입력할 필요 없게 해봐도 좋을 듯 함
     {
-        if(inst.ws != null && inst.ws.IsAlive)
+        if(ws != null && ws.IsAlive)
         {
             Debug.Log("Already Connected to server. aborting");
             return;
         }
 
-        inst.ws = new WebSocket($"ws://{ip}:{port}");
+        ws = new WebSocket($"ws://{ip}:{port}");
 
-        inst.ws.Connect();
+        ws.Connect();
 
-        inst.ws.OnMessage += (socket, e) => {
-            inst.RecvData((WebSocket)socket, e);
+        ws.OnMessage += (socket, e) => {
+            RecvData((WebSocket)socket, e);
         };
     }
     private void RecvData(WebSocket sender, MessageEventArgs message)
@@ -43,31 +45,19 @@ public class SocketClient : MonoBehaviour
         BufferHandler.Instance.Handle(message.Data);
     }
     
-#region Send Function
-
-    ///<summary>
-    ///Sends message to server.
-    ///</summary>
-    static public void Send(string msg)
-    {
-        inst.ws.Send(msg);
-    }
-
     ///<summary>
     ///Automaticly converts DataVO to json, and sends buffer to server.
     ///</summary>
-    static public void Send(DataVO vo)
+    public void Send(DataVO vo)
     {
         try
         {
-            inst.ws.Send(JsonUtility.ToJson(vo));
+            ws.Send(JsonUtility.ToJson(vo));
         }
         catch(System.Exception e)
         {
             Debug.LogError($"서버에 메세지를 보내는 중 오류가 발생했어요.\r\n{e.Message}\r\n{e.StackTrace}");
         }
     }
-
-#endregion
 
 }
