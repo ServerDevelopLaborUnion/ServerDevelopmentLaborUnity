@@ -48,6 +48,14 @@ public class BufferHandler : MonoBehaviour
         try
         {
             vo = JsonUtility.FromJson<DataVO>(data);
+            Debug.Log($"서버로부터 넘어온 메세지:\r\n{data}");
+
+            if(GameManager.instance.playerBase.ID == vo.id)
+            {
+                Debug.Log("자기 자신 데이터\r\n무시");
+                return;
+            }
+
         }
         catch
         {
@@ -78,6 +86,7 @@ public class BufferHandler : MonoBehaviour
             }
 
             // Dictionary 에 추가할 때 값도 필수로 추가하게 되서
+            Debug.Log(vo.type);
             handlerDict[vo.type](vo.payload);
         }
     }

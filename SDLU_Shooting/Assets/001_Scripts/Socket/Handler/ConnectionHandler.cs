@@ -10,9 +10,15 @@ public class ConnectionHandler : MonoBehaviour
 
     private void Start()
     {
-        BufferHandler.Instance.AddHandler("connect", (msg) => {
-            // TODO : setid
-            CharactorBase charactor = Instantiate(player, Vector3.zero, Quaternion.identity).GetComponent<CharactorBase>(); // TODO : 나중에 서버에서 스폰 위치 받아올 수 있음
+        BufferHandler.Instance.AddHandler("init", (data) => {
+            InitVO vo = JsonUtility.FromJson<InitVO>(data);
+            GameManager.instance.playerBase.ID = vo.id;
+        });
+
+        BufferHandler.Instance.AddHandler("connect", (data) => {
+            InitVO vo = JsonUtility.FromJson<InitVO>(data);
+            CharactorBase charactor = Instantiate(GameManager.instance.playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<CharactorBase>();
+            charactor.ID = vo.id;
             charactor.IsRemote = true;
         });
     }

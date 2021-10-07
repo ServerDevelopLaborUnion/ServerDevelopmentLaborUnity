@@ -9,7 +9,7 @@ abstract public class CharactorBase : MonoBehaviour, IDamageable
     public bool IsRemote { get; set; }
 
     protected int hp = 100;
-    protected int id = -1;
+    public int ID { get; set; }
 
     public virtual void OnDamage(int damage)
     {
@@ -19,12 +19,6 @@ abstract public class CharactorBase : MonoBehaviour, IDamageable
         {
             Die();
         }
-    }
-
-
-    public void SetID(int id)
-    {
-        this.id = id;
     }
 
     protected virtual void Die()
