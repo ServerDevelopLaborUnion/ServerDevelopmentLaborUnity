@@ -28,6 +28,10 @@ wsServer.on("connection", socket => {
                 case "msg":
                     broadcast(wsServer, socket.id, JSON.stringify(new DataVO("msg", payload)));
                     break;
+                case "damage":
+                    console.log(payload);
+                    broadcast(wsServer, id, JSON.stringify(new DataVO("damage", payload)));
+                    break;
                 // dictionary 에 저장한 다음 불러오는 것도 나쁘지 않을수도
 
                 default:

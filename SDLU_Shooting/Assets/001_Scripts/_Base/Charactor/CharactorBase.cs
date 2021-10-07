@@ -10,6 +10,8 @@ abstract public class CharactorBase : MonoBehaviour, IDamageable
 
     protected int hp = 100;
 
+    protected int id;
+
     public virtual void OnDamage(int damage)
     {
         hp -= damage;
@@ -18,6 +20,14 @@ abstract public class CharactorBase : MonoBehaviour, IDamageable
         {
             Die();
         }
+
+        SendOnDamage(damage);
+    }
+
+    private void SendOnDamage(int damage)
+    {
+        DataVO damageVO = new DataVO("damage", damage.ToString());
+        SocketClient.Instance.Send(damageVO);
     }
 
     protected virtual void Die()

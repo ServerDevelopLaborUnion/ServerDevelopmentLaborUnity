@@ -415,6 +415,7 @@ GameObject:
   - component: {fileID: 161879978}
   - component: {fileID: 161879979}
   - component: {fileID: 161879980}
+  - component: {fileID: 161879981}
   m_Layer: 0
   m_Name: BufferHandlers
   m_TagString: Untagged
@@ -458,6 +459,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42b4c73633758847a8c8e391b985f422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &161879981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161879977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6291e891a3143cc42996de51f6f8fd37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &165836113
