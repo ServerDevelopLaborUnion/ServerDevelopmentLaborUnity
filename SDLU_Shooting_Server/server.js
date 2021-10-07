@@ -48,7 +48,7 @@ wsServer.on("connection", socket => {
             {
                 switch (type) {
                     case "msg":
-                        broadcast(wsServer, socket.sessionId, JSON.stringify(new DataVO("msg", payload)));
+                        broadcast(wsServer, socket, JSON.stringify(new DataVO("msg", payload)));
                         break;
                     // dictionary 에 저장한 다음 불러오는 것도 나쁘지 않을수도 << (UUID, User) 사전으로 만들어 주세요 ^^7
                     // 일단 뭐 socket 안에 넣어둘게요

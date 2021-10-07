@@ -28,8 +28,10 @@ class UserRecord
      * @param {string} uuid
      */
     constructor(uuid) {
-        // 아래는 DB에서 불러올 정보
         this.uuid = uuid;
+
+        // 아래는 DB에서 불러올 정보
+        
     }
 }
 
