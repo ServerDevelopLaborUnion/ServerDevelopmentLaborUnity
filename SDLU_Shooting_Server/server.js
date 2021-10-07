@@ -60,7 +60,7 @@ wsServer.on("connection", socket => {
     });
 
     socket.on("close", () => {
-        console.log(`${id}: 접속 종료`);
+        console.log(`${socket.user.nickname}: 접속 종료`);
     });
 
 });

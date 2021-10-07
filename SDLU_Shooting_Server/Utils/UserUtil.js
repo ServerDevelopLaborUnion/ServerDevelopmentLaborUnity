@@ -2,6 +2,30 @@ const { User } = require("../Types/Type");
 
 class UserUtil
 {
+    constructor()
+    {
+        this.userDict = {}
+    }
+
+    addUser()
+    {
+
+    }
+
+    removeUser()
+    {
+
+    }
+
+    /**
+     * 접속한 모든 유저 불러오기
+     * @returns {User}
+     */
+    getUsers()
+    {
+
+    }
+
     /**
      * 소켓에서 유저 불러오기
      * @param {WebSocket} socket
@@ -17,7 +41,8 @@ class UserUtil
      * @param {string} uuid
      * @returns {User}
      */
-    getUserByID(wsServer, uuid) {
+    getUserByID(wsServer, uuid) 
+    {
         var user = null;
         wsServer.clients.forEach(socket => {
             if (socket.user.uuid == uuid)

@@ -1,14 +1,22 @@
 class User {
     /**
      * @param {WebSocket} socket
+     * @param {string} sessionId
      * @param {string} uuid
      * @param {string} nickname
+     * @param {number} level
+     * @param {number} exp
      * @param {number} score
      */
-    constructor(socket, uuid, nickname, score) {
+    constructor(socket, sessionId, uuid, nickname, level, exp, score) {
         this.socket = socket;
+        this.sessionId = sessionId;
+
         this.uuid = uuid;
         this.nickname = nickname;
+        this.level = level;
+        this.exp = exp;
+
         this.score = score;
     }
 }

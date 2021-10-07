@@ -24,11 +24,8 @@ class LoginHandler
      */
     Login(socket, payload)
     {
-        /**
-         * @param {User} user
-         */
         socket.user = null;
-        const { id, password } = JSON.parse(payload);;
+        const { id, password } = JSON.parse(payload);
         if (loginCheck(id, password))
         {
             // 어찌저찌 DB에서 유저 데이터 가져오기 ( 일단은 아무 정보나 넣을거임 )
