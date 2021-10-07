@@ -1,12 +1,17 @@
-function broadcast(wsServer, senderid, msg)
+const { User } = require("../Types/Type");
+
+/**
+ * 보내는 자를 제외한 모든 접속자에게 보내기
+ * @param {User} sender
+ * @param {string} msg
+ */
+function broadcast(wsServer, sender, msg)
 {
     wsServer.clients.forEach(s => {
-        //if (senderid != s.id) {
-            s.send(msg);    
-        //}
+        if (sender.user.uuid != s.user.uuid) {
+            s.send(msg);
+        }
     });
 }
-
-// 자신의 데이터는 받을 필요가 없으니.
 
 exports.broadcast = broadcast;
