@@ -8,6 +8,10 @@ using WebSocketSharp;
 public class SocketClient : MonoBehaviour
 {
     static public SocketClient Instance { get; private set; }
+    private WebSocket ws; // connect 에서 인스턴스 할것
+
+    public string ip = "localhost";
+    public int port = 32000;
 
     private void Awake()
     {
@@ -16,14 +20,9 @@ public class SocketClient : MonoBehaviour
             Debug.LogWarning("SocketClient are running more than one in same scene");
         }
         Instance = this;
-
-        Connect("localhost", "32000"); // TODO : Debug code
     }
 
-    private WebSocket ws; // connect 에서 인스턴스 할것
-
-
-    public void Connect(string ip, string port) // 나중에는 json 에 있는 파일을 읽어서 ip, url 입력할 필요 없게 해봐도 좋을 듯 함
+    public void Connect(string ip, int port) // 나중에는 json 에 있는 파일을 읽어서 ip, url 입력할 필요 없게 해봐도 좋을 듯 함
     {
         if(ws != null && ws.IsAlive)
         {
