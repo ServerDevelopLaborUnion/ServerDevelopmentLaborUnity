@@ -9,7 +9,5 @@ public class ChatHandler : MonoBehaviour
         BufferHandler.Instance.AddHandler("msg", (msg) => {
             Debug.Log(msg);
         });
-
-        SocketClient.Instance.Send(new DataVO("msg", "wa sans")); // TODO : Debug code
     }
 }
