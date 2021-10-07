@@ -4,6 +4,7 @@ const { broadcast } = require("./Utils/Broadcast.js");
 const { DataVO } = require("./VO/DataVO.js");
 const { LoginHandler } = require("./Handlers/LoginHandler.js");
 const { UserUtil } = require("./Utils/UserUtil.js");
+const { RegisterHandler } = require("./Handlers/RegisterHandler.js");
 
 const port = 32000;
 
@@ -33,7 +34,12 @@ wsServer.on("connection", socket => {
                 if (type == "login") {
                     LoginHandler.Login(socket, payload);
                     var User = UserUtil.getUser(socket);
-                    console.log(User.id);
+                    socket.send(JSON.stringify(new DataVO("msg", "로그인 성공!")));
+                }
+                else if (type == "register")
+                {
+                    RegisterHandler.Register(socket, payload);
+                    socket.send(JSON.stringify(new DataVO("msg", "회원가입 성공!")));
                 }
                 else
                     throw `${id} 의 요청: ${type}\r\n로그인이 필요합니다.`;

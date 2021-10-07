@@ -2,19 +2,6 @@ const { DataVO } = require("../VO/DataVO");
 const { User } = require("../Types/Type");
 const { UserUtil } = require("../Utils/UserUtil.js");
 
-function loginCheck(id, password)
-{
-    // DB에서 로그인 시도
-    if (true)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
 class LoginHandler
 {
     /**
@@ -26,7 +13,7 @@ class LoginHandler
     {
         socket.user = null;
         const { id, password } = JSON.parse(payload);
-        if (loginCheck(id, password))
+        if (true)
         {
             // 어찌저찌 DB에서 유저 데이터 가져오기 ( 일단은 아무 정보나 넣을거임 )
             socket.user = new User(socket, 0, "testUser", 0);

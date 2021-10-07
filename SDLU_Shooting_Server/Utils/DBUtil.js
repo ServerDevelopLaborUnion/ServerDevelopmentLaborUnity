@@ -1,4 +1,4 @@
-const { User } = require("../Types/Type");
+const { UserRecode, User } = require("../Types/Type");
 
 class DBUtil {
     /**
@@ -7,7 +7,10 @@ class DBUtil {
      * @param {string} password
      * @returns {boolean} 성공 여부
      */
-    async Register(id, password) {
+    async Register(id, password) 
+    {
+
+
         return true;
     }
 
@@ -17,7 +20,8 @@ class DBUtil {
      * @param {string} password
      * @returns {boolean} 성공 여부
      */
-    async Login(id, password) {
+    async Login(id, password) 
+    {
         return true;
     }
 
@@ -26,7 +30,8 @@ class DBUtil {
      * @param {string} uuid
      * @returns {User} 유저 객체
      */
-    async GetUser(uuid) {
+    async GetUser(uuid) 
+    {
         var user = new User();
         if (true) // 유저가 있다면
         {
@@ -43,13 +48,14 @@ class DBUtil {
     /**
      * 유저 전적 얻기
      * @param {string} uuid
-     * @returns {User} 유저 객체
+     * @returns {UserRecode} 유저 객체
      */
-    async GetUser(uuid) {
+    async GetUserRecode(uuid)
+    {
         var user = new User();
         if (true) // 유저가 있다면
         {
-            user.nickname = "닉!넴!";
+            
         }
         else // 유저가 없으면
         {

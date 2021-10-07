@@ -12,6 +12,7 @@ class User {
         this.socket = socket;
         this.sessionId = sessionId;
 
+        // 아래는 DB에서 불러올 정보
         this.uuid = uuid;
         this.nickname = nickname;
         this.level = level;
@@ -21,7 +22,19 @@ class User {
     }
 }
 
-class GameUser {
+class UserRecord
+{
+    /**
+     * @param {string} uuid
+     */
+    constructor(uuid) {
+        // 아래는 DB에서 불러올 정보
+        this.uuid = uuid;
+    }
+}
+
+class GameUser 
+{
     /**
      * @param {string} uuid
      * @param {string} nickname
