@@ -1,9 +1,8 @@
-const { broadcast } = require("../Utils/Broadcast");
+const { DataVO } = require("../VO/DataVO.js");
 
-function ConnectionHandler(wsServer, socketid)
+function connectionHandler(socket)
 {
-    //broadcast();
-    //.send(JSON.stringify(new DataVO("connect", { id: socket.id }))); // 접속 처리
+    socket.send(JSON.stringify(new DataVO("init", { id: socket.id })));
 }
 
-exports.ConnectionHandler = ConnectionHandler;
+exports.connectionHandler = connectionHandler;
