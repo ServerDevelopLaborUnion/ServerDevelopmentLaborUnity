@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class BulletPool : MonoBehaviour
 {
-    static public BulletPool Instance { get; private set; }
 
     [SerializeField] private GameObject bulletPrefab = null;
 
@@ -15,15 +14,6 @@ public class BulletPool : MonoBehaviour
     [SerializeField] private int instnaceCount = 31; // common mag bullet count
 
     private List<GameObject> pool = new List<GameObject>();
-
-    private void Awake()
-    {
-        if(Instance != null)
-        {
-            Debug.LogWarning("Bulletmaker are running more than one in same scene");
-        }
-        Instance = this; // TODO : 잠만 이거 뭔가 문제가 있을 거 같은데
-    }
 
     private void Start()
     {

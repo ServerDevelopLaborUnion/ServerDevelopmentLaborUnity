@@ -5,6 +5,8 @@ const { DataVO } = require("./VO/DataVO.js");
 const { LoginHandler } = require("./Handlers/LoginHandler.js");
 const { UserUtil } = require("./Utils/UserUtil.js");
 const { RegisterHandler } = require("./Handlers/RegisterHandler.js");
+const { connectionHandler } = require("./Handlers/ConnectionHandler.js");
+const { userConnectedHandler } = require("./Handlers/UserConnectionHandler.js");
 
 const port = 32000;
 
@@ -18,8 +20,10 @@ let bufferHandlerDict = []; // TODO : 잠만 이건 좀 고민을
 
 wsServer.on("connection", socket => {
 
-    socket.sessionId = ++id;
+    socket.id = ++id;
     console.log(`클라이언트 접속. id: ${id}`);
+    connectionHandler(socket);
+    userConnectedHandler(wsServer, socket);
 
     // 임시로 로그인 시킴..
     LoginHandler.debugLogin(socket);
@@ -34,12 +38,12 @@ wsServer.on("connection", socket => {
                 if (type == "login") {
                     LoginHandler.Login(socket, payload);
                     var User = UserUtil.getUser(socket);
-                    socket.send(JSON.stringify(new DataVO("msg", "로그인 성공!")));
+                    socket.send(JSON.stringify(new DataVO("msg", socket.id, "로그인 성공!")));
                 }
                 else if (type == "register")
                 {
                     RegisterHandler.Register(socket, payload);
-                    socket.send(JSON.stringify(new DataVO("msg", "회원가입 성공!")));
+                    socket.send(JSON.stringify(new DataVO("msg", socket.id, "회원가입 성공!")));
                 }
                 else
                     throw `${id} 의 요청: ${type}\r\n로그인이 필요합니다.`;
@@ -48,13 +52,13 @@ wsServer.on("connection", socket => {
             {
                 switch (type) {
                     case "msg":
-                        broadcast(wsServer, socket, JSON.stringify(new DataVO("msg", payload)));
+                        broadcast(wsServer, socket, JSON.stringify(new DataVO("msg", socket.id, payload)));
                         break;
                     // dictionary 에 저장한 다음 불러오는 것도 나쁘지 않을수도 << (UUID, User) 사전으로 만들어 주세요 ^^7
                     // 일단 뭐 socket 안에 넣어둘게요
 
                     default:
-                        throw `${id} 의 요청: ${type}\r\n그런 타입이 없습니다.`;
+                        throw `${socket.id} 의 요청: ${type}\r\n그런 타입이 없습니다.`;
                 }
             }
         }
@@ -66,7 +70,7 @@ wsServer.on("connection", socket => {
     });
 
     socket.on("close", () => {
-        console.log(`${socket.user.nickname}: 접속 종료`);
+        console.log(`${socket.id}: 접속 종료`);
     });
 
 });

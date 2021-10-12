@@ -8,6 +8,7 @@ using UnityEngine;
 abstract public class Shootable : MonoBehaviour
 {
     [SerializeField] protected CharactorInput input  = null; // 입력
+    [SerializeField] protected BulletPool bulletPool = null; // 풀링
 
     [Header("발사")]
     [SerializeField] protected float launchForce  = 100.0f; // 발사 힘
@@ -57,7 +58,7 @@ abstract public class Shootable : MonoBehaviour
         --Ammo;
 
         // 총알을 가져옴
-        GameObject bullet = BulletPool.Instance.Get();
+        GameObject bullet = bulletPool.Get();
 
         // 총알을 발사함
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * launchForce, ForceMode.Impulse);

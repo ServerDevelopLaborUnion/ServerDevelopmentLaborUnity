@@ -22,6 +22,10 @@ public class CameraFOVManager : MonoBehaviour
 
     private void Awake()
     {
+        if (GetComponent<CharactorBase>().IsRemote) { enabled = false; return; }
+        
+
+
         if(instance != null)
         {
             Debug.LogWarning("There is more than one CameraFOFManager running at same scene");

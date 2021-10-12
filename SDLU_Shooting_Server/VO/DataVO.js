@@ -3,6 +3,7 @@ class DataVO
     constructor(type, id, payload)
     /**
      * @param {string} type
+     * @param {int} id
      * @param {string} payload
      */
     {
