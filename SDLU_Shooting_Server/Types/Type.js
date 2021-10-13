@@ -7,8 +7,9 @@ class User {
      * @param {number} level
      * @param {number} exp
      * @param {number} score
+     * @param {GameUser} gameUser
      */
-    constructor(socket, sessionId, uuid, nickname, level, exp, score) {
+    constructor(socket, sessionId, uuid, nickname, level, exp, gameUser) {
         this.socket = socket;
         this.sessionId = sessionId;
 
@@ -18,7 +19,7 @@ class User {
         this.level = level;
         this.exp = exp;
 
-        this.score = score;
+        this.gameUser = gameUser;
     }
 }
 
@@ -31,7 +32,6 @@ class UserRecord
         this.uuid = uuid;
 
         // 아래는 DB에서 불러올 정보
-        
     }
 }
 
@@ -41,11 +41,15 @@ class GameUser
      * @param {string} uuid
      * @param {string} nickname
      * @param {number} score
+     * @param {string} animation
      */
-    constructor(id, nickname, score) {
+    constructor(id, nickname, score, pos, force, animation) {
         this.uuid = uuid;
         this.nickname = nickname;
         this.score = score;
+        this.pos = pos;
+        this.force = force;
+        this.animation = animation;
     }
 }
 

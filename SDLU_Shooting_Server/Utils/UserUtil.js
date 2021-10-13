@@ -7,23 +7,33 @@ class UserUtil
         this.userDict = {}
     }
 
-    addUser()
+    addUser(uuid, user)
     {
-
+        this.userDict[uuid] = user;
     }
 
-    removeUser()
-    {
-
+    removeUser(socket) {
+        for (var key in this.userDict) {
+            if (this.userDict[key].socket == socket) 
+            {
+                delete this.userDict[key];
+            }
+        }
     }
 
     /**
      * 접속한 모든 유저 불러오기
-     * @returns {User}
+     * @returns {Array<User>}
      */
     getUsers()
     {
+        let users = [];
 
+        for (var key in this.userDict) {
+            users.push(this.userDict[key]);
+        }
+
+        return users;
     }
 
     /**
@@ -41,17 +51,9 @@ class UserUtil
      * @param {string} uuid
      * @returns {User}
      */
-    getUserByID(wsServer, uuid) 
+    getUserByUUID(uuid) 
     {
-        var user = null;
-        wsServer.clients.forEach(socket => {
-            if (socket.user.uuid == uuid)
-            {
-                user = socket.user;
-                return user;
-            }
-        });
-        return user;
+        return this.userDict[uuid];
     }
 }
 
