@@ -3,8 +3,8 @@ using System;
 [Serializable]
 public class DataVO
 {
-    string type;
-    string payload;
+    public string type;
+    public string payload;
 
 
     public DataVO(string type, string payload)
