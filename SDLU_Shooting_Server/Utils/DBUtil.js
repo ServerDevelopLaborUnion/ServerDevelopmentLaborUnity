@@ -20,8 +20,17 @@ class DBUtil {
      * @param {string} password
      * @returns {boolean} 성공 여부
      */
-    async Login(id, password) 
+    async Login(id, password, socket)
     {
+        socket.user = new User({
+            socket = this.socket,
+            sessionID = socket.id,
+            uuid = "testUUID",
+            nickname = "testNickname",
+            level = 0,
+            exp = 0,
+            gameUser = null 
+        });
         return true;
     }
 
@@ -55,7 +64,7 @@ class DBUtil {
         var user = new User();
         if (true) // 유저가 있다면
         {
-            
+            // 전적 불러올 예정
         }
         else // 유저가 없으면
         {

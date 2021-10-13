@@ -33,11 +33,10 @@ wsServer.on("connection", socket => {
         {
             const { type, payload } = parseBuffer(data);
 
-            if (socket.user.uuid = null) // 로그인이 되어있지 않다면..
+            if (socket.user.uuid == null) // 로그인이 되어있지 않다면..
             {
                 if (type == "login") {
                     LoginHandler.Login(socket, payload);
-                    var User = UserUtil.getUser(socket);
                     socket.send(JSON.stringify(new DataVO("msg", socket.id, "로그인 성공!")));
                 }
                 else if (type == "register")
@@ -46,7 +45,7 @@ wsServer.on("connection", socket => {
                     socket.send(JSON.stringify(new DataVO("msg", socket.id, "회원가입 성공!")));
                 }
                 else
-                    throw `${id} 의 요청: ${type}\r\n로그인이 필요합니다.`;
+                    socket.send(new DataVO("errmsg", "로그인이 필요합니다."));
             }
             else // 로그인이 되어있다면..
             {
@@ -56,7 +55,7 @@ wsServer.on("connection", socket => {
                         break;
 
                     default:
-                        throw `${socket.id} 의 요청: ${type}\r\n그런 타입이 없습니다.`;
+                        socket.send(new DataVO("errmsg", "그런 타입이 없습니다."));
                 }
             }
         }

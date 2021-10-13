@@ -1,6 +1,7 @@
 const { DataVO } = require("../VO/DataVO");
 const { User } = require("../Types/Type");
-const { UserUtil } = require("../Utils/UserUtil.js");
+const { UserUtil } = require("../Utils/UserUtil");
+const { DBUtil } = require("../Utils/DBUtil")
 
 class LoginHandler
 {
@@ -13,11 +14,8 @@ class LoginHandler
     {
         socket.user = null;
         const { id, password } = JSON.parse(payload);
-        if (true)
+        if (DBUtil.Login(id, password, socket))
         {
-            // 어찌저찌 DB에서 유저 데이터 가져오기 ( 일단은 아무 정보나 넣을거임 )
-            socket.user = new User(socket, 0, "testUser", 0);
-
             var user = UserUtil.getUserBySocket(socket);
             console.log(`로그인 성공: ${user.nickname}`);
         }
