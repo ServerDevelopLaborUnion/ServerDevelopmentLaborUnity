@@ -7,7 +7,8 @@ const { UserUtil } = require("./Utils/UserUtil.js");
 const { RegisterHandler } = require("./Handlers/RegisterHandler.js");
 const { connectionHandler } = require("./Handlers/ConnectionHandler.js");
 const { userConnectedHandler } = require("./Handlers/UserConnectionHandler.js");
-const { DamageHandler } = require("./Handlers/DamageHandler.js");
+const { User } = require("./Types/Type");
+
 const port = 32000;
 
 const wsServer = new WebSocketServer({ port }, () => {
@@ -16,14 +17,13 @@ const wsServer = new WebSocketServer({ port }, () => {
 
 let id = 0;
 
-let bufferHandlerDict = []; // TODO : 잠만 이건 좀 고민을
-
 wsServer.on("connection", socket => {
-
     socket.id = ++id;
     console.log(`클라이언트 접속. id: ${id}`);
     connectionHandler(socket);
     userConnectedHandler(wsServer, socket);
+
+    UserUtil.addUser(null, new User(socket, id, null, null, null, null, null));
 
     // 임시로 로그인 시킴..
     LoginHandler.debugLogin(socket);
@@ -33,7 +33,7 @@ wsServer.on("connection", socket => {
         {
             const { type, payload } = parseBuffer(data);
 
-            if (socket.user == null) // 로그인이 되어있지 않다면..
+            if (socket.user.uuid = null) // 로그인이 되어있지 않다면..
             {
                 if (type == "login") {
                     LoginHandler.Login(socket, payload);
@@ -55,12 +55,6 @@ wsServer.on("connection", socket => {
                         broadcast(wsServer, socket, JSON.stringify(new DataVO("msg", socket.id, payload)));
                         break;
 
-                    case "damage":
-                        broadcast(wsServer, socket, JSON.stringify(new DataVO("damage", socket.id, payload)));
-                        break;
-                    // dictionary 에 저장한 다음 불러오는 것도 나쁘지 않을수도 << (UUID, User) 사전으로 만들어 주세요 ^^7
-                    // 일단 뭐 socket 안에 넣어둘게요
-
                     default:
                         throw `${socket.id} 의 요청: ${type}\r\n그런 타입이 없습니다.`;
                 }
@@ -74,6 +68,7 @@ wsServer.on("connection", socket => {
     });
 
     socket.on("close", () => {
+        UserUtil.removeUser(socket);
         console.log(`${socket.id}: 접속 종료`);
     });
 
