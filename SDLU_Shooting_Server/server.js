@@ -7,7 +7,7 @@ const { UserUtil } = require("./Utils/UserUtil.js");
 const { RegisterHandler } = require("./Handlers/RegisterHandler.js");
 const { connectionHandler } = require("./Handlers/ConnectionHandler.js");
 const { userConnectedHandler } = require("./Handlers/UserConnectionHandler.js");
-
+const { DamageHandler } = require("./Handlers/DamageHandler.js");
 const port = 32000;
 
 const wsServer = new WebSocketServer({ port }, () => {
@@ -53,6 +53,10 @@ wsServer.on("connection", socket => {
                 switch (type) {
                     case "msg":
                         broadcast(wsServer, socket, JSON.stringify(new DataVO("msg", socket.id, payload)));
+                        break;
+
+                    case "damage":
+                        broadcast(wsServer, socket, JSON.stringify(new DataVO("damage", socket.id, payload)));
                         break;
                     // dictionary 에 저장한 다음 불러오는 것도 나쁘지 않을수도 << (UUID, User) 사전으로 만들어 주세요 ^^7
                     // 일단 뭐 socket 안에 넣어둘게요
