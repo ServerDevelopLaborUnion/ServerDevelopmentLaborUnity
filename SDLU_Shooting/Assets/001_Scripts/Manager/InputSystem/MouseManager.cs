@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MouseManager : MonoBehaviour
 {
-    static private MouseManager inst = null;
+    static public MouseManager inst = null;
 
     private void Awake()
     {
