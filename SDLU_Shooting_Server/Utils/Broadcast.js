@@ -9,9 +9,7 @@ const { UserUtil } = require("../Utils/UserUtil");
 function broadcast(wsServer, sender, msg)
 {
     UserUtil.getUsers().forEach(s => {
-        if (sender.sessionId != s.sessionId) {
-            s.socket.send(msg);
-        }
+        s.socket.send(msg);
     });
 }
 

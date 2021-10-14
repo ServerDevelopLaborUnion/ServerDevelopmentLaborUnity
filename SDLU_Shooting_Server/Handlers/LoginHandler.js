@@ -12,7 +12,6 @@ class LoginHandler
      */
     Login(socket, payload)
     {
-        socket.user = null;
         const { id, password } = JSON.parse(payload);
         if (DBUtil.Login(id, password, socket))
         {
@@ -21,7 +20,7 @@ class LoginHandler
         }
         else
         {
-            socket.send(new DataVO("errmsg", "아이디나 비밀번호가 다릅니다."));
+            socket.send(JSON.stringify(new DataVO("errmsg", "아이디나 비밀번호가 다릅니다.")));
         }
     }
 
