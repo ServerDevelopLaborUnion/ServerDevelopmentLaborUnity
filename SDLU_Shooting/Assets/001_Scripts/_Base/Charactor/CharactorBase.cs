@@ -26,8 +26,6 @@ abstract public class CharactorBase : MonoBehaviour, IDamageable
         {
             Die();
         }
-
-        SocketClient.Instance.Send(new DataVO("damage", damage.ToString()));
     }
 
     public virtual void OtherCharactorDamage(int id, string damage)
