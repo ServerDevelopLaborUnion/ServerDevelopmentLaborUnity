@@ -6,10 +6,8 @@ class User {
      * @param {string} nickname
      * @param {number} level
      * @param {number} exp
-     * @param {number} score
-     * @param {GameUser} gameUser
      */
-    constructor(socket, sessionId, uuid, nickname, level, exp, gameUser) {
+    constructor(socket, sessionId, uuid, nickname, level, exp) {
         this.socket = socket;
         this.sessionId = sessionId;
 
@@ -19,7 +17,7 @@ class User {
         this.level = level;
         this.exp = exp;
 
-        this.gameUser = gameUser;
+        this.gameUser = null;
     }
 }
 
@@ -40,18 +38,20 @@ class GameUser
     /**
      * @param {string} uuid
      * @param {string} nickname
-     * @param {number} score
-     * @param {string} animation
+     * @param {number} maxHp
      */
-    constructor(id, nickname, score, pos, force, animation) {
+    constructor(uuid, nickname, maxHp) {
         this.uuid = uuid;
         this.nickname = nickname;
-        this.score = score;
-        this.pos = pos;
-        this.force = force;
-        this.animation = animation;
+        this.maxHp = maxHp;
+        this.hp = this.maxHp;
+        this.score = 0;
+        this.pos = [0, 0, 0];
+        this.force = [0, 0, 0];
+        this.animation = "Idle";
     }
 }
 
 exports.User = User;
 exports.GameUser = GameUser;
+exports.UserRecord = UserRecord;

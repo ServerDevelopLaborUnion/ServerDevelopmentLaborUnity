@@ -1,4 +1,5 @@
 const { User } = require("../Types/Type");
+const { UserUtil } = require("../Utils/UserUtil");
 
 /**
  * 보내는 자를 제외한 모든 접속자에게 보내기
@@ -7,8 +8,8 @@ const { User } = require("../Types/Type");
  */
 function broadcast(wsServer, sender, msg)
 {
-    wsServer.clients.forEach(s => {
-        if (sender.sessionId != s.user.sessionId) {
+    UserUtil.getUsers().forEach(s => {
+        if (sender.sessionId != s.sessionId) {
             s.send(msg);
         }
     });
