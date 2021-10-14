@@ -11,9 +11,9 @@ public class ConnectionHandler : MonoBehaviour
     private void Start()
     {
         BufferHandler.Instance.AddHandler("init", (data) => {
-            InitVO vo = JsonUtility.FromJson<InitVO>(data);
 
-            GameManager.instance.playerBase.ID = vo.id;
+            int.TryParse(data,out int num);
+            GameManager.instance.playerBase.ID = num;
             Debug.Log("플레이어 ID: " + GameManager.instance.playerBase.ID);
         });
 
