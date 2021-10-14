@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Chat : MonoBehaviour
 {
     [SerializeField]
-    private GameObject chatting = null;
-    
+    private GameObject Inputchatting = null;
+    [SerializeField]
     private GameObject chattingScroll = null;
 
     private InputField chatInput = null;
@@ -15,22 +15,22 @@ public class Chat : MonoBehaviour
 
     private string holderText = "ÀüÃª";
 
-    private bool chatActive = false;
+    private bool chatScrollActive = false;
+    private bool chatInputActive = false;
     private byte chatType = 0;
 
     void Start()
     {
-        chatInput = chatting.gameObject.transform.GetChild(1).GetComponent<InputField>();
-        fieldHolder = chatting.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Text>();
-        chattingScroll = chatting.gameObject.transform.GetChild(0).GetComponent<GameObject>();
+        chatInput = Inputchatting.GetComponent<InputField>();
+        fieldHolder = Inputchatting.gameObject.transform.GetChild(0).GetComponent<Text>();
         fieldHolder.text = holderText;
-        chatting.SetActive(false);
-        Debug.Log(chattingScroll);
+        Inputchatting.SetActive(false);
+        chattingScroll.SetActive(false);
     }
 
     void Update()
     {
-        if (chatActive && Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             ChangeChatType();
             switch (chatType)
@@ -57,8 +57,8 @@ public class Chat : MonoBehaviour
     private void SetChatActive()
     {
         MouseManager.MouseLocked = !MouseManager.MouseLocked;
-        ChangeChatActive();
-        if (!chatActive)
+        ChatToggle();
+        if (!chatInputActive)
         {
             //DataVO vo = new DataVO("msg", GameManager.instance.playerBase.ID, msg);
             //SocketClient.Instance.Send(vo);
@@ -85,16 +85,22 @@ public class Chat : MonoBehaviour
 
     }
 
-    public void ChangeChatActive()
+    public void ChatToggle()
     {
-        chatActive = !chatActive;
-        chatting.SetActive(chatActive);
+        chatInputActive = !chatInputActive;
+        Inputchatting.SetActive(chatInputActive);
+
     }
 
     private IEnumerator FadeChat()
     {
         chattingScroll.SetActive(true);
-        yield return new WaitForSeconds(3f);
+        for (int i = 0; i < 60; i++)
+        {
+            var originColor = chattingScroll.GetComponent<Image>().color;
+            chattingScroll.GetComponent<Image>().color = originColor + new Color(0, 0, 0, 1 / 60);
+            yield return new WaitForEndOfFrame();
+        }
         chattingScroll.SetActive(false);
     }
 }

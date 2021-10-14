@@ -727,7 +727,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c269bd6bed87f84bafa96c62296e168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatting: {fileID: 516589300}
+  Inputchatting: {fileID: 1885290462}
+  chattingScroll: {fileID: 454558980}
 --- !u!1 &454558980
 GameObject:
   m_ObjectHideFlags: 0
