@@ -7,6 +7,8 @@ public class Chat : MonoBehaviour
 {
     [SerializeField]
     private GameObject chatting = null;
+    
+    private GameObject chattingScroll = null;
 
     private InputField chatInput = null;
     private Text fieldHolder = null;
@@ -20,8 +22,10 @@ public class Chat : MonoBehaviour
     {
         chatInput = chatting.gameObject.transform.GetChild(1).GetComponent<InputField>();
         fieldHolder = chatting.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<Text>();
+        chattingScroll = chatting.gameObject.transform.GetChild(0).GetComponent<GameObject>();
         fieldHolder.text = holderText;
-        chatting.SetActive(chatActive);
+        chatting.SetActive(false);
+        Debug.Log(chattingScroll);
     }
 
     void Update()
@@ -52,10 +56,8 @@ public class Chat : MonoBehaviour
 
     private void SetChatActive()
     {
-        string msg = chatInput.text;
-        chatActive = !chatActive;
-        chatting.SetActive(chatActive);
         MouseManager.MouseLocked = !MouseManager.MouseLocked;
+        ChangeChatActive();
         if (!chatActive)
         {
             //DataVO vo = new DataVO("msg", GameManager.instance.playerBase.ID, msg);
@@ -81,5 +83,18 @@ public class Chat : MonoBehaviour
     public void RecvChat()
     {
 
+    }
+
+    public void ChangeChatActive()
+    {
+        chatActive = !chatActive;
+        chatting.SetActive(chatActive);
+    }
+
+    private IEnumerator FadeChat()
+    {
+        chattingScroll.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        chattingScroll.SetActive(false);
     }
 }
