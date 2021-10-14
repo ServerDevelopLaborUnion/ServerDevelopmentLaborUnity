@@ -10,5 +10,5 @@ public class DebugConnect : MonoBehaviour
         GetComponent<Button>().onClick.AddListener(() => {
             SocketClient.Instance.Connect();
         });
-    }
+    }   
 }

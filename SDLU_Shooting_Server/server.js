@@ -18,7 +18,7 @@ const wsServer = new WebSocketServer({ port }, () => {
 let id = 0;
 
 wsServer.on("connection", socket => {
-    socket.id = ++id;
+    socket.sessionId = ++id;
     console.log(`클라이언트 접속. id: ${id}`);
     connectionHandler(socket);
     userConnectedHandler(wsServer, socket);
@@ -37,12 +37,12 @@ wsServer.on("connection", socket => {
             {
                 if (type == "login") {
                     LoginHandler.Login(socket, payload);
-                    socket.send(JSON.stringify(new DataVO("msg", socket.id, "로그인 성공!")));
+                    socket.send(JSON.stringify(new DataVO("msg", "로그인 성공!")));
                 }
                 else if (type == "register")
                 {
                     RegisterHandler.Register(socket, payload);
-                    socket.send(JSON.stringify(new DataVO("msg", socket.id, "회원가입 성공!")));
+                    socket.send(JSON.stringify(new DataVO("msg", "회원가입 성공!")));
                 }
                 else
                     socket.send(new DataVO("errmsg", "로그인이 필요합니다."));
@@ -51,7 +51,7 @@ wsServer.on("connection", socket => {
             {
                 switch (type) {
                     case "msg":
-                        broadcast(wsServer, socket, JSON.stringify(new DataVO("msg", socket.id, payload)));
+                        broadcast(wsServer, socket, JSON.stringify(new DataVO("msg", payload)));
                         break;
 
                     default:
@@ -62,13 +62,13 @@ wsServer.on("connection", socket => {
         catch (e)
         {
             console.log(e);
-            console.log(`${id} : ${data}`);
+            console.log(`${socket.sessionId} : ${data}`);
         }
     });
 
     socket.on("close", () => {
         UserUtil.removeUser(socket);
-        console.log(`${socket.id}: 접속 종료`);
+        console.log(`${socket.sessionId}: 접속 종료`);
     });
 
 });
