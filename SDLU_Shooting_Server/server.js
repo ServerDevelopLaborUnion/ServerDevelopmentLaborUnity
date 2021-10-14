@@ -53,9 +53,6 @@ wsServer.on("connection", socket => {
                     case "msg":
                         broadcast(wsServer, socket, JSON.stringify(new DataVO("msg", socket.id, payload)));
                         break;
-                    case "damage":
-                        broadcast(wsServer, socket, JSON.stringify(new DataVO("damage", payload)));
-                        break;
 
                     default:
                         socket.send(new DataVO("errmsg", "그런 타입이 없습니다."));
