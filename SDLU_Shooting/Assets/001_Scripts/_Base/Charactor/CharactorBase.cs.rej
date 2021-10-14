@@ -1,0 +1,10 @@
+diff a/SDLU_Shooting/Assets/001_Scripts/_Base/Charactor/CharactorBase.cs b/SDLU_Shooting/Assets/001_Scripts/_Base/Charactor/CharactorBase.cs	(rejected hunks)
+@@ -26,8 +26,6 @@
+         {
+             Die();
+         }
+-
+-        SocketClient.Instance.Send(new DataVO("damage", damage.ToString()));
+     }
+ 
+     public virtual void OtherCharactorDamage(int id, string damage)
