@@ -3,7 +3,7 @@ const { DataVO } = require("../VO/DataVO.js");
 
 function userConnectedHandler(wsServer, socket)
 {
-    broadcast(wsServer, socket.id, JSON.stringify(new DataVO("connect", socket.id, JSON.stringify({ id: socket.id }))));
+    broadcast(wsServer, socket, JSON.stringify(new DataVO("connect", JSON.stringify({ id: socket.sessionId }))));
 }
 
 exports.userConnectedHandler = userConnectedHandler;
