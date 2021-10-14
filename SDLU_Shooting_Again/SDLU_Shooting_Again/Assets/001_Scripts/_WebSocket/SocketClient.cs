@@ -41,7 +41,7 @@ public class SocketClient : MonoSingleton<SocketClient>
 
     private void RecvData(WebSocket socket, MessageEventArgs message)
     {
-        
+        BufferHandler.Instance.Handle(message.Data);
     }
 
 
