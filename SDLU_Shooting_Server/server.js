@@ -7,7 +7,7 @@ const { UserUtil } = require("./Utils/UserUtil.js");
 const { RegisterHandler } = require("./Handlers/RegisterHandler.js");
 const { connectionHandler } = require("./Handlers/ConnectionHandler.js");
 const { userConnectedHandler } = require("./Handlers/UserConnectionHandler.js");
-const { User } = require("./Types/Type");
+const { User, Game, GameUser } = require("./Types/Type");
 
 const port = 32000;
 
@@ -17,13 +17,14 @@ const wsServer = new WebSocketServer({ port }, () => {
 
 let id = 0;
 
+let game = new Game();
+
 wsServer.on("connection", socket => {
     console.log(`클라이언트 접속. id: ${id}`);
-    connectionHandler(socket);
     userConnectedHandler(wsServer, socket);
-
+    
     UserUtil.addUser(null, new User(socket, ++id, null, null, null, null, null));
-
+    
     // 임시로 로그인 시킴..
     LoginHandler.debugLogin(socket);
 
@@ -31,7 +32,7 @@ wsServer.on("connection", socket => {
         try
         {
             const { type, payload } = parseBuffer(data);
-
+            
             if (socket.user.uuid == null) // 로그인이 되어있지 않다면..
             {
                 if (type == "login") {
@@ -44,10 +45,13 @@ wsServer.on("connection", socket => {
                     socket.send(JSON.stringify(new DataVO("msg", "회원가입 성공!")));
                 }
                 else
-                    socket.send(new DataVO("errmsg", "로그인이 필요합니다."));
+                socket.send(new DataVO("errmsg", "로그인이 필요합니다."));
             }
             else // 로그인이 되어있다면..
             {
+                // 설명충 원석이의 설명
+                // User = 서버에 들어온 유저
+                // GameUser = 게임중인 객체
                 switch (type) {
                     case "msg":
                         broadcast(wsServer, socket, JSON.stringify(new DataVO("msg", payload)));
@@ -55,10 +59,15 @@ wsServer.on("connection", socket => {
                     case "damage":
                         broadcast(wsServer, socket, JSON.stringify(new DataVO("damage", payload)));
                         break;
-
-                    default:
-                        socket.send(new DataVO("errmsg", "그런 타입이 없습니다."));
-                }
+                    case "init":
+                        // 생성되면 실시간 통신을 시작한다
+                        // Game.Broadcast(socket, data); 이용해서 데이터 뿌려주기
+                        connectionHandler(socket);
+                        break;
+                        
+                        default:
+                            socket.send(new DataVO("errmsg", "그런 타입이 없습니다."));
+                        }
             }
         }
         catch (e)
@@ -67,7 +76,7 @@ wsServer.on("connection", socket => {
             console.log(`${socket.sessionId} : ${data}`);
         }
     });
-
+    
     socket.on("close", () => {
         UserUtil.removeUser(socket);
         console.log(`${socket.sessionId}: 접속 종료`);

@@ -51,7 +51,7 @@ class UserUtil
      * @param {string} uuid
      * @returns {User}
      */
-    getUserByUUID(uuid) 
+    getUserByUUID(uuid)
     {
         return this.userDict[uuid];
     }

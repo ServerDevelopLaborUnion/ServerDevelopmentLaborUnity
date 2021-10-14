@@ -33,6 +33,33 @@ class UserRecord
     }
 }
 
+class Game
+{
+    constructor()
+    {
+        /** @type {number} */
+        this.id = 0;
+        /** @type {Array<GameUser>} */
+        this.GameUsers = [];
+        /** @type {number} */
+        this.time = 0;
+    }
+
+
+    /**
+     * @param {User} user
+     */
+    addUser(user)
+    {
+        this.GameUsers.push(new GameUser(user.uuid, user.nickname, 100));
+    }
+
+    removeUser(user)
+    {
+        this.GameUsers.forEach();
+    }
+}
+
 class GameUser 
 {
     /**
@@ -53,5 +80,6 @@ class GameUser
 }
 
 exports.User = User;
+exports.Game = Game;
 exports.GameUser = GameUser;
 exports.UserRecord = UserRecord;
