@@ -18,19 +18,27 @@ class DBUtil {
      * 로그인 요청
      * @param {string} id
      * @param {string} password
+     * @param {WebSocket} socket
      * @returns {boolean} 성공 여부
      */
     async Login(id, password, socket)
     {
-        socket.user = new User({
-            socket = this.socket,
-            sessionID = socket.id,
-            uuid = "testUUID",
-            nickname = "testNickname",
-            level = 0,
-            exp = 0,
-            gameUser = null 
-        });
+        try
+        {
+            socket.user = new User({
+                socket: this.socket,
+                sessionID: socket.id,
+                uuid: "testUUID",
+                nickname: "testNickname",
+                level: 0,
+                exp: 0,
+                gameUser: null
+            });
+        }
+        catch (e)
+        {
+            console.log(e.name);
+        }
         return true;
     }
 
