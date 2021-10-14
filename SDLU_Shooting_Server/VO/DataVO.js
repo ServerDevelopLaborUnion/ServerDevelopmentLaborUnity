@@ -1,14 +1,12 @@
 class DataVO
 {
-    constructor(type, id, payload)
+    constructor(type, payload)
     /**
      * @param {string} type
-     * @param {int} id
      * @param {string} payload
      */
     {
         this.type = type;
-        this.id = id;
         this.payload = payload;
     }
 }
