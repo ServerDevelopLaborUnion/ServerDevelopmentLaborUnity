@@ -8,7 +8,7 @@ const { User } = require("../Types/Type");
 function broadcast(wsServer, sender, msg)
 {
     wsServer.clients.forEach(s => {
-        if (sender.sessionId != s.user.sessionId) {
+        if (sender.sessionId != s.sessionId) {
             s.send(msg);
         }
     });
