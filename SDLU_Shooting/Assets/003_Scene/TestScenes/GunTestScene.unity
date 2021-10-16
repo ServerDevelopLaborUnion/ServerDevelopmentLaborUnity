@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 96985568}
   - component: {fileID: 96985567}
   m_Layer: 5
-  m_Name: Button
+  m_Name: LoginButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: LogIn
 --- !u!222 &120152784
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -767,7 +767,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Register
 --- !u!222 &214844109
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1581,7 +1581,7 @@ GameObject:
   - component: {fileID: 1178867811}
   - component: {fileID: 1178867810}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: IdInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1969,6 +1969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1272815263}
   - component: {fileID: 1272815262}
+  - component: {fileID: 1272815264}
   m_Layer: 0
   m_Name: SocketClient
   m_TagString: Untagged
@@ -2004,6 +2005,23 @@ Transform:
   m_Father: {fileID: 1442212965}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1272815264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272815261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b086f56bb4031e548a2fcb229711c5d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idInput: {fileID: 1178867810}
+  pwInput: {fileID: 1488436614}
+  conPwInput: {fileID: 1926206157}
+  registerBttn: {fileID: 1835716176}
+  logInBttn: {fileID: 96985567}
 --- !u!1 &1415184400
 GameObject:
   m_ObjectHideFlags: 0
@@ -2283,10 +2301,17 @@ RectTransform:
   m_Father: {fileID: 442020860}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 300, y: -149.976}
   m_SizeDelta: {x: 540, y: 269.19}
+=======
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 260}
+>>>>>>> Stashed changes
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1440692960
 MonoBehaviour:
@@ -2321,7 +2346,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: Title
 --- !u!222 &1440692961
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2480,7 +2505,7 @@ GameObject:
   - component: {fileID: 1488436615}
   - component: {fileID: 1488436614}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: PWInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3175,7 +3200,7 @@ GameObject:
   - component: {fileID: 1835716177}
   - component: {fileID: 1835716176}
   m_Layer: 5
-  m_Name: Button
+  m_Name: RegisterButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3296,7 +3321,7 @@ GameObject:
   - component: {fileID: 1926206158}
   - component: {fileID: 1926206157}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: ConfirmPWInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

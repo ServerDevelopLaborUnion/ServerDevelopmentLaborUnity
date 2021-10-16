@@ -24,7 +24,6 @@ public class SocketClient : MonoBehaviour
     private void Start()
     {
         Connect(ip, port);
-        SocketClient.Instance.Send(new DataVO("msg", "Wa Sans"));
     }
     public void Connect(string ip, int port) // 나중에는 json 에 있는 파일을 읽어서 ip, url 입력할 필요 없게 해봐도 좋을 듯 함
     {

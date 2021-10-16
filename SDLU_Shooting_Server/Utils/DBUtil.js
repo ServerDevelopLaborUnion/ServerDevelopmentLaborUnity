@@ -1,4 +1,6 @@
 const { UserRecode, User } = require("../Types/Type");
+const pool = require("../DB")
+
 
 class DBUtil {
     /**
@@ -23,22 +25,16 @@ class DBUtil {
      */
     async Login(id, password, socket)
     {
-        try
-        {
-            socket.user = new User({
-                socket: this.socket,
-                sessionID: socket.id,
-                uuid: "testUUID",
-                nickname: "testNickname",
-                level: 0,
-                exp: 0,
-                gameUser: null
-            });
+        console.log(id,password);
+        let sql = `SELECT * FROM Test WHERE id = ? AND password = password(?)`;
+        let [user] = await pool.query(sql,[id, password]);
+        console.log(user);
+        if(user[0].id != id){
+            socket.send(JSON.stringify(new DataVO("msg", "없는 아이디 입니다.")));
+            return false;
         }
-        catch (e)
-        {
-            console.log(e.name);
-        }
+        socket.user.uuid = user[0].code;
+        
         return true;
     }
 
