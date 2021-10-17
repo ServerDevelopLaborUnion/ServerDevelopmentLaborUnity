@@ -15,7 +15,7 @@ public class SocketClient : MonoSingleton<SocketClient>
     /// <param name="port">PORT</param>
     public void Connect(string ip = "127.0.0.1", ushort port = 32000)
     {
-        if(ws != null || ws.IsAlive)
+        if(ws != null && ws.IsAlive)
         {
             Debug.Log("이미 서버에 연결되어 있습니다.");
             return;
