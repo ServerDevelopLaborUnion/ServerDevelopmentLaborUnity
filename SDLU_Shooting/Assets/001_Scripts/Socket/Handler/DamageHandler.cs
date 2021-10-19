@@ -10,12 +10,7 @@ public class DamageHandler: MonoBehaviour
         //{
         //    DataVO vo = JsonUtility.FromJson<DataVO>(data);
 
-<<<<<<< Updated upstream
-            //GameManager.instance.playerBase.OtherCharactorDamage(vo.id, vo.payload);
-        });
-=======
         //    GameManager.instance.playerBase.OtherCharactorDamage(vo.id, vo.payload);
         //});
->>>>>>> Stashed changes
     }
 }
