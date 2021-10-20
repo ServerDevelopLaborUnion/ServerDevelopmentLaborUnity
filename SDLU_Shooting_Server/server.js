@@ -2,9 +2,9 @@ const { WebSocketServer } = require("ws");
 const { parseBuffer } = require("./Utils/ParseBuffer.js");
 const { broadcast } = require("./Utils/Broadcast.js");
 const { DataVO } = require("./VO/DataVO.js");
-//const { LoginHandler } = require("./Handlers/LoginHandler.js");
+const { LoginHandler } = require("./Handlers/LoginHandler.js");
 const { UserUtil } = require("./Utils/UserUtil.js");
-// const { RegisterHandler } = require("./Handlers/RegisterHandler.js");
+const { RegisterHandler } = require("./Handlers/RegisterHandler.js");
 const { connectionHandler } = require("./Handlers/ConnectionHandler.js");
 const { userConnectedHandler } = require("./Handlers/UserConnectionHandler.js");
 const { User, Game, GameUser } = require("./Types/Type");
@@ -23,7 +23,7 @@ wsServer.on("connection", socket => {
 
     //#region Connection
     socket.sessionId = ++id;
-    console.log(`클라이언트 접속. id: ${socket.sessionId}`);
+    console.log(`Client Connected. id: ${socket.sessionId}`);
 
     // connection packet
     userConnectedHandler(wsServer, socket);
@@ -44,7 +44,7 @@ wsServer.on("connection", socket => {
         {
             const { type, payload } = parseBuffer(data);
             
-            console.log(payload);
+            console.log(`[${socket.sessionId}] ${type}: ${payload}`);
 
             if (socket.user.uuid == null) // 로그인이 되어있지 않다면..
             {
@@ -62,7 +62,6 @@ wsServer.on("connection", socket => {
             }
             else // 로그인이 되어있다면..
             {
-                // 설명충 원석이의 설명
                 // User = 서버에 들어온 유저
                 // GameUser = 게임중인 객체
                 switch (type) {
