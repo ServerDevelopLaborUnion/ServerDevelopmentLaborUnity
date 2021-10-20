@@ -1,5 +1,9 @@
 const { UserRecode, User } = require("../Types/Type");
-// const pool = require("../DB")
+const mysql = require('mysql2');
+const secret = require('../secret')
+
+const pool = mysql.createPool(secret);
+const promisePool = pool.promise();
 
 
 class DBUtil {
@@ -9,16 +13,17 @@ class DBUtil {
      * @param {string} password
      * @returns {boolean} 성공 여부
      */
-    async Register(id, password) {
+    async Register(id, password, socket) {
         console.log(id, password);
         let sql = `SELECT id FROM Test WHERE id = ?`;
-        let [user] = await pool.query(sql, [id]);
+        let [user] = await promisePool.query(sql, [id]);
         console.log(user);
         if (user.length > 0) {
             socket.send(JSON.stringify(new DataVO("errmsg", "중복된 아이디 입니다.")));
             return false;
         }
-        pool.query(`INSERT INTO Test (id, password) VALUES (?, password(?))`, [id, password]);
+        promisePool.query(`INSERT INTO Test (id, password) VALUES (?, password(?))`, [id, password]);
+        Login(id, password, socket);
         return true;
     }
 
@@ -32,7 +37,7 @@ class DBUtil {
     async Login(id, password, socket) {
         console.log(id, password);
         let sql = `SELECT * FROM Test WHERE id = ? AND password = password(?)`;
-        let [user] = await pool.query(sql, [id, password]);
+        let [user] = await promisePool.query(sql, [id, password]);
         console.log(user);
         if (user[0].id != id) {
             socket.send(JSON.stringify(new DataVO("errmsg", "없는 아이디 입니다.")));
