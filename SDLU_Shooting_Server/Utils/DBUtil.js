@@ -1,5 +1,5 @@
 const { UserRecode, User } = require("../Types/Type");
-const pool = require("../DB")
+// const pool = require("../DB")
 
 
 class DBUtil {
