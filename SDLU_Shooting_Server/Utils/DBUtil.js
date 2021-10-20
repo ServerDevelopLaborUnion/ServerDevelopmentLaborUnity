@@ -9,10 +9,16 @@ class DBUtil {
      * @param {string} password
      * @returns {boolean} 성공 여부
      */
-    async Register(id, password) 
-    {
-
-
+    async Register(id, password) {
+        console.log(id, password);
+        let sql = `SELECT id FROM Test WHERE id = ?`;
+        let [user] = await pool.query(sql, [id]);
+        console.log(user);
+        if (user.length > 0) {
+            socket.send(JSON.stringify(new DataVO("errmsg", "중복된 아이디 입니다.")));
+            return false;
+        }
+        pool.query(`INSERT INTO Test (id, password) VALUES (?, password(?))`, [id, password]);
         return true;
     }
 
@@ -23,18 +29,17 @@ class DBUtil {
      * @param {WebSocket} socket
      * @returns {boolean} 성공 여부
      */
-    async Login(id, password, socket)
-    {
-        console.log(id,password);
+    async Login(id, password, socket) {
+        console.log(id, password);
         let sql = `SELECT * FROM Test WHERE id = ? AND password = password(?)`;
-        let [user] = await pool.query(sql,[id, password]);
+        let [user] = await pool.query(sql, [id, password]);
         console.log(user);
-        if(user[0].id != id){
-            socket.send(JSON.stringify(new DataVO("msg", "없는 아이디 입니다.")));
+        if (user[0].id != id) {
+            socket.send(JSON.stringify(new DataVO("errmsg", "없는 아이디 입니다.")));
             return false;
         }
         socket.user.uuid = user[0].code;
-        
+
         return true;
     }
 
@@ -43,8 +48,7 @@ class DBUtil {
      * @param {string} uuid
      * @returns {User} 유저 객체
      */
-    async GetUser(uuid) 
-    {
+    async GetUser(uuid) {
         var user = new User();
         if (true) // 유저가 있다면
         {
@@ -63,8 +67,7 @@ class DBUtil {
      * @param {string} uuid
      * @returns {UserRecode} 유저 객체
      */
-    async GetUserRecode(uuid)
-    {
+    async GetUserRecode(uuid) {
         var user = new User();
         if (true) // 유저가 있다면
         {
