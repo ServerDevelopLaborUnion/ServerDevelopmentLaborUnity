@@ -1,4 +1,5 @@
 const { UserRecode, User } = require("../Types/Type");
+const { DataVO } = require("../VO/DataVO.js");
 const mysql = require('mysql2');
 const secret = require('../secret')
 
@@ -20,10 +21,11 @@ class DBUtil {
         console.log(user);
         if (user.length > 0) {
             socket.send(JSON.stringify(new DataVO("errmsg", "중복된 아이디 입니다.")));
+            console.log("에러로 인한 회원가입 거절!");
             return false;
         }
         promisePool.query(`INSERT INTO Test (id, password) VALUES (?, password(?))`, [id, password]);
-        Login(id, password, socket);
+        console.log("회원가입 성공함");
         return true;
     }
 
@@ -38,8 +40,8 @@ class DBUtil {
         console.log(id, password);
         let sql = `SELECT * FROM Test WHERE id = ? AND password = password(?)`;
         let [user] = await promisePool.query(sql, [id, password]);
-        console.log(user);
-        if (user[0].id != id) {
+        console.log(user[0]);
+        if (user[0].id == null || user[0].id != id) {
             socket.send(JSON.stringify(new DataVO("errmsg", "없는 아이디 입니다.")));
             return false;
         }

@@ -50,12 +50,10 @@ wsServer.on("connection", socket => {
             {
                 if (type == "login") {
                     LoginHandler.Login(socket, payload);
-                    socket.send(JSON.stringify(new DataVO("msg", "로그인 성공!")));
                 }
                 else if (type == "register")
                 {
                     RegisterHandler.Register(socket, payload);
-                    socket.send(JSON.stringify(new DataVO("msg", "회원가입 성공!")));
                 }
                 else
                     socket.send(JSON.stringify(new DataVO("errmsg", "로그인이 필요합니다.")));
