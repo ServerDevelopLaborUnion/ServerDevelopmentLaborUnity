@@ -15,7 +15,12 @@ public class AccountHandler : MonoBehaviour
     {
         registerBtn.onClick.AddListener(() =>
         {
-            SocketClient.Instance.Send(new DataVO("register", JsonUtility.ToJson(new AccountVO(idInput.text, pwInput.text))));
+            if(pwInput.text == conPwInput.text)
+                SocketClient.Instance.Send(new DataVO("register", JsonUtility.ToJson(new AccountVO(idInput.text, pwInput.text))));
+        });
+        loginBtn.onClick.AddListener(() => 
+        {
+            SocketClient.Instance.Send(new DataVO("login", JsonUtility.ToJson(new AccountVO(idInput.text, pwInput.text))));
         });
     }
 }

@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d28c94d35cbcc52dbfef8296ef7b245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newPlayerPrefab: {fileID: 0}
+  newPlayerPrefab: {fileID: 6932269408409320484, guid: 01087c567af47c73c9bf2c88944bd6a3, type: 3}
 --- !u!1 &521144375
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,8 +563,8 @@ GameObject:
   - component: {fileID: 1294340354}
   - component: {fileID: 1294340353}
   - component: {fileID: 1294340352}
-  - component: {fileID: 1294340356}
   - component: {fileID: 1294340358}
+  - component: {fileID: 1294340356}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged

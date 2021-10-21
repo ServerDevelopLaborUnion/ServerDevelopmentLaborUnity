@@ -50,12 +50,10 @@ wsServer.on("connection", socket => {
             {
                 if (type == "login") {
                     LoginHandler.Login(socket, payload);
-                    socket.send(JSON.stringify(new DataVO("msg", "로그인 성공!")));
                 }
                 else if (type == "register")
                 {
                     RegisterHandler.Register(socket, payload);
-                    socket.send(JSON.stringify(new DataVO("msg", "회원가입 성공!")));
                 }
                 else
                     socket.send(JSON.stringify(new DataVO("errmsg", "로그인이 필요합니다.")));
@@ -71,7 +69,9 @@ wsServer.on("connection", socket => {
                     case "damage":
                         broadcast(wsServer, socket, JSON.stringify(new DataVO("damage", payload)));
                         break;
-
+                    case "shoot":
+                        broadcast(wsServer, socket, JSON.stringify(new DataVO("shoot", payload)));
+                        break;
                     default:
                         socket.send(JSON.stringify(new DataVO("errmsg", "그런 타입이 없습니다.")));
                 }

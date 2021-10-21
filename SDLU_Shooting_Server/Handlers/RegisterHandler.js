@@ -20,15 +20,17 @@ class RegisterHandler {
      * @param {WebSocket} socket
      * @param {string} payload
      */
-    Register(socket, payload) {
+    async Register(socket, payload) {
         let { id, password } = JSON.parse(payload);
-        if (DBUtil.Register(id, password)) // DB에서 회원가입
+
+        if (await DBUtil.Register(id, password, socket)) // DB에서 회원가입
         {
             LoginHandler.Login(socket, payload);
+            socket.send(JSON.stringify(new DataVO("msg", "회원가입 성공!")));
         }
         else // 실패 반환시
         {
-            throw `${socket.sessionId} 의 요청: 회원가입\r\n이미 존재하는 계정입니다.`;
+            console.log(`${socket.sessionId} 의 요청: 회원가입\r\n이미 존재하는 계정입니다.`);
         }
     }
 }

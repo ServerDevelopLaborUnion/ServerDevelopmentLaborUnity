@@ -12,7 +12,7 @@ public class ConnectionHandler : MonoBehaviour
     private void Start()
     {
         BufferHandler.Instance.AddHandler("init", (data) => {
-            ConnectVO vo = JsonUtility.FromJson<ConnectVO>(data);      
+            ConnectVO vo = JsonUtility.FromJson<ConnectVO>(data);
 
             // 기본 정보 설정
             GameManager.Instance.Player.Init(vo.id, vo.hp);

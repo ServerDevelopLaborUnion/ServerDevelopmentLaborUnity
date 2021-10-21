@@ -26,13 +26,15 @@ abstract public class CharactorBase : MonoBehaviour, IDamageable
         {
             Die();
         }
+
+        SocketClient.Instance.Send(new DataVO("damage", JsonUtility.ToJson(new DamageVO(GameManager.instance.playerBase.ID, damage))));
     }
 
-    public virtual void OtherCharactorDamage(int id, string damage)
+    public virtual void OtherCharactorDamage(int id, int damage)
     {
         if(id == GameManager.instance.playerBase.ID)
         {
-            hp -= int.Parse(damage);
+            hp -= damage;
         }
     }    
 

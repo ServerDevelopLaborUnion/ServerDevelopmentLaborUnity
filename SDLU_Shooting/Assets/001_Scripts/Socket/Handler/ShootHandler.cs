@@ -11,8 +11,11 @@ public class ShootHandler : MonoBehaviour
         {
             ShootVO vo = JsonUtility.FromJson<ShootVO>(data);
 
-            if(vo.id == GameManager.instance.playerBase.ID)
-                Instantiate(bulletPrefab, vo.position, Quaternion.Euler(vo.rotation));
+            if(vo.id == GameManager.instance.playerBase.ID){
+                GameObject bullet = GameManager.instance.bulletPool.Get();
+                bullet.transform.position = vo.position;
+                bullet.transform.rotation = Quaternion.Euler(vo.rotation);
+            }
         });
     }
     #endregion

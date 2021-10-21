@@ -24,7 +24,7 @@ public class BulletPool : MonoBehaviour
     {
         for(int i = 0; i < instnaceCount; ++i)
         {
-            pool.Add(MakeBullet());
+            pool.Add(MakeBullet(i));
         }
     }
 
@@ -32,10 +32,10 @@ public class BulletPool : MonoBehaviour
     /// Instanciates bullet
     ///</summary>
     /// <returns>Instance of bullet based bulletPrefab</returns>
-    private GameObject MakeBullet()
+    private GameObject MakeBullet(int index)
     {
         GameObject bullet = Instantiate(bulletPrefab, transform.position, GameManager.instance.player.rotation, transform);
-        
+        bullet.name = index.ToString();
         bullet.SetActive(false);
 
         return bullet;
@@ -49,10 +49,10 @@ public class BulletPool : MonoBehaviour
     {
         // This code finds not activated gameobject. When null, it means there is no Object passes the condition.
         GameObject bullet = pool.Find(x => !x.activeSelf);
-
+        Debug.Log(bullet.name);
         if(bullet == null) // when every bullets in pool are active.
         {
-            bullet = MakeBullet();
+            bullet = MakeBullet(++instnaceCount);
             pool.Add(bullet);
         }
 

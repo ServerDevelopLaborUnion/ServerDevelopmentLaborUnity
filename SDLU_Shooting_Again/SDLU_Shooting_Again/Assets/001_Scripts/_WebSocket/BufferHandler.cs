@@ -78,6 +78,9 @@ public class BufferHandler : MonoSingleton<BufferHandler>
                 vo = msgQueue.Dequeue();
             }
 
+            Debug.Log(vo.type);
+            Debug.Log(vo.payload);
+            
             handlerDict[vo.type](vo.payload);
         }
     }
