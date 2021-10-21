@@ -60,7 +60,7 @@ class Game
     }
 }
 
-class GameUser 
+class GameUser
 {
     /**
      * @param {string} uuid

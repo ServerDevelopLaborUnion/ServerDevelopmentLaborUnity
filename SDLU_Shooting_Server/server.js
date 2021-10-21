@@ -30,14 +30,14 @@ wsServer.on("connection", socket => {
     connectionHandler(socket);
 
     // user
-    let user = new User(socket, id, null, null, null, null, null);
+    let user = new User(socket, id, "uuid", null, null, null, null);
     UserUtil.addUser(null, user);
     socket.user = user;
 
     //#endregion // Connection end
 
     // 임시로 로그인 시킴..
-    //LoginHandler.debugLogin(socket);
+    LoginHandler.debugLogin(socket);
 
     socket.on("message", data => {
         try
