@@ -86,12 +86,13 @@ public class Chat : MonoBehaviour
         }
     }
 
-    public void RecvChat()
+    public void RecvChat(DataVO vo)
     {
         
 
         var newPref = Instantiate(chatPref, chatPref.transform.parent);
         var newText = newPref.gameObject.transform.GetChild(0).GetComponent<Text>();
+        newText.text = vo.payload;
         
     }
 
