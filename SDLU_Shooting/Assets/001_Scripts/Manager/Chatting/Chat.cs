@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Chat : MonoBehaviour
 {
+    static public Chat Instance { get; private set; }
+
     [SerializeField]
     private GameObject Inputchatting = null;
     [SerializeField]
@@ -21,6 +23,11 @@ public class Chat : MonoBehaviour
     private bool chatInputActive = false;
     private byte chatType = 0;
     private byte scrollOnTime;
+
+    private void Awake()
+    {
+        Instance ??= this;
+    }
 
     void Start()
     {
@@ -86,13 +93,13 @@ public class Chat : MonoBehaviour
         }
     }
 
-    public void RecvChat(DataVO vo)
+    public void RecvChat(string msg)
     {
         
 
         var newPref = Instantiate(chatPref, chatPref.transform.parent);
         var newText = newPref.gameObject.transform.GetChild(0).GetComponent<Text>();
-        newText.text = vo.payload;
+        newText.text = msg;
         
     }
 
