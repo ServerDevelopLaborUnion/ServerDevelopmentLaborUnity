@@ -6,7 +6,7 @@ const { UserUtil } = require("../Utils/UserUtil");
  * @param {User} sender
  * @param {string} msg
  */
-function broadcast(wsServer, sender, msg)
+function broadcast(msg)
 {
     UserUtil.getUsers().forEach(s => {
         s.socket.send(msg);
