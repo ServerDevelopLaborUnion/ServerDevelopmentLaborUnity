@@ -80,7 +80,7 @@ public class Chat : MonoBehaviour
         {
             chatInput.ActivateInputField();
             scrollOnTime = 10;
-            StartCoroutine(CheckScrollActive());
+            //StartCoroutine(CheckScrollActive());
         }
     }
 
@@ -95,8 +95,6 @@ public class Chat : MonoBehaviour
 
     public void RecvChat(string msg)
     {
-        
-
         var newPref = Instantiate(chatPref, chatPref.transform.parent);
         var newText = newPref.gameObject.transform.GetChild(0).GetComponent<Text>();
         newText.text = msg;
