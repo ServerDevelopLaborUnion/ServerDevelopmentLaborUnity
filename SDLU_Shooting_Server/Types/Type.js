@@ -19,6 +19,7 @@ class User {
         this.death = death;
         this.exp = exp;
 
+        /** @type {GameUser} */
         this.gameUser = null;
     }
 }
@@ -53,7 +54,10 @@ class Game
      */
     addUser(user)
     {
-        this.GameUsers.push(new GameUser(user.uuid, user.nickname, 100));
+        //this.GameUsers.push(new GameUser(user.uuid, user.nickname, 100));
+        var gameuser = new GameUser(user.uuid, user.nickname, 100);
+        this.GameUsers.push(gameuser);
+        user.gameUser = gameuser;
     }
 
     removeUser(user)

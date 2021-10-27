@@ -64,13 +64,16 @@ wsServer.on("connection", socket => {
                 // GameUser = 게임중인 객체
                 switch (type) {
                     case "msg":
-                        broadcast(JSON.stringify(new DataVO("msg", payload)));
+                    case "shoot":
+                    case "move":
+                        broadcast(JSON.stringify(new DataVO(type, payload)));
                         break;
                     case "damage":
-                        broadcast(JSON.stringify(new DataVO("damage", payload)));
-                        break;
-                    case "shoot":
-                        broadcast(JSON.stringify(new DataVO("shoot", payload)));
+                        if (socket.user.gameUser.hp <= 0) {
+                            broadcast(JSON.stringify(new DataVO("dead", payload)));
+                        }
+                        else
+                        broadcast(JSON.stringify(new DataVO(type, payload)));
                         break;
                     default:
                         socket.send(JSON.stringify(new DataVO("errmsg", "그런 타입이 없습니다.")));
@@ -83,7 +86,7 @@ wsServer.on("connection", socket => {
             console.log(`${socket.sessionId} : ${data}`);
         }
     });
-    
+    ;
     socket.on("close", () => {
         UserUtil.removeUser(socket);
         console.log(`${socket.sessionId}: 접속 종료`);
