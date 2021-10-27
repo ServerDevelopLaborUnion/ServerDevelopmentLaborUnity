@@ -73,6 +73,7 @@ public class Chat : MonoBehaviour
         {
             DataVO vo = new DataVO("msg", chatInput.text);
             SocketClient.Instance.Send(vo);
+            CreateChatPref("Me", chatInput.text);
             chatInput.Select();
             chatInput.text = null;
         }
@@ -140,5 +141,9 @@ public class Chat : MonoBehaviour
         }
     }
 
-    
+    private void CreateChatPref(string id, string str)
+    {
+        GameObject newChat = Instantiate(chatPref, chattingScroll.transform.GetChild(0).GetChild(0));
+        newChat.GetComponent<Text>().text = $"{id}: {str}";
+    }
 }
