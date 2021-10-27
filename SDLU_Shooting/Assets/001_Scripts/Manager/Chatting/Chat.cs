@@ -94,14 +94,6 @@ public class Chat : MonoBehaviour
         }
     }
 
-    public void RecvChat(string msg)
-    {
-        var newPref = Instantiate(chatPref, chatPref.transform.parent);
-        var newText = newPref.gameObject.transform.GetChild(0).GetComponent<Text>();
-        newText.text = msg;
-        
-    }
-
     private void SetScrollActive(bool b)
     {
         chatScrollActive = b;
@@ -141,7 +133,7 @@ public class Chat : MonoBehaviour
         }
     }
 
-    private void CreateChatPref(string id, string str)
+    public void CreateChatPref(string id, string str)
     {
         GameObject newChat = Instantiate(chatPref, chattingScroll.transform.GetChild(0).GetChild(0));
         newChat.GetComponent<Text>().text = $"{id}: {str}";
