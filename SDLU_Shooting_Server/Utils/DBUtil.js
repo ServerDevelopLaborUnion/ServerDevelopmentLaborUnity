@@ -1,5 +1,6 @@
 const { UserRecode, User } = require("../Types/Type");
 const { DataVO } = require("../VO/DataVO.js");
+const { RecordVO } = require("../VO/RecordVO.js");
 const mysql = require('mysql2');
 const secret = require('../secret')
 
@@ -50,23 +51,41 @@ class DBUtil {
         return true;
     }
 
+    async ReadRecord(socket){
+        let target = await this.GetUser(socket);
+        console.log(target)
+        socket.send(JSON.stringify(new DataVO("read", JSON.stringify(new RecordVO(target.kill, target.death, target.exp)))));
+    }
+
     /**
      * 유저 정보 얻기
      * @param {string} uuid
      * @returns {User} 유저 객체
      */
-    async GetUser(uuid) {
+    async GetUser(socket) {
         var user = new User();
-        if (true) // 유저가 있다면
+        let sql = `SELECT * FROM Test WHERE code = ?`;
+        let [result] = await promisePool.query(sql, [socket.user.uuid]);
+        if (result.length > 0) // 유저가 있다면
         {
             user.nickname = "닉!넴!";
+            user.id = socket.user.uuid;
+            user.kill = result[0].kill;
+            user.death = result[0].death;
+            user.exp = result[0].exp;
         }
         else // 유저가 없으면
         {
             user = null;
         }
-
+        
         return user;
+    }
+
+    async RecordUser(payload, socket){
+        let {kill, death, exp} = JSON.parse(payload)
+        let sql = `UPDATE Test SET \`kill\` = ?, \`death\` = ?, \`exp\` = ? WHERE code = ?`;
+        let [result] = await promisePool.query(sql, [kill, death, exp, socket.user.uuid]);
     }
 
     /**
