@@ -4,19 +4,22 @@ class User {
      * @param {string} sessionId
      * @param {string} uuid
      * @param {string} nickname
-     * @param {number} level
+     * @param {number} kill
+     * @param {number} death
      * @param {number} exp
      */
-    constructor(socket, sessionId, uuid, nickname, level, exp) {
+    constructor(socket, sessionId, uuid, nickname, kill, death, exp) {
         this.socket = socket;
         this.sessionId = sessionId;
 
         // 아래는 DB에서 불러올 정보
         this.uuid = uuid;
         this.nickname = nickname;
-        this.level = level;
+        this.kill = kill;
+        this.death = death;
         this.exp = exp;
 
+        /** @type {GameUser} */
         this.gameUser = null;
     }
 }
@@ -51,7 +54,10 @@ class Game
      */
     addUser(user)
     {
-        this.GameUsers.push(new GameUser(user.uuid, user.nickname, 100));
+        //this.GameUsers.push(new GameUser(user.uuid, user.nickname, 100));
+        var gameuser = new GameUser(user.uuid, user.nickname, 100);
+        this.GameUsers.push(gameuser);
+        user.gameUser = gameuser;
     }
 
     removeUser(user)
