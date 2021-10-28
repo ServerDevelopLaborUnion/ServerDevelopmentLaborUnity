@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShootHandler : MonoBehaviour
 {
     [SerializeField] private GameObject bulletPrefab;
-    #region 메소드
+    #region 이벤트
     private void Start(){
         BufferHandler.Instance.AddHandler("shoot", (data) =>
         {
