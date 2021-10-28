@@ -8,6 +8,9 @@ const { RegisterHandler } = require("./Handlers/RegisterHandler.js");
 const { connectionHandler } = require("./Handlers/ConnectionHandler.js");
 const { userConnectedHandler } = require("./Handlers/UserConnectionHandler.js");
 const { User, Game, GameUser } = require("./Types/Type");
+const { DBUtil } = require("./Utils/DBUtil.js");
+const { RecordVO } = require("./VO/RecordVO.js");
+const { DamageVO } = require("./VO/DamageVO.js");
 
 const port = 32000;
 
@@ -30,14 +33,14 @@ wsServer.on("connection", socket => {
     connectionHandler(socket);
 
     // user
-    let user = new User(socket, id, "uuid", null, null, null, null);
+    let user = new User(socket, id, null, null, null, null, null);
     UserUtil.addUser(null, user);
     socket.user = user;
 
     //#endregion // Connection end
 
     // 임시로 로그인 시킴..
-    LoginHandler.debugLogin(socket);
+    //LoginHandler.debugLogin(socket);
 
     socket.on("message", data => {
         try
@@ -63,15 +66,26 @@ wsServer.on("connection", socket => {
                 // User = 서버에 들어온 유저
                 // GameUser = 게임중인 객체
                 switch (type) {
+                    case "dead":
                     case "msg":
-                        broadcast(JSON.stringify(new DataVO("msg", payload)));
+                    case "shoot":
+                    case "move":
+                        broadcast(JSON.stringify(new DataVO(type, payload)));
                         break;
                     case "damage":
-                        broadcast(JSON.stringify(new DataVO("damage", payload)));
+                        if (socket.user.gameUser.hp <= 0) {
+                            broadcast(JSON.stringify(new DataVO("dead", payload)));
+                        }
+                        else
+                        broadcast(JSON.stringify(new DataVO(type, JSON.stringify(new DamageVO(socket.sessionId, payload)))));
                         break;
-                    case "shoot":
-                        broadcast(JSON.stringify(new DataVO("shoot", payload)));
+                    case "record":
+                        DBUtil.RecordUser(payload, socket);
                         break;
+                    case "read":
+                        DBUtil.ReadRecord(socket);;
+                        break;
+                        
                     default:
                         socket.send(JSON.stringify(new DataVO("errmsg", "그런 타입이 없습니다.")));
                 }
@@ -83,7 +97,7 @@ wsServer.on("connection", socket => {
             console.log(`${socket.sessionId} : ${data}`);
         }
     });
-    
+    ;
     socket.on("close", () => {
         UserUtil.removeUser(socket);
         console.log(`${socket.sessionId}: 접속 종료`);

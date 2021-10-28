@@ -2,7 +2,7 @@ const { DataVO } = require("../VO/DataVO");
 const { User } = require("../Types/Type");
 const { UserUtil } = require("../Utils/UserUtil.js");
 const { LoginHandler } = require("../Handlers/LoginHandler.js");
-const { DBUtil } = require("../Utils/DBUtil");
+//const { DBUtil } = require("../Utils/DBUtil");
 
 function loginCheck(id, password) {
     // DB에서 로그인 시도

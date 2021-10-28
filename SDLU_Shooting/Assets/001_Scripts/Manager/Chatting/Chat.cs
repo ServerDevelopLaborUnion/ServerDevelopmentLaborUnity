@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Chat : MonoBehaviour
 {
+    static public Chat Instance { get; private set; }
+
     [SerializeField]
     private GameObject Inputchatting = null;
     [SerializeField]
@@ -21,6 +23,11 @@ public class Chat : MonoBehaviour
     private bool chatInputActive = false;
     private byte chatType = 0;
     private byte scrollOnTime;
+
+    private void Awake()
+    {
+        Instance ??= this;
+    }
 
     void Start()
     {
@@ -66,6 +73,7 @@ public class Chat : MonoBehaviour
         {
             DataVO vo = new DataVO("msg", chatInput.text);
             SocketClient.Instance.Send(vo);
+            CreateChatPref("Me", chatInput.text);
             chatInput.Select();
             chatInput.text = null;
         }
@@ -73,7 +81,7 @@ public class Chat : MonoBehaviour
         {
             chatInput.ActivateInputField();
             scrollOnTime = 10;
-            StartCoroutine(CheckScrollActive());
+            //StartCoroutine(CheckScrollActive());
         }
     }
 
@@ -84,16 +92,6 @@ public class Chat : MonoBehaviour
         {
             chatType = 0;
         }
-    }
-
-    public void RecvChat(DataVO vo)
-    {
-        
-
-        var newPref = Instantiate(chatPref, chatPref.transform.parent);
-        var newText = newPref.gameObject.transform.GetChild(0).GetComponent<Text>();
-        newText.text = vo.payload;
-        
     }
 
     private void SetScrollActive(bool b)
@@ -135,5 +133,9 @@ public class Chat : MonoBehaviour
         }
     }
 
-    
+    public void CreateChatPref(string id, string str)
+    {
+        GameObject newChat = Instantiate(chatPref, chattingScroll.transform.GetChild(0).GetChild(0));
+        newChat.GetComponent<Text>().text = $"{id}: {str}";
+    }
 }

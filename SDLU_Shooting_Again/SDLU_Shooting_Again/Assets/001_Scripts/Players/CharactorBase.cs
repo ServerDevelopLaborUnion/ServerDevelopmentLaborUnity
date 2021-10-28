@@ -12,7 +12,6 @@ abstract public class CharactorBase : MonoBehaviour, IDamageable
 
     // 피격 + 이동 용도
     protected Rigidbody rigid;
-    protected BoxCollider coll;
 
     // 사용하는 변수
     protected int curHP;

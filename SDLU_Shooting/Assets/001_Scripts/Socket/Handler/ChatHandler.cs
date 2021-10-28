@@ -8,6 +8,7 @@ public class ChatHandler : MonoBehaviour
     {
         BufferHandler.Instance.AddHandler("msg", (msg) => {
             Debug.Log(msg);
+            //Chat.Instance.CreateChatPref("other", vo.payload);
         });
     }
 }
