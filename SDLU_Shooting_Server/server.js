@@ -10,6 +10,7 @@ const { userConnectedHandler } = require("./Handlers/UserConnectionHandler.js");
 const { User, Game, GameUser } = require("./Types/Type");
 const { DBUtil } = require("./Utils/DBUtil.js");
 const { RecordVO } = require("./VO/RecordVO.js");
+const { DamageVO } = require("./VO/RecordVO.js");
 
 const port = 32000;
 
@@ -75,7 +76,7 @@ wsServer.on("connection", socket => {
                             broadcast(JSON.stringify(new DataVO("dead", payload)));
                         }
                         else
-                        broadcast(JSON.stringify(new DataVO(type, payload)));
+                        broadcast(JSON.stringify(new DataVO(type, JSON.stringify(new DamageVO(socket.sessionId, payload)))));
                         break;
                     case "record":
                         DBUtil.RecordUser(payload, socket);
