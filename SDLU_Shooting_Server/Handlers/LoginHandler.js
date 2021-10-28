@@ -10,10 +10,10 @@ class LoginHandler
      * @param {WebSocket} socket
      * @param {string} payload
      */
-    Login(socket, payload)
+    async Login(socket, payload)
     {
         const { id, password } = JSON.parse(payload);
-        if (DBUtil.Login(id, password, socket))
+        if (await DBUtil.Login(id, password, socket))
         {
             var user = UserUtil.getUserBySocket(socket);
             console.log(`로그인 성공: ${user.nickname}`);

@@ -41,11 +41,12 @@ class DBUtil {
         console.log(id, password);
         let sql = `SELECT * FROM Test WHERE id = ? AND password = password(?)`;
         let [user] = await promisePool.query(sql, [id, password]);
-        console.log(user[0]);
-        if (user[0].id == null || user[0].id != id) {
+        if (user.length <= 0) {
             socket.send(JSON.stringify(new DataVO("errmsg", "없는 아이디 입니다.")));
             return false;
         }
+        
+        console.log(user);
         socket.user.uuid = user[0].code;
 
         return true;
