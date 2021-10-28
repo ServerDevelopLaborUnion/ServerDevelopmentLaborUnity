@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "mysql2": "^2.3.2",
+    "nodemon": "^2.0.14",
     "ws": "^8.2.3"
   }
 }

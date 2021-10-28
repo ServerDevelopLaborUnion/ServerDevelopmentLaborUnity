@@ -66,6 +66,7 @@ wsServer.on("connection", socket => {
                 // User = 서버에 들어온 유저
                 // GameUser = 게임중인 객체
                 switch (type) {
+                    case "dead":
                     case "msg":
                     case "shoot":
                     case "move":
@@ -84,6 +85,7 @@ wsServer.on("connection", socket => {
                     case "read":
                         DBUtil.ReadRecord(socket);;
                         break;
+                        
                     default:
                         socket.send(JSON.stringify(new DataVO("errmsg", "그런 타입이 없습니다.")));
                 }
