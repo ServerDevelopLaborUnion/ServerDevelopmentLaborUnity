@@ -10,7 +10,7 @@ const { userConnectedHandler } = require("./Handlers/UserConnectionHandler.js");
 const { User, Game, GameUser } = require("./Types/Type");
 const { DBUtil } = require("./Utils/DBUtil.js");
 const { RecordVO } = require("./VO/RecordVO.js");
-const { DamageVO } = require("./VO/RecordVO.js");
+const { DamageVO } = require("./VO/DamageVO.js");
 
 const port = 32000;
 
