@@ -23,7 +23,11 @@ public class InputJson
     public KeyCode up        = KeyCode.Space;
     public KeyCode down      = KeyCode.LeftShift;
 
+
     // 마우스 입력
     public MouseButton fire = MouseButton.Left;
     public MouseButton aim  = MouseButton.Right;
+
+    // 감도
+    public float mouseSensitivity = 1.0f;
 }

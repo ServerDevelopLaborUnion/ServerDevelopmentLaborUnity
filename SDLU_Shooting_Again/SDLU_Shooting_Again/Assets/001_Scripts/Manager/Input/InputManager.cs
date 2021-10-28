@@ -62,6 +62,8 @@ public class InputManager : MonoSingleton<InputManager>
         OnKeyDown      += () => { };
         OnKeyRollLeft  += () => { };
         OnKeyRollRight += () => { };
+        OnMouseFire    += () => { };
+        OnMouseAim     += () => { };
     }
 
 
@@ -109,8 +111,16 @@ public class InputManager : MonoSingleton<InputManager>
         {
             OnMouseAim();
         }
+    }
 
+    public float GetMouseSensitivity()
+    {
+        return keys.mouseSensitivity;
+    }
 
+    public void SetMouseSensitivity(float value)
+    {
+        keys.mouseSensitivity = value;
     }
 
 }
