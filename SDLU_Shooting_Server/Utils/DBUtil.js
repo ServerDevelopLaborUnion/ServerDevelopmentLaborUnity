@@ -69,7 +69,7 @@ class DBUtil {
         let [result] = await promisePool.query(sql, [socket.user.uuid]);
         if (result.length > 0) // 유저가 있다면
         {
-            user.nickname = "닉!넴!";
+            user.nickname = result[0].id;
             user.id = socket.user.uuid;
             user.kill = result[0].kill;
             user.death = result[0].death;
@@ -96,9 +96,13 @@ class DBUtil {
      */
     async GetUserRecode(uuid) {
         var user = new User();
-        if (true) // 유저가 있다면
+        // get user info in mysql database
+        //TODO : 나중에 유저 전적 만들기
+        let sql = `SELECT * FROM Test WHERE code = ?`;
+        let [result] = await promisePool.query(sql, [uuid]);
+        if (result.length > 0) // 유저가 있다면
         {
-            // 전적 불러올 예정
+            
         }
         else // 유저가 없으면
         {

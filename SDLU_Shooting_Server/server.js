@@ -11,6 +11,7 @@ const { User, Game, GameUser } = require("./Types/Type");
 const { DBUtil } = require("./Utils/DBUtil.js");
 const { RecordVO } = require("./VO/RecordVO.js");
 const { DamageVO } = require("./VO/DamageVO.js");
+const { ChatHandler } = require("./Handlers/ChatHandler.js");
 
 const port = 32000;
 
@@ -85,6 +86,8 @@ wsServer.on("connection", socket => {
                     case "read":
                         DBUtil.ReadRecord(socket);;
                         break;
+                    case "chat":
+                        ChatHandler.Chat(socket, payload);
                         
                     default:
                         socket.send(JSON.stringify(new DataVO("errmsg", "그런 타입이 없습니다.")));

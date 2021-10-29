@@ -71,7 +71,7 @@ public class Chat : MonoBehaviour
         SetScrollActive(true);
         if (!chatInputActive)
         {
-            DataVO vo = new DataVO("msg", chatInput.text);
+            DataVO vo = new DataVO("chat", chatInput.text);
             SocketClient.Instance.Send(vo);
             CreateChatPref("Me", chatInput.text);
             chatInput.Select();
