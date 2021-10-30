@@ -58,7 +58,7 @@ public class Chat : MonoBehaviour
             }
             fieldHolder.text = holderText;
         }
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             SetChatActive();
         }
@@ -73,7 +73,7 @@ public class Chat : MonoBehaviour
         {
             DataVO vo = new DataVO("chat", chatInput.text);
             SocketClient.Instance.Send(vo);
-            CreateChatPref("Me", chatInput.text);
+            CreateChatPref(chatInput.text);
             chatInput.Select();
             chatInput.text = null;
         }
@@ -133,9 +133,16 @@ public class Chat : MonoBehaviour
         }
     }
 
-    public void CreateChatPref(string id, string str)
+    public void CreateChatPref(string str, bool me = true)
     {
         GameObject newChat = Instantiate(chatPref, chattingScroll.transform.GetChild(0).GetChild(0));
-        newChat.GetComponent<Text>().text = $"{id}: {str}";
+        if (me)
+        {
+            newChat.GetComponent<Text>().text = $"me: {str}";
+        }
+        else
+        {
+            newChat.GetComponent<Text>().text = $"{str}";
+        }
     }
 }
