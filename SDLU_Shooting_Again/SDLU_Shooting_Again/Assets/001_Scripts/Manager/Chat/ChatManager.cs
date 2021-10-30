@@ -89,5 +89,10 @@ public class ChatManager : MonoSingleton<ChatManager>
         {
             newChat.GetComponent<Text>().text = $"{msg}";
         }
+
+        if (chattingScroll.transform.GetChild(0).GetChild(0).childCount > 15)
+        {
+            Destroy(chattingScroll.transform.GetChild(0).GetChild(0).GetChild(0));
+        }
     }
 }
