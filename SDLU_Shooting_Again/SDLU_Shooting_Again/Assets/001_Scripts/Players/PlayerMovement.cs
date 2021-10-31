@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float rotateSpeed;
+    [SerializeField] float speed = 5.0f;
 
     private Rigidbody rigid = null;
 
@@ -20,27 +21,27 @@ public class PlayerMovement : MonoBehaviour
 
 
         InputManager.Instance.OnKeyFoward += () => {
-            // rigid.AddForce();
+            rigid.AddForce(Vector3.forward * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyBackWard += () => {
-
+            rigid.AddForce(Vector3.back * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyLeft += () => {
-
+            rigid.AddForce(Vector3.left * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyRight += () => {
-
+            rigid.AddForce(Vector3.right * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyDown += () => {
-
+            rigid.AddForce(Vector3.down * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyUp += () => {
-
+            rigid.AddForce(Vector3.up * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyRollLeft += () => {
