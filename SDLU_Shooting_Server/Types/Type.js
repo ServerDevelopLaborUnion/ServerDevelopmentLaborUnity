@@ -1,3 +1,4 @@
+const { Vector3 } = require("../Utils/Vector3")
 class User {
     /**
      * @param {WebSocket} socket
@@ -79,8 +80,8 @@ class GameUser
         this.maxHp = maxHp;
         this.hp = this.maxHp;
         this.score = 0;
-        this.pos = [0, 0, 0];
-        this.force = [0, 0, 0];
+        this.pos = new Vector3(0, 0, 0);
+        this.force = new Vector3(0, 0, 0);
         this.animation = "Idle";
     }
 }

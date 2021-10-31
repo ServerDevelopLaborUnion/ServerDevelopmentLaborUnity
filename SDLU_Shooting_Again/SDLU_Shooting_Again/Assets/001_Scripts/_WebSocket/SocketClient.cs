@@ -62,6 +62,4 @@ public class SocketClient : MonoSingleton<SocketClient>
     {
         ws.Send(JsonUtility.ToJson(vo));
     }
-    
-    
 }

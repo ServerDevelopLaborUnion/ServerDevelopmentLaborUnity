@@ -6,6 +6,11 @@ const { LoginHandler } = require("../Handlers/LoginHandler.js");
 
 function loginCheck(id, password) {
     // DB에서 로그인 시도
+    // DB에서 아이디가 존재하는지 확인
+    // 아이디가 존재하면 비밀번호가 맞는지 확인
+    // 비밀번호가 맞으면 로그인 성공
+    // 비밀번호가 틀리면 로그인 실패
+
     if (true) {
         return true;
     }
