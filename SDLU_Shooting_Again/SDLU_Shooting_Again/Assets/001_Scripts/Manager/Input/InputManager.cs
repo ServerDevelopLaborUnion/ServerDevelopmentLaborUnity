@@ -47,9 +47,15 @@ public class InputManager : MonoSingleton<InputManager>
     public event Action OnMouseFire;
 
     /// <summary>
-    /// 조준 마우스 버튼을 받았을 때 계속 실행됨
+    /// 조준 마우스 버튼을 받았을 때 한번 실행됨
     /// </summary>
     public event Action OnMouseAim;
+
+    /// <summary>
+    /// 조준 마우스 버튼 입력이 멈추었을 때 한번 실행됨
+    /// </summary>
+    public event Action OnMouseAimQuit;
+
     #endregion
 
     #region 기타
@@ -131,9 +137,13 @@ public class InputManager : MonoSingleton<InputManager>
         {
             OnMouseFire();
         }
-        if(Input.GetMouseButton((int)keys.aim))
+        if(Input.GetMouseButtonDown((int)keys.aim))
         {
             OnMouseAim();
+        }
+        if(Input.GetMouseButtonUp((int)keys.aim))
+        {
+            OnMouseAimQuit();
         }
 
         #endregion

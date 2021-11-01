@@ -14,7 +14,7 @@ abstract public class Shootable : MonoBehaviour
 
     protected virtual void Awake()
     {
-        curAmmo      = ammoCount;
+        curAmmo = ammoCount;
     }
 
     protected virtual void Start()
@@ -52,6 +52,5 @@ abstract public class Shootable : MonoBehaviour
     {
         curAmmo = ammoCount;
     }
-
 
 }
