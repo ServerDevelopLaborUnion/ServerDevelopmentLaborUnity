@@ -21,27 +21,27 @@ public class PlayerMovement : MonoBehaviour
 
 
         InputManager.Instance.OnKeyFoward += () => {
-            rigid.AddForce(Vector3.forward * speed * Time.deltaTime, ForceMode.Impulse);
+            rigid.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyBackWard += () => {
-            rigid.AddForce(Vector3.back * speed * Time.deltaTime, ForceMode.Impulse);
+            rigid.AddForce(-transform.forward * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyLeft += () => {
-            rigid.AddForce(Vector3.left * speed * Time.deltaTime, ForceMode.Impulse);
+            rigid.AddForce(-transform.right * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyRight += () => {
-            rigid.AddForce(Vector3.right * speed * Time.deltaTime, ForceMode.Impulse);
+            rigid.AddForce(transform.right * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyDown += () => {
-            rigid.AddForce(Vector3.down * speed * Time.deltaTime, ForceMode.Impulse);
+            rigid.AddForce(-transform.up * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyUp += () => {
-            rigid.AddForce(Vector3.up * speed * Time.deltaTime, ForceMode.Impulse);
+            rigid.AddForce(transform.up * speed * Time.deltaTime, ForceMode.Impulse);
         };
 
         InputManager.Instance.OnKeyRollLeft += () => {
@@ -59,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         rotation.x = -Input.GetAxis("Mouse Y") * InputManager.Instance.GetMouseSensitivity();
 
         rigid.rotation *= Quaternion.Euler(rotation);
+        rotation.z = 0;
     }
 
 
