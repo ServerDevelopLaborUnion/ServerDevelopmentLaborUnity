@@ -29,6 +29,7 @@ public class AccountHandler : MonoBehaviour
         BufferHandler.Instance.AddHandler("loginSuccess", (record) => {
             LoginManager.Instance.GotLogined();
             LoginCanvas.SetActive(false);
+            MouseLockManager.Instance.LockMouse();
         });
     }
 }
