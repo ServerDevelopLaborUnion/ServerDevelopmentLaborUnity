@@ -8,7 +8,7 @@ const { DefaultValue } = require("../Vars/DefaultPlayerValue.js");
 function connectionHandler(socket)
 {
     const payload = JSON.stringify({
-        id: socket.sessionId,
+        id: socket.user.id,
         pos: spawnPositions[Math.round(Math.random() * spawnPositions.length) % spawnPositions.length],
         hp: DefaultValue.HP
     });
