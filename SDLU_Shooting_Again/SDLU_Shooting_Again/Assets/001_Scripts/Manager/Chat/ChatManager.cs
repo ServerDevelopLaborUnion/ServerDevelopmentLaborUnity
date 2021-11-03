@@ -32,8 +32,9 @@ public class ChatManager : MonoSingleton<ChatManager>
         }
         if (Input.GetKey(KeyCode.RightShift) && Input.GetKey(KeyCode.Return))
         {
-            chattingScroll.SetActive(false);
+            ScrollToggle(false);
             Inputchatting.SetActive(false);
+            chatInputActive = false;
         }
     }
 
@@ -41,7 +42,7 @@ public class ChatManager : MonoSingleton<ChatManager>
     {
         if (chatScrollActive == false && chatInputActive == false)
         {
-            SetScrollOn();
+            ScrollToggle(true);
             SetInputToggle();
         }
         else if(chatScrollActive == false && chatInputActive == true)
@@ -54,9 +55,9 @@ public class ChatManager : MonoSingleton<ChatManager>
         }
     }
 
-    private void SetScrollOn()
+    private void ScrollToggle(bool b)
     {
-        chatScrollActive = true;
+        chatScrollActive = b;
         chattingScroll.SetActive(chatScrollActive);
     }
 
