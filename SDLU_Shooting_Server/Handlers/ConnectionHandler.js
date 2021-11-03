@@ -33,7 +33,7 @@ function toHistoryVO()
     UserUtil.getUsers().forEach(s => {
         id.push(s.sessionId);
         pos.push(JSON.stringify(new Vector3(0,0,0)));
-        hp.push(100);
+        hp.push(s.hp);
     });
 
     return JSON.stringify({ id, pos, hp }); // TODO : HISTORY

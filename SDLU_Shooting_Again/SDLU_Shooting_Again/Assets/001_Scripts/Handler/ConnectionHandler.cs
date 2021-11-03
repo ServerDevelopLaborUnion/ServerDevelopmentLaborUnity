@@ -22,6 +22,7 @@ public class ConnectionHandler : MonoBehaviour
 
             // History
             HistoryVO history = JsonUtility.FromJson<HistoryVO>(vo.history);
+
             if(history.id.Count < 1)
             {
                 return;
@@ -29,6 +30,8 @@ public class ConnectionHandler : MonoBehaviour
 
             for (int i = 0; i < history.id.Count; ++i)
             {
+                if(history.id[i] == GameManager.Instance.Player.ID) continue;
+
                 Vector3 pos = JsonUtility.FromJson<Vector3>(history.pos[i]);
                 Debug.Log(pos);
                 CharactorBase charactor = Instantiate(newPlayerPrefab, pos, Quaternion.identity).GetComponent<CharactorBase>(); // TODO : Rotation
