@@ -84,11 +84,11 @@ wsServer.on("connection", socket => {
                         DBUtil.RecordUser(payload, socket);
                         break;
                     case "read":
-                        DBUtil.ReadRecord(socket);;
+                        DBUtil.ReadRecord(socket);
                         break;
                     case "chat":
                         ChatHandler.Chat(socket, payload);
-                        
+                        break;
                     default:
                         socket.send(JSON.stringify(new DataVO("errmsg", "그런 타입이 없습니다.")));
                 }
@@ -100,7 +100,7 @@ wsServer.on("connection", socket => {
             console.log(`${socket.sessionId} : ${data}`);
         }
     });
-    ;
+    
     socket.on("close", () => {
         UserUtil.removeUser(socket);
         console.log(`${socket.sessionId}: 접속 종료`);
