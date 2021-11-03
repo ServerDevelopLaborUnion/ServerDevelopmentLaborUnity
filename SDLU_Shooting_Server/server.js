@@ -41,7 +41,7 @@ wsServer.on("connection", socket => {
     //#endregion // Connection end
 
     // 임시로 로그인 시킴..
-    //LoginHandler.debugLogin(socket);
+    LoginHandler.debugLogin(socket);
 
     socket.on("message", data => {
         try
