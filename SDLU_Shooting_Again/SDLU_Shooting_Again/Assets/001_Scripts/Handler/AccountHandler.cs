@@ -10,6 +10,8 @@ public class AccountHandler : MonoBehaviour
     [SerializeField] private Button registerBtn = null;
     [SerializeField] private Button loginBtn = null;
 
+    [SerializeField] private GameObject LoginCanvas = null;
+
     private void Awake()
     {
         registerBtn.onClick.AddListener(() =>
@@ -25,7 +27,8 @@ public class AccountHandler : MonoBehaviour
     private void Start()
     {
         BufferHandler.Instance.AddHandler("loginSuccess", (record) => {
-            gameObject.SetActive(false);
+            LoginManager.Instance.GotLogined();
+            LoginCanvas.SetActive(false);
         });
     }
 }

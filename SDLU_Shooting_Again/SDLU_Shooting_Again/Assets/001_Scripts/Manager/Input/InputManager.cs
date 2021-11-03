@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class InputManager : MonoSingleton<InputManager>
 {
+
     #region 이동
     /// <summary>
     /// 앞으로 가는 키 눌렀을 때 계속 호출됨
@@ -96,6 +97,7 @@ public class InputManager : MonoSingleton<InputManager>
 
     private void Update()
     {
+        if (!LoginManager.Instance.HasLogined()) return;
         #region 이동
         if (Input.GetKey(keys.foward))
         {
