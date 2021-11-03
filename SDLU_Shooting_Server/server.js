@@ -30,7 +30,7 @@ wsServer.on("connection", socket => {
     console.log(`Client Connected. id: ${socket.sessionId}`);
 
     // connection packet
-    userConnectedHandler(wsServer, socket);
+    userConnectedHandler(socket);
     connectionHandler(socket);
 
     // user
