@@ -13,6 +13,9 @@ public class ChatManager : MonoSingleton<ChatManager>
     private GameObject chatPref = null;
 
     private InputField chatInput = null;
+    
+    [SerializeField]
+    private Scrollbar chattingSlider = null;
 
     private bool chatScrollActive = false;
     private bool chatInputActive = false;
@@ -91,5 +94,6 @@ public class ChatManager : MonoSingleton<ChatManager>
         {
             newChat.GetComponent<Text>().text = $"{msg}";
         }
+        chattingSlider.value = 0;
     }
 }
