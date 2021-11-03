@@ -6,14 +6,13 @@ const { DefaultValue } = require("../Vars/DefaultPlayerValue.js");
 
 function connectionHandler(socket)
 {
-    socket.send(JSON.stringify(new DataVO("init",
-                JSON.stringify({
-                    id: socket.sessionId,
-                    pos: spawnPositions[Math.round(Math.random() * spawnPositions.length)],
-                    hp: DefaultValue.HP
-                }
-                ))
-    )); // 문자열로 바꿔줌
+    const payload = JSON.stringify({
+        id: socket.sessionId,
+        pos: spawnPositions[Math.round(Math.random() * spawnPositions.length)],
+        hp: DefaultValue.HP
+    });
+
+    socket.send(JSON.stringify(new DataVO("init", payload))); // 문자열로 바꿔줌
 }
 
 exports.connectionHandler = connectionHandler;
