@@ -75,7 +75,7 @@ wsServer.on("connection", socket => {
                             broadcast(JSON.stringify(new DataVO("dead", payload)));
                         }
                         else
-                            broadcast(JSON.stringify(new DataVO(type, JSON.stringify(new DamageVO(socket.sessionId, payload)))));
+                            broadcast(JSON.stringify(new DataVO(type, payload)));
                         break;
                     case "record":
                         DBUtil.RecordUser(payload, socket);

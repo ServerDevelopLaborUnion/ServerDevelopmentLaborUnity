@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
 {
     event System.Action _onCollision; // 물체와 충돌 시 호출
     Rigidbody rigid;
+    int damage = 5;
 
     private void Awake()
     {
@@ -33,9 +34,10 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         Debug.Log(other.gameObject.name);
-        other.gameObject.GetComponent<Player>().Damaged(0);
+        Player player = other.gameObject.GetComponent<Player>();
+        player.Damaged(damage);
         //TODO : 0바꾸기
-        SocketClient.Instance.Send(new DataVO("damage", JsonUtility.ToJson(new DamageVO(1, 10))));
+        SocketClient.Instance.Send(new DataVO("damage", JsonUtility.ToJson(new DamageVO(player.ID, damage))));
         //TODO : 1, 10 바꾸기
         _onCollision();
     }
