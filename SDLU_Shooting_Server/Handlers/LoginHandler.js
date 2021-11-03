@@ -17,7 +17,7 @@ class LoginHandler
         {
             var user = UserUtil.getUserBySocket(socket);
             console.log(`로그인 성공: ${user.nickname}`);
-            socket.send(JSON.stringify(new DataVO("msg", "로그인 성공!")));
+            socket.send(JSON.stringify(new DataVO("loginSuccess", "로그인 성공!")));
         }
         else
         {
