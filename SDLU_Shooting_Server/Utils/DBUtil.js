@@ -39,15 +39,21 @@ class DBUtil {
      */
     async Login(id, password, socket) {
         console.log(id, password);
-        let sql = `SELECT * FROM Test WHERE id = ? AND password = password(?)`;
+        let sql = `SELECT code, isUsing FROM Test WHERE id = ? AND password = password(?)`;
         let [user] = await promisePool.query(sql, [id, password]);
         if (user.length <= 0) {
             socket.send(JSON.stringify(new DataVO("errmsg", "없는 아이디 입니다.")));
             return false;
         }
-        
+        if(user[0].isUsing == 1){
+            socket.send(JSON.stringify(new DataVO("errmsg", "지금 로그인 중인 아이디입니다.")));
+            return false;
+        }
         console.log(user);
         socket.user.uuid = user[0].code;
+
+        sql = `UPDATE Test SET isUsing = 1 WHERE code = ?`
+        await promisePool.query(sql, [user[0].code]);
 
         return true;
     }
@@ -110,6 +116,11 @@ class DBUtil {
         }
 
         return user;
+    }
+
+    async SetOffline(socket){
+        let sql = `UPDATE Test SET isUsing = 0 WHERE code = ?`;
+        await promisePool.query(sql, [socket.user.uuid])
     }
 }
 
