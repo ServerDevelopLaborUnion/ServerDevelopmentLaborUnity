@@ -73,7 +73,6 @@ public class ChatManager : MonoSingleton<ChatManager>
             if (chatInput.text != null)
             {
                 SocketClient.Instance.Send(new DataVO("chat", chatInput.text));
-                CreateChatPref(chatInput.text);
             }
             chatInput.Select();
             chatInput.text = null;
@@ -90,11 +89,6 @@ public class ChatManager : MonoSingleton<ChatManager>
         else
         {
             newChat.GetComponent<Text>().text = $"{msg}";
-        }
-
-        if (chattingScroll.transform.GetChild(0).GetChild(0).childCount > 15)
-        {
-            Destroy(chattingScroll.transform.GetChild(0).GetChild(0).GetChild(0));
         }
     }
 }
