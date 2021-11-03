@@ -7,9 +7,8 @@ const { UserUtil } = require("./Utils/UserUtil.js");
 const { RegisterHandler } = require("./Handlers/RegisterHandler.js");
 const { connectionHandler } = require("./Handlers/ConnectionHandler.js");
 const { userConnectedHandler } = require("./Handlers/UserConnectionHandler.js");
-const { User, Game, GameUser } = require("./Types/Type");
+const { User, Game } = require("./Types/Type");
 const { DBUtil } = require("./Utils/DBUtil.js");
-const { RecordVO } = require("./VO/RecordVO.js");
 const { DamageVO } = require("./VO/DamageVO.js");
 const { ChatHandler } = require("./Handlers/ChatHandler.js");
 
@@ -41,13 +40,12 @@ wsServer.on("connection", socket => {
     //#endregion // Connection end
 
     // 임시로 로그인 시킴..
-    //LoginHandler.debugLogin(socket);
+    LoginHandler.debugLogin(socket);
 
     socket.on("message", data => {
-        try
-        {
+        try {
             const { type, payload } = parseBuffer(data);
-            
+
             console.log(`[${socket.sessionId}] ${type}: ${payload}`);
 
             if (socket.user.uuid == null) // 로그인이 되어있지 않다면..
@@ -55,8 +53,7 @@ wsServer.on("connection", socket => {
                 if (type == "login") {
                     LoginHandler.Login(socket, payload, game);
                 }
-                else if (type == "register")
-                {
+                else if (type == "register") {
                     RegisterHandler.Register(socket, payload);
                 }
                 else
@@ -78,7 +75,7 @@ wsServer.on("connection", socket => {
                             broadcast(JSON.stringify(new DataVO("dead", payload)));
                         }
                         else
-                        broadcast(JSON.stringify(new DataVO(type, JSON.stringify(new DamageVO(socket.sessionId, payload)))));
+                            broadcast(JSON.stringify(new DataVO(type, JSON.stringify(new DamageVO(socket.sessionId, payload)))));
                         break;
                     case "record":
                         DBUtil.RecordUser(payload, socket);
@@ -94,16 +91,15 @@ wsServer.on("connection", socket => {
                 }
             }
         }
-        catch (e)
-        {
+        catch (e) {
             console.log(e);
             console.log(`${socket.sessionId} : ${data}`);
         }
     });
-    
+
     socket.on("close", () => {
         UserUtil.removeUser(socket);
+        DBUtil.SetOffline(socket);
         console.log(`${socket.sessionId}: 접속 종료`);
     });
-
 });

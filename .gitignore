@@ -64,3 +64,4 @@ sysinfo.txt
 crashlytics-build.properties
 
 SDLU_Shooting_Server/workspace.code-workspace
+SDLU_Shooting_Server/secret.js

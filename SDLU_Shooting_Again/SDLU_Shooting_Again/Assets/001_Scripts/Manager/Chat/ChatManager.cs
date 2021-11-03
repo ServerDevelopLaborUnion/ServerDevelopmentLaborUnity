@@ -32,8 +32,9 @@ public class ChatManager : MonoSingleton<ChatManager>
         }
         if (Input.GetKey(KeyCode.RightShift) && Input.GetKey(KeyCode.Return))
         {
-            chattingScroll.SetActive(false);
+            ScrollToggle(false);
             Inputchatting.SetActive(false);
+            chatInputActive = false;
         }
     }
 
@@ -41,7 +42,7 @@ public class ChatManager : MonoSingleton<ChatManager>
     {
         if (chatScrollActive == false && chatInputActive == false)
         {
-            SetScrollOn();
+            ScrollToggle(true);
             SetInputToggle();
         }
         else if(chatScrollActive == false && chatInputActive == true)
@@ -54,9 +55,9 @@ public class ChatManager : MonoSingleton<ChatManager>
         }
     }
 
-    private void SetScrollOn()
+    private void ScrollToggle(bool b)
     {
-        chatScrollActive = true;
+        chatScrollActive = b;
         chattingScroll.SetActive(chatScrollActive);
     }
 
@@ -70,9 +71,10 @@ public class ChatManager : MonoSingleton<ChatManager>
         }
         else
         {
-            DataVO vo = new DataVO("chat", chatInput.text);
-            SocketClient.Instance.Send(vo);
-            CreateChatPref(chatInput.text);
+            if (chatInput.text != null)
+            {
+                SocketClient.Instance.Send(new DataVO("chat", chatInput.text));
+            }
             chatInput.Select();
             chatInput.text = null;
         }
@@ -88,11 +90,6 @@ public class ChatManager : MonoSingleton<ChatManager>
         else
         {
             newChat.GetComponent<Text>().text = $"{msg}";
-        }
-
-        if (chattingScroll.transform.GetChild(0).GetChild(0).childCount > 15)
-        {
-            Destroy(chattingScroll.transform.GetChild(0).GetChild(0).GetChild(0));
         }
     }
 }
