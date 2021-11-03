@@ -103,6 +103,7 @@ wsServer.on("connection", socket => {
     
     socket.on("close", () => {
         UserUtil.removeUser(socket);
+        DBUtil.SetOffline(socket);
         console.log(`${socket.sessionId}: 접속 종료`);
     });
 
