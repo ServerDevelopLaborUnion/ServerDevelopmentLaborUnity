@@ -35,7 +35,7 @@ class RegisterHandler {
         }
         else // 실패 반환시
         {
-            console.log(`${socket.sessionId} 의 요청: 회원가입\r\n이미 존재하는 계정입니다.`);
+            console.log(`${socket.sessionId} 의 요c청: 회원가입\r\n이미 존재하는 계정입니다.`);
         }
     }
 }

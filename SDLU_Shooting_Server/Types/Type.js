@@ -61,9 +61,28 @@ class Game
         user.gameUser = gameuser;
     }
 
+    getUser(uuid)
+    {
+        for(var i = 0; i < this.GameUsers.length; i++)
+        {
+            if(this.GameUsers[i].uuid == uuid)
+            {
+                return this.GameUsers[i];
+            }
+        }
+        return null;
+    }
+
     removeUser(user)
     {
-        this.GameUsers.forEach();
+        for(var i = 0; i < this.GameUsers.length; i++)
+        {
+            if(this.GameUsers[i].uuid == user.uuid)
+            {
+                this.GameUsers.splice(i, 1);
+                break;
+            }
+        }
     }
 }
 

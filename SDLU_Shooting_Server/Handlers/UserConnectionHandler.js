@@ -8,7 +8,7 @@ const { DataVO } = require("../VO/DataVO.js");
 function userConnectedHandler(socket)
 {
     const payload = JSON.stringify({
-        id: socket.user.id,
+        id: socket.sessionId,
         pos: spawnPositions[Math.round(Math.random() * spawnPositions.length) % spawnPositions.length],
         hp: DefaultValue.hp
         // TODO : 모든 유저의 위치 데이터를 전달해 주어야 함
