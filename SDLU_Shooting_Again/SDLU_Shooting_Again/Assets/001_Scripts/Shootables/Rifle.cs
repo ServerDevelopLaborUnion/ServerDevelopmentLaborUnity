@@ -12,11 +12,17 @@ public class Rifle : Shootable
         base.Start();
 
         InputManager.Instance.OnMouseFire += () => {
-            if(IsShootable() && lastFireTime + fireDelay <= Time.time)
-            {
-                lastFireTime = Time.time;
-                Shoot();
-            }
+            Fire();
         };
     }
+
+    public void Fire()
+    {
+        if (IsShootable() && lastFireTime + fireDelay <= Time.time)
+        {
+            lastFireTime = Time.time;
+            Shoot();
+        }
+    }
+    
 }
