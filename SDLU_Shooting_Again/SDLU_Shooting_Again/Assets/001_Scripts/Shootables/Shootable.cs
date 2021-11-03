@@ -35,16 +35,16 @@ abstract public class Shootable : MonoBehaviour
     {
         --curAmmo; // 총알 하나 줄임
 
-        GameObject bullet = BulletPool.Instance.Get();
+        Bullet bullet = BulletPool.Instance.Get();
 
         // transform 설정
-        bullet.transform.position = firepos.position;
-        bullet.transform.rotation = GameManager.Instance.Player.transform.rotation;
+        bullet.gameObject.transform.position = firepos.position;
+        bullet.gameObject.transform.rotation = GameManager.Instance.Player.transform.rotation;
 
         Vector3 vector = firepos.forward * fireVecocity;
 
         bullet.GetComponent<Bullet>().Fire(vector, () => {
-            bullet.SetActive(false);
+            bullet.gameObject.SetActive(false);
         });
 
         OnFire();

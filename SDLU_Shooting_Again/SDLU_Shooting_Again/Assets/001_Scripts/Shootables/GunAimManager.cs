@@ -76,3 +76,6 @@ public class GunAimManager : MonoBehaviour
         gunCam.fieldOfView  = Mathf.Lerp(idleFoVGunCam, aimFoVGunCam, ep);   // 총 렌더링 카메라 FoV
     }
 }
+
+// server.gondr.net
+// 52273
