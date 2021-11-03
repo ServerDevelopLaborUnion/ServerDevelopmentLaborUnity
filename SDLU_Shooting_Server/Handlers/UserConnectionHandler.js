@@ -9,11 +9,13 @@ function userConnectedHandler(wsServer, socket)
 {
     const payload = JSON.stringify({
         id: socket.sessionId,
-        pos: spawnPositions[Math.random() * (spawnPositions.length - 1)],
+        pos: spawnPositions[Math.round(Math.random() * spawnPositions.length) % spawnPositions.length],
         hp: DefaultValue.hp
         // TODO : 모든 유저의 위치 데이터를 전달해 주어야 함
         // TODO : HistoryHandler 비슷한 거 만들어야 함
     });
+
+    console.log("UserConnectedHandler: " + payload);
 
     broadcast(JSON.stringify(new DataVO("connect", payload))); // 문자열로 바꿔줌
 
