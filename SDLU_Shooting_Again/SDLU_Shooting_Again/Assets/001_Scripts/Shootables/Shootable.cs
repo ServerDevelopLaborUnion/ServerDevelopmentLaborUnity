@@ -34,18 +34,20 @@ abstract public class Shootable : MonoBehaviour
     protected virtual void Shoot()
     {
         --curAmmo; // 총알 하나 줄임
+        Debug.Log("왕");
 
-        Bullet bullet = BulletPool.Instance.Get();
 
-        // transform 설정
-        bullet.gameObject.transform.position = firepos.position;
-        bullet.gameObject.transform.rotation = GameManager.Instance.Player.transform.rotation;
+        // Bullet bullet = BulletPool.Instance.Get();
 
-        Vector3 vector = firepos.forward * fireVecocity;
+        // // transform 설정
+        // bullet.gameObject.transform.position = firepos.position;
+        // bullet.gameObject.transform.rotation = GameManager.Instance.Player.transform.rotation;
 
-        bullet.GetComponent<Bullet>().Fire(vector, () => {
-            bullet.gameObject.SetActive(false);
-        });
+        // Vector3 vector = firepos.forward * fireVecocity;
+
+        // bullet.GetComponent<Bullet>().Fire(vector, () => {
+        //     bullet.gameObject.SetActive(false);
+        // });
 
         OnFire();
     }
