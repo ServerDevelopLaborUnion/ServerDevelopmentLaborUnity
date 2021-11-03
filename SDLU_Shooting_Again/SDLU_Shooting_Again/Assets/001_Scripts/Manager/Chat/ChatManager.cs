@@ -13,6 +13,9 @@ public class ChatManager : MonoSingleton<ChatManager>
     private GameObject chatPref = null;
 
     private InputField chatInput = null;
+    
+    [SerializeField]
+    private Scrollbar chattingSlider = null;
 
     private bool chatScrollActive = false;
     private bool chatInputActive = false;
@@ -32,8 +35,9 @@ public class ChatManager : MonoSingleton<ChatManager>
         }
         if (Input.GetKey(KeyCode.RightShift) && Input.GetKey(KeyCode.Return))
         {
-            chattingScroll.SetActive(false);
+            ScrollToggle(false);
             Inputchatting.SetActive(false);
+            chatInputActive = false;
         }
     }
 
@@ -41,7 +45,7 @@ public class ChatManager : MonoSingleton<ChatManager>
     {
         if (chatScrollActive == false && chatInputActive == false)
         {
-            SetScrollOn();
+            ScrollToggle(true);
             SetInputToggle();
         }
         else if(chatScrollActive == false && chatInputActive == true)
@@ -54,9 +58,9 @@ public class ChatManager : MonoSingleton<ChatManager>
         }
     }
 
-    private void SetScrollOn()
+    private void ScrollToggle(bool b)
     {
-        chatScrollActive = true;
+        chatScrollActive = b;
         chattingScroll.SetActive(chatScrollActive);
     }
 
@@ -90,5 +94,6 @@ public class ChatManager : MonoSingleton<ChatManager>
         {
             newChat.GetComponent<Text>().text = $"{msg}";
         }
+        chattingSlider.value = 0;
     }
 }

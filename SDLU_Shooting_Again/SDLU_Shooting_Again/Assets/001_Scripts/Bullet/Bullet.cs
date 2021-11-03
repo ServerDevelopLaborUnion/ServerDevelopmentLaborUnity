@@ -33,6 +33,10 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         Debug.Log(other.gameObject.name);
+        other.gameObject.GetComponent<Player>().Damaged(0);
+        //TODO : 0바꾸기
+        SocketClient.Instance.Send(new DataVO("damage", JsonUtility.ToJson(new DamageVO(1, 10))));
+        //TODO : 1, 10 바꾸기
         _onCollision();
     }
 }

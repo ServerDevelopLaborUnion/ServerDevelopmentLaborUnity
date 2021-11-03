@@ -774,6 +774,7 @@ MonoBehaviour:
   Inputchatting: {fileID: 1424671265}
   chattingScroll: {fileID: 1412045803}
   chatPref: {fileID: 4756699035923329771, guid: 712a8dfc5eb484840b81d5500d79aa26, type: 3}
+  chattingSlider: {fileID: 1195780791}
 --- !u!4 &706692765
 Transform:
   m_ObjectHideFlags: 0

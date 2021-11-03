@@ -16,7 +16,6 @@ public class DamageHandler : MonoBehaviour
             }
 
             UserManager.Instance.Get(vo.id).Damaged(vo.damage);
-            //TODO : damaged animation
         });
     }
 }
