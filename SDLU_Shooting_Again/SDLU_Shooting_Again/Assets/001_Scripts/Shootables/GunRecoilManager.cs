@@ -50,7 +50,6 @@ public class GunRecoilManager : MonoBehaviour
         shootable.OnFire += () => {
             ep = 1.0f;
 
-
             // 총 푸쉬백
             pushBackVector.z = Random.Range(pushBackAmount, pushBackAmount + pushBackRandAmount);
             pushBackVector = idlePos - pushBackVector;
@@ -59,7 +58,9 @@ public class GunRecoilManager : MonoBehaviour
             pushUpVector.x = Random.Range(pushUpAmount, pushUpAmount + pushUpRandAmuont);
 
             // 실제 반동
-            playerRecoilVector.x = Random.Range(playerRecoil, playerRecoil + playerRecoilRand);
+            playerRecoilVector = -transform.right;
+            playerRecoilVector.x -= Random.Range(playerRecoil, playerRecoil + playerRecoilRand);
+            // GameManager.Instance.Player.transform.eulerAngles += playerRecoilVector;
             GameManager.Instance.Player.transform.eulerAngles += playerRecoilVector;
         };
     }
