@@ -26,6 +26,7 @@ wsServer.on("connection", socket => {
 
     //#region Connection
     socket.sessionId = ++id;
+    socket.hp = 100;
     console.log(`Client Connected. id: ${socket.sessionId}`);
 
     // connection packet
@@ -71,7 +72,7 @@ wsServer.on("connection", socket => {
                         broadcast(JSON.stringify(new DataVO(type, payload)));
                         break;
                     case "damage":
-                        if (game.getUser(socket.user.uuid).hp <= 0) {
+                        if (socket.hp <= 0) {
                             broadcast(JSON.stringify(new DataVO("dead", payload)));
                         }
                         else
