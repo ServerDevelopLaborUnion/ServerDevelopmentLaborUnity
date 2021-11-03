@@ -953,7 +953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 30
-  speed: 5
+  speed: 10
 --- !u!54 &1294340358
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1690,7 +1690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1815721436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2154,26 +2154,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1294340355}
     m_Modifications:
-    - target: {fileID: 4594045774006063850, guid: b07655359e20fe9c1888d5adbd4e1f91, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9990483
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594045774006063850, guid: b07655359e20fe9c1888d5adbd4e1f91, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594045774006063850, guid: b07655359e20fe9c1888d5adbd4e1f91, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594045774006063850, guid: b07655359e20fe9c1888d5adbd4e1f91, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.043619405
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594045774006063850, guid: b07655359e20fe9c1888d5adbd4e1f91, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4594045774897688416, guid: b07655359e20fe9c1888d5adbd4e1f91, type: 3}
       propertyPath: gunCam
       value: 
@@ -2229,10 +2209,6 @@ PrefabInstance:
     - target: {fileID: 4594045775238900394, guid: b07655359e20fe9c1888d5adbd4e1f91, type: 3}
       propertyPath: m_Name
       value: Vector
-      objectReference: {fileID: 0}
-    - target: {fileID: 4594045775326228349, guid: b07655359e20fe9c1888d5adbd4e1f91, type: 3}
-      propertyPath: m_TagString
-      value: FirePosition
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b07655359e20fe9c1888d5adbd4e1f91, type: 3}

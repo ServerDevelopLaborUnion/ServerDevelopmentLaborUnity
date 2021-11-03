@@ -39,7 +39,7 @@ abstract public class Shootable : MonoBehaviour
 
         // transform 설정
         bullet.transform.position = firepos.position;
-        bullet.transform.rotation = firepos.rotation;
+        bullet.transform.rotation = GameManager.Instance.Player.transform.rotation;
 
         Vector3 vector = firepos.forward * fireVecocity;
 
