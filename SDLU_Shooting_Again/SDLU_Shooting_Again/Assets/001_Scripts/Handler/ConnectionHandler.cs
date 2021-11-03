@@ -30,6 +30,8 @@ public class ConnectionHandler : MonoBehaviour
                 return;
             }
 
+            Debug.Log(vo.pos);
+
             // 플레이어 프리팹 생성
             CharactorBase charactor = Instantiate(newPlayerPrefab,
                                                   JsonUtility.FromJson<Vector3>(vo.pos),

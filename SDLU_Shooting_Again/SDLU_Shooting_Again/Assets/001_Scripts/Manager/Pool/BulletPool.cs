@@ -8,7 +8,7 @@ sealed public class BulletPool : MonoSingleton<BulletPool>
 
     List<GameObject> pool = new List<GameObject>();
 
-    private GameObject bulletPrefab = null;
+    public GameObject bulletPrefab = null;
 
 
     private void Awake()
@@ -33,7 +33,8 @@ sealed public class BulletPool : MonoSingleton<BulletPool>
     }
 
     /// <summary>
-    /// 총알을 가져옵니다.
+    /// 총알을 가져옵니다.<br/>
+    /// ## SetActive(false); 인 상태로 반환됨 ##
     /// </summary>
     /// <returns>bullet prefab</returns>
     public GameObject Get()
@@ -46,6 +47,23 @@ sealed public class BulletPool : MonoSingleton<BulletPool>
         }
 
         return temp;
+    }
+
+    /// <summary>
+    /// <b>Deprecated</b><br/>
+    /// 튜플 형식으로 리턴하는 Get 함수.
+    /// </summary>
+    /// <returns>Bullet Gameobject, Bullet RigidBody</returns>
+    public (GameObject, Rigidbody) GetWithRigid()
+    {
+        GameObject temp = pool.Find(x => !x.activeSelf);
+        if (temp == null)
+        {
+            temp = MakeObject();
+            pool.Add(temp);
+        }
+
+        return (temp, temp.GetComponent<Rigidbody>());
     }
 
 

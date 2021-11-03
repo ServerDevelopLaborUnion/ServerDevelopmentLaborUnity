@@ -23,6 +23,9 @@ public class InputJson
     public KeyCode up        = KeyCode.Space;
     public KeyCode down      = KeyCode.LeftShift;
 
+    // 인게임 입력
+    public KeyCode reload    = KeyCode.R;
+
 
     // 마우스 입력
     public MouseButton fire = MouseButton.Left;
