@@ -6,9 +6,9 @@ sealed public class BulletPool : MonoSingleton<BulletPool>
 {
     const int DEFAULT_OBJECT_COUNT = 60;
 
-    List<GameObject> pool = new List<GameObject>();
+    List<Bullet> pool = new List<Bullet>();
 
-    public GameObject bulletPrefab = null;
+    public Bullet bulletPrefab = null;
 
 
     private void Awake()
@@ -25,11 +25,11 @@ sealed public class BulletPool : MonoSingleton<BulletPool>
         }
     }
 
-    private GameObject MakeObject()
+    private Bullet MakeObject()
     {
-        GameObject obj = Instantiate(bulletPrefab, this.transform);
+        GameObject obj = Instantiate(bulletPrefab.gameObject, this.transform);
         obj.SetActive(false);
-        return obj;
+        return obj.GetComponent<Bullet>();
     }
 
     /// <summary>
@@ -37,9 +37,10 @@ sealed public class BulletPool : MonoSingleton<BulletPool>
     /// ## SetActive(false); 인 상태로 반환됨 ##
     /// </summary>
     /// <returns>bullet prefab</returns>
-    public GameObject Get()
+    public Bullet Get()
     {
-        GameObject temp = pool.Find(x => !x.activeSelf);
+        Bullet temp = pool.Find(x => !x.gameObject.activeSelf);
+
         if(temp == null)
         {
             temp = MakeObject();
@@ -50,39 +51,20 @@ sealed public class BulletPool : MonoSingleton<BulletPool>
     }
 
     /// <summary>
-    /// <b>Deprecated</b><br/>
-    /// 튜플 형식으로 리턴하는 Get 함수.
-    /// </summary>
-    /// <returns>Bullet Gameobject, Bullet RigidBody</returns>
-    public (GameObject, Rigidbody) GetWithRigid()
-    {
-        GameObject temp = pool.Find(x => !x.activeSelf);
-        if (temp == null)
-        {
-            temp = MakeObject();
-            pool.Add(temp);
-        }
-
-        return (temp, temp.GetComponent<Rigidbody>());
-    }
-
-
-
-    /// <summary>
     /// 총알 여러개를 한번에 가져올 수 있음
     /// </summary>
     /// <param name="count">수량</param>
     /// <returns>List of bullet prefabs</returns>
-    public List<GameObject> Get(int count)
+    public List<Bullet> Get(int count)
     {
-        List<GameObject> tempList = pool.FindAll(x => !x.activeSelf);
+        List<Bullet> tempList = pool.FindAll(x => !x.gameObject.activeSelf);
 
         switch(tempList.Count.CompareTo(count))
         {
             case -1:
                 for (int i = 0; i < tempList.Count - count; ++i)
                 {
-                    GameObject tempObj = MakeObject();
+                    Bullet tempObj = MakeObject();
                     tempList.Add(tempObj);
                     pool.Add(tempObj);
                 }
