@@ -2,6 +2,8 @@ const { DataVO } = require("../VO/DataVO.js");
 const { spawnPositions } = require("../Vars/SpawnPosition.js");
 const { DefaultValue } = require("../Vars/DefaultPlayerValue.js");
 const { UserUtil } = require("../Utils/UserUtil.js");
+const { Game } = require("../Types/Type.js");
+const { Vector3 } = require("../Utils/Vector3.js");
 
 // 접속한 플레이어에게 보내 줌
 
@@ -12,7 +14,7 @@ function connectionHandler(socket)
         id: socket.sessionId,
         pos: spawnPositions[Math.round(Math.random() * spawnPositions.length) % spawnPositions.length],
         hp: DefaultValue.HP,
-        history: ""
+        history: toHistoryVO()
     });
 
     console.log("ConnectionHandler: " + payload);
@@ -30,8 +32,8 @@ function toHistoryVO()
 
     UserUtil.getUsers().forEach(s => {
         id.push(s.sessionId);
-        pos.push(s.position);
-        hp.push(s.hp);
+        pos.push(JSON.stringify(new Vector3(0,0,0)));
+        hp.push(100);
     });
 
     return JSON.stringify({ id, pos, hp }); // TODO : HISTORY
