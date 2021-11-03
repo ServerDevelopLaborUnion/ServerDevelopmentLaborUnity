@@ -53,7 +53,7 @@ wsServer.on("connection", socket => {
             if (socket.user.uuid == null) // 로그인이 되어있지 않다면..
             {
                 if (type == "login") {
-                    LoginHandler.Login(socket, payload);
+                    LoginHandler.Login(socket, payload, game);
                 }
                 else if (type == "register")
                 {
@@ -74,7 +74,7 @@ wsServer.on("connection", socket => {
                         broadcast(JSON.stringify(new DataVO(type, payload)));
                         break;
                     case "damage":
-                        if (socket.user.gameUser.hp <= 0) {
+                        if (game.getUser(socket.user.uuid).hp <= 0) {
                             broadcast(JSON.stringify(new DataVO("dead", payload)));
                         }
                         else
