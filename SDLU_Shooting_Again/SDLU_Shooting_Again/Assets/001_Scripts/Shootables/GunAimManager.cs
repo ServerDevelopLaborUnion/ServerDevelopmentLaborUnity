@@ -28,6 +28,9 @@ public class GunAimManager : MonoBehaviour
     Vector3 idlePos;
     Vector3 aimPos;
 
+    Vector3 idleRotation;
+    Vector3 aimRotation;
+
     Vector3 idleFirePos;
     Vector3 aimFirePos;
 
@@ -35,8 +38,12 @@ public class GunAimManager : MonoBehaviour
     private void Start()
     {
         idleFirePos = firePosition.localPosition;
-        idlePos = idleGunTrm.localPosition;
-        aimPos  = aimGunTrm.localPosition;
+
+        idlePos      = idleGunTrm.localPosition;
+        idleRotation = idleGunTrm.localEulerAngles;
+        
+        aimPos      = aimGunTrm.localPosition;
+        aimRotation = aimGunTrm.localEulerAngles;
 
         idleFoVMainCam = mainCam.fieldOfView;
         idleFoVGunCam  = gunCam.fieldOfView;
@@ -58,9 +65,14 @@ public class GunAimManager : MonoBehaviour
         ep = Mathf.Clamp(ep, 0.0f, 1.0f);
 
         // 조준
-        transform.localPosition    = Vector3.Lerp(idlePos, aimPos, ep);             // 총 위치
-        firePosition.localPosition = Vector3.Lerp(idleFirePos, scopePosition.localPosition, ep);     // 발사 위치
-        mainCam.fieldOfView        = Mathf.Lerp(idleFoVMainCam, aimFoVMainCam, ep); // 메인 카메라 FoV
-        gunCam.fieldOfView         = Mathf.Lerp(idleFoVGunCam, aimFoVGunCam, ep);   // 총 렌더링 카메라 FoV
+        transform.localPosition    = Vector3.Lerp(idlePos, aimPos, ep);           // 총 위치
+        transform.localEulerAngles = Vector3.Lerp(idleRotation, aimRotation, ep); // 총 회전
+
+        // 발사 위치
+        firePosition.localPosition = Vector3.Lerp(idleFirePos, scopePosition.localPosition, ep); // 발사 위치
+        
+        // 카메라 시아
+        mainCam.fieldOfView = Mathf.Lerp(idleFoVMainCam, aimFoVMainCam, ep); // 메인 카메라 FoV
+        gunCam.fieldOfView  = Mathf.Lerp(idleFoVGunCam, aimFoVGunCam, ep);   // 총 렌더링 카메라 FoV
     }
 }
