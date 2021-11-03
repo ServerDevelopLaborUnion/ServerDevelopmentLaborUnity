@@ -10,9 +10,7 @@ class ChatHandler
 
         if(message)
         {
-            var dataVO = new DataVO();
-            dataVO.type = "chat";
-            dataVO.data = message;
+            var dataVO = new DataVO("chat", message);
             broadcast(JSON.stringify(dataVO));
         }
     }

@@ -70,9 +70,11 @@ public class ChatManager : MonoSingleton<ChatManager>
         }
         else
         {
-            DataVO vo = new DataVO("chat", chatInput.text);
-            SocketClient.Instance.Send(vo);
-            CreateChatPref(chatInput.text);
+            if (chatInput.text != null)
+            {
+                SocketClient.Instance.Send(new DataVO("chat", chatInput.text));
+                CreateChatPref(chatInput.text);
+            }
             chatInput.Select();
             chatInput.text = null;
         }
