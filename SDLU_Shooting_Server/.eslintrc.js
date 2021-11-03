@@ -1,4 +1,4 @@
-{
+module.exports = {
     "env": {
         "browser": true,
         "commonjs": true,
@@ -6,10 +6,10 @@
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 12
+        "ecmaVersion": 13
     },
     "rules": {
         "no-empty" : 1,
-        "no-unused-vars" : 1
+        "no-unused-vars" : 1,
     }
-}
+};

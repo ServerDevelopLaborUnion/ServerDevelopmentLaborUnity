@@ -3,20 +3,19 @@ const { broadcast } = require("../Utils/Broadcast.js");
 
 class ChatHandler
 {
-    Chat(socket, data)
+    Chat(socket, payload)
     {
-        var data = JSON.fromString(data);
-        var message = data.payload;
+        var message = payload;
         message = socket.user.nickname + ": " + message;
 
-        if(data.message)
+        if(message)
         {
             var dataVO = new DataVO();
             dataVO.type = "chat";
             dataVO.data = message;
-            broadcast(dataVO);
+            broadcast(JSON.stringify(dataVO));
         }
     }
 }
 
-exports.ChatHandler = ChatHandler;
+exports.ChatHandler = new ChatHandler();
