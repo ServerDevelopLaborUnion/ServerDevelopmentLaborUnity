@@ -595,7 +595,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 608893717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11cc153ff4476ec42b1facf6ccdbd64c, type: 3}
+  m_Script: {fileID: 11500000, guid: 31bdeb94cb201e677acdd242907d99cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &608893719
@@ -878,7 +878,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1101014875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b39a2dc2f799794cbe1ba1369a924c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 81c4980f53657e947b57c83588680d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   idInput: {fileID: 2390216904190585511}
@@ -886,7 +886,7 @@ MonoBehaviour:
   conPwInput: {fileID: 2390216904936677384}
   registerBtn: {fileID: 2390216904842624149}
   loginBtn: {fileID: 2390216903108465434}
-  LoginCanvas: {fileID: 2390216904784010485}
+  LoginCanvas: {fileID: 2390216903127293424}
 --- !u!1 &1294340351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,7 +1472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91050c8395c41d50d810ac7d012348fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3211539793094236428, guid: 71da727a72f8db1bbbfe52255348bc79, type: 3}
+  bulletPrefab: {fileID: -8633220071953994067, guid: 71da727a72f8db1bbbfe52255348bc79, type: 3}
 --- !u!4 &1578711208
 Transform:
   m_ObjectHideFlags: 0
