@@ -14,21 +14,21 @@ public class AccountHandler : MonoBehaviour
 
     private void Awake()
     {
-        registerBtn.onClick.AddListener(() =>
-        {
-            if(pwInput.text == conPwInput.text)
-                SocketClient.Instance.Send(new DataVO("register", JsonUtility.ToJson(new AccountVO(idInput.text, pwInput.text))));
-        });
-        loginBtn.onClick.AddListener(() => 
-        {
-            SocketClient.Instance.Send(new DataVO("login", JsonUtility.ToJson(new AccountVO(idInput.text, pwInput.text))));
-        });
+        // registerBtn.onClick.AddListener(() =>
+        // {
+        //     if(pwInput.text == conPwInput.text)
+        //         SocketClient.Instance.Send(new DataVO("register", JsonUtility.ToJson(new AccountVO(idInput.text, pwInput.text))));
+        // });
+        // loginBtn.onClick.AddListener(() => 
+        // {
+        //     SocketClient.Instance.Send(new DataVO("login", JsonUtility.ToJson(new AccountVO(idInput.text, pwInput.text))));
+        // });
     }
     private void Start()
     {
         BufferHandler.Instance.AddHandler("loginSuccess", (record) => {
             LoginManager.Instance.GotLogined();
-            LoginCanvas.SetActive(false);
+            // LoginCanvas.SetActive(false);
             MouseLockManager.Instance.LockMouse();
         });
     }

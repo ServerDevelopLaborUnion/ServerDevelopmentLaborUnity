@@ -4,13 +4,13 @@ using UnityEngine;
 [Serializable]
 public class MoveVO 
 {
-    public Vector3 pos;
-    public Vector3 rot; 
+    public string pos;
+    public string rot; 
     public int id;
     public MoveVO( Vector3 pos, Vector3 rot, int id)
     {
-        this.pos = pos;
-        this.rot = rot;
+        this.pos = JsonUtility.ToJson(pos);
+        this.rot = JsonUtility.ToJson(rot);
         this.id = id;
     }
 }

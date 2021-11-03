@@ -14,8 +14,12 @@ public class MoveHandler : MonoBehaviour
                 return;
             }
 
-            UserManager.Instance.Get(vo.id).gameObject.transform.position = vo.pos;
-            UserManager.Instance.Get(vo.id).gameObject.transform.eulerAngles = vo.rot;
+            Debug.LogWarning(vo.id);
+            Debug.LogWarning(vo.pos);
+            Debug.LogWarning(vo.rot);
+
+            UserManager.Instance.Get(vo.id).gameObject.transform.position = JsonUtility.FromJson<Vector3>(vo.pos);
+            UserManager.Instance.Get(vo.id).gameObject.transform.eulerAngles = JsonUtility.FromJson<Vector3>(vo.rot);
 
         });
     }
