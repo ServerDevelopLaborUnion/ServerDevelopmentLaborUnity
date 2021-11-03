@@ -6,7 +6,7 @@ public class ChatHandler : MonoBehaviour
 {
     void Start()
     {
-        BufferHandler.Instance.AddHandler("msg", (msg) => {
+        BufferHandler.Instance.AddHandler("chat", (msg) => {
             Debug.Log(msg);
             ChatManager.Instance.CreateChatPref(msg, false);
         });
