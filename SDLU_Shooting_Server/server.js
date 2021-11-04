@@ -29,14 +29,15 @@ wsServer.on("connection", socket => {
     socket.hp = 100;
     console.log(`Client Connected. id: ${socket.sessionId}`);
 
-    // connection packet
-    connectionHandler(socket);
-    userConnectedHandler(socket);
-
+    
     // user
     let user = new User(socket, id, null, null, null, null, null);
     UserUtil.addUser(null, user);
     socket.user = user;
+    
+    // connection packet
+    connectionHandler(socket);
+    userConnectedHandler(socket);
 
     //#endregion // Connection end
 
