@@ -7,12 +7,9 @@ public class SocketClient : MonoSingleton<SocketClient>
 {
     private WebSocket ws;
 
-    IEnumerator Start()
+    private void Start()
     {
         Debug.LogWarning("## DEBUG START FUNCTION AT SocketClient ##");
-#warning Debug Start Function
-
-        yield return new WaitForSeconds(1.0f);
 
         Connect();
     }
