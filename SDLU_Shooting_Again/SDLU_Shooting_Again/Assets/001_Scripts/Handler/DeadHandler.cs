@@ -14,8 +14,12 @@ public class DeadHandler : MonoBehaviour
     {
         BufferHandler.Instance.AddHandler("dead", (data) =>
         {
-            StartCoroutine(DeadMotion(data));
+            DamageVO vo = JsonUtility.FromJson<DamageVO>(data);
 
+            StartCoroutine(DeadMotion(data));
+            Destroy(UserManager.Instance.Get(vo.id).gameObject);
+            UserManager.Instance.Remove(vo.id);
+            Application.Quit();
         });
     }
     #endregion
