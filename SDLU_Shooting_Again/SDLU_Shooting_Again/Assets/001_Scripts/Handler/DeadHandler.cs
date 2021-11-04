@@ -16,7 +16,7 @@ public class DeadHandler : MonoBehaviour
         {
             DamageVO vo = JsonUtility.FromJson<DamageVO>(data);
 
-            StartCoroutine(DeadMotion(data));
+            // StartCoroutine(DeadMotion(data));
             Destroy(UserManager.Instance.Get(vo.id).gameObject);
             UserManager.Instance.Remove(vo.id);
             Application.Quit();
