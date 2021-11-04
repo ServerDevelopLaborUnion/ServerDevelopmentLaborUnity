@@ -420,6 +420,7 @@ GameObject:
   - component: {fileID: 452290411}
   - component: {fileID: 452290412}
   - component: {fileID: 452290413}
+  - component: {fileID: 452290414}
   m_Layer: 0
   m_Name: BufferHandler
   m_TagString: Untagged
@@ -528,6 +529,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12a18e8dda6f27408a34a20d7ba4770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &452290414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452290405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7feafcc99dcf46b4f8847c4569e42cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawns: []
+  cube: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  cabsule: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &501270390
 GameObject:
   m_ObjectHideFlags: 0
