@@ -49,8 +49,6 @@ wsServer.on("connection", socket => {
         try {
             const { type, payload } = parseBuffer(data);
 
-            console.log(`[${socket.sessionId}] ${type}: ${payload}`);
-
             if (socket.user.uuid == null) // 로그인이 되어있지 않다면..
             {
                 if (type == "login") {
@@ -74,6 +72,7 @@ wsServer.on("connection", socket => {
                         broadcast(JSON.stringify(new DataVO(type, payload)));
                         break;
                     case "damage":
+                        console.log(`[${socket.sessionId}] ${type}: ${payload}`);
                         var { id, damage } = payload;
                         UserUtil.getUserBySessionId(id).hp -= damage;
 
@@ -85,12 +84,15 @@ wsServer.on("connection", socket => {
                             broadcast(JSON.stringify(new DataVO(type, payload)));
                         break;
                     case "record":
+                        console.log(`[${socket.sessionId}] ${type}: ${payload}`);
                         DBUtil.RecordUser(payload, socket);
                         break;
                     case "read":
+                        console.log(`[${socket.sessionId}] ${type}: ${payload}`);
                         DBUtil.ReadRecord(socket);
                         break;
                     case "chat":
+                        console.log(`[${socket.sessionId}] ${type}: ${payload}`);
                         ChatHandler.Chat(socket, payload);
                         break;
                     default:

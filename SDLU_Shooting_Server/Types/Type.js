@@ -61,6 +61,7 @@ class Game
         var gameuser = new GameUser(user.uuid, user.nickname, 100);
         this.GameUsers.push(gameuser);
         user.gameUser = gameuser;
+        user.hp = 100;
     }
 
     getUser(uuid)

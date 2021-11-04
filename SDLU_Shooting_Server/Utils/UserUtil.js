@@ -67,7 +67,7 @@ class UserUtil
     getUserBySessionId(sessionId)
     {
         for (var i = 0; i < this.userArr.length; i++) {
-            if (this.userArr[i].socket.sessionId === sessionId) {
+            if (this.userArr[i].id === sessionId) {
                 return this.userArr[i];
             }
         }
