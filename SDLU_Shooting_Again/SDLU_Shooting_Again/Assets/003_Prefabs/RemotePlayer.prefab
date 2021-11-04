@@ -126,3 +126,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ce995b85e39c65d8d64c19454ecba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lerpAmount: 0.02
