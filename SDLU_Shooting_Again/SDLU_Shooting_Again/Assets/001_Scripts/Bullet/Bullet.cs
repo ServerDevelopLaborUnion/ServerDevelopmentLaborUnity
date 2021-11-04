@@ -45,6 +45,8 @@ public class Bullet : MonoBehaviour
         SocketClient.Instance.Send(new DataVO("damage", JsonUtility.ToJson(new DamageVO(player.ID, damage))));
         //TODO : 1, 10 바꾸기
         _onCollision?.Invoke();
+
+        gameObject.SetActive(false);
     }
 
 
