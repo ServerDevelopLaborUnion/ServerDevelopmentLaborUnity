@@ -14,7 +14,10 @@ public class MoveHandler : MonoBehaviour
                 return;
             }
 
-            RemotePlayer target = UserManager.Instance.Get(vo.id).gameObject.transform.GetComponent<RemotePlayer>();
+            CharactorBase targetBase = UserManager.Instance.Get(vo.id);
+            if(targetBase == null) return;
+            
+            RemotePlayer target = targetBase.gameObject.transform.GetComponent<RemotePlayer>();
             if(target == null) return;
 
             Vector3 newPos  = JsonUtility.FromJson<Vector3>(vo.pos);
