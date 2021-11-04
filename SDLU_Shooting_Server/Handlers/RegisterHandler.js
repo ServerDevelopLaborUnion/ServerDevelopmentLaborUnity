@@ -16,7 +16,7 @@ class RegisterHandler {
         if (await DBUtil.Register(id, password, socket)) // DB에서 회원가입
         {
             LoginHandler.Login(socket, payload, game);
-            socket.send(JSON.stringify(new DataVO("msg", "회원가입 성공!")));
+            socket.send(JSON.stringify(new DataVO("loginSuccess", "")));
         }
         else // 실패 반환시
         {
