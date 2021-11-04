@@ -21,8 +21,7 @@ public class DeadHandler : MonoBehaviour
             UserManager.Instance.Remove(vo.id);
             if(vo.id == GameManager.Instance.Player.ID)
             {
-                Application.Quit();
-
+                Application.Quit(); 
             }
         });
     }
