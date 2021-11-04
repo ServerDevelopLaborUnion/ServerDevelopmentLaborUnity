@@ -32,8 +32,9 @@ wsServer.on("connection", socket => {
     
     // user
     let user = new User(socket, id, null, null, null, null, null);
-    UserUtil.addUser(null, user);
     socket.user = user;
+    user.socket = socket;
+    UserUtil.addUser(socket.sessionId, user);
     
     // connection packet
     connectionHandler(socket);

@@ -30,7 +30,8 @@ class UserUtil
         let users = [];
 
         for (var key in this.userDict) {
-            users.pop(this.userDict[key]);
+            console.log("key:" + key);
+            users.push(key);
         }
 
         return users;

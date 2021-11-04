@@ -22,7 +22,7 @@ function connectionHandler(socket)
     socket.send(JSON.stringify(new DataVO("init", payload))); // 문자열로 바꿔줌
 }
 
-
+let count = 0;
 
 function toHistoryVO()
 {
@@ -30,10 +30,12 @@ function toHistoryVO()
     let pos = [];
     let hp = [];
 
+    console.log(UserUtil.getUsers().length);
+
     UserUtil.getUsers().forEach(s => {
         id.push(s.sessionId);
         pos.push(JSON.stringify(new Vector3(0,0,0)));
-        hp.push(s.hp);
+        hp.push(100);
     });
 
     return JSON.stringify({ id, pos, hp }); // TODO : HISTORY
