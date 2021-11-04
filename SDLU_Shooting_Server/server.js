@@ -72,13 +72,18 @@ wsServer.on("connection", socket => {
                         broadcast(JSON.stringify(new DataVO(type, payload)));
                         break;
                     case "damage":
-                        console.log(`[${socket.sessionId}] ${type}: ${payload}`);
+                        console.log(`[${socket.sessionId}] ${type}: ${payload}` + ", HP: " + UserUtil.getUserBySessionId(id).hp);
+                        if (isNaN(UserUtil.getUserBySessionId(id).hp))
+                            UserUtil.getUserBySessionId(id).hp = 100;
                         var { id, damage } = payload;
-                        UserUtil.getUserBySessionId(id).hp -= damage;
+                        damage = Number(damage);
+                        UserUtil.getUserBySessionId(id).hp -= 20;
 
                         if (UserUtil.getUserBySessionId(id).hp <= 0)
                         {
+                            console.log("dead: " + id);
                             broadcast(JSON.stringify(new DataVO("dead", payload)));
+                            socket.disconnect();
                         }
                         else
                             broadcast(JSON.stringify(new DataVO(type, payload)));

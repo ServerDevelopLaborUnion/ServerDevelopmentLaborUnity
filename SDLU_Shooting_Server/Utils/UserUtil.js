@@ -64,6 +64,9 @@ class UserUtil
         console.log("userNotFinded...: " + this.userArr[i]);
         return null;
     }
+    /** 
+     * @returns {User}
+     */
     getUserBySessionId(sessionId)
     {
         for (var i = 0; i < this.userArr.length; i++) {

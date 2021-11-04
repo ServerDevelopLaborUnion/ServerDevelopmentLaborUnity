@@ -21,6 +21,8 @@ class User {
         this.kill = kill;
         this.death = death;
         this.exp = exp;
+        /** @type {number} */
+        this.hp = 100;
 
         /** @type {GameUser} */
         this.gameUser = null;
