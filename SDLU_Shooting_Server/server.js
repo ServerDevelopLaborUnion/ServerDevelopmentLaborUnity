@@ -54,7 +54,7 @@ wsServer.on("connection", socket => {
                     LoginHandler.Login(socket, payload, game);
                 }
                 else if (type == "register") {
-                    RegisterHandler.Register(socket, payload);
+                    RegisterHandler.Register(socket, payload, game);
                 }
                 else
                     socket.send(JSON.stringify(new DataVO("errmsg", "로그인이 필요합니다.")));
