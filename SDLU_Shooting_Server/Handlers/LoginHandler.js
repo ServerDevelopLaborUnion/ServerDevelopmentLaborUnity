@@ -36,6 +36,8 @@ class LoginHandler
     debugLogin(socket)
     {
         socket.user = new User(socket, "ThisIsUUID", "debugUser", 123456);
+        socket.send(JSON.stringify(new DataVO("loginSuccess", "")));
+
         console.log(`디버그 로그인: ${socket.user.nickname}`);
     }
 }

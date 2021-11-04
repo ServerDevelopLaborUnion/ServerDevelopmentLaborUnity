@@ -19,6 +19,27 @@ public class ConnectionHandler : MonoBehaviour
             GameManager.Instance.Player.transform.position = JsonUtility.FromJson<Vector3>(vo.pos);
 
             UserManager.Instance.Add(vo.id, GameManager.Instance.Player);
+
+            // History
+            HistoryVO history = JsonUtility.FromJson<HistoryVO>(vo.history);
+
+            if(history.id.Count < 1)
+            {
+                return;
+            }
+
+            for (int i = 0; i < history.id.Count; ++i)
+            {
+                if(history.id[i] == GameManager.Instance.Player.ID) continue;
+
+                Vector3 pos = JsonUtility.FromJson<Vector3>(history.pos[i]);
+                Debug.Log(pos);
+                CharactorBase charactor = Instantiate(newPlayerPrefab, pos, Quaternion.identity).GetComponent<CharactorBase>(); // TODO : Rotation
+                charactor.Init(history.id[i], vo.hp, true);
+                UserManager.Instance.Add(history.id[i], charactor);
+            };
+
+
         });
 
         BufferHandler.Instance.AddHandler("connect", (data) => {

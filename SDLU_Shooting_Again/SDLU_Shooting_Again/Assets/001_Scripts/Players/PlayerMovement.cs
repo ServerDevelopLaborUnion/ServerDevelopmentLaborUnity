@@ -12,11 +12,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 rotation = new Vector3(0, 0, 0);
 
+    private float lastSendTime = float.MinValue;
+    private float sendDelta = 0.25f;
+
     private void Start()
     {
-        // Cursor.visible = false;
-        // Cursor.lockState = CursorLockMode.Locked;
-
         rigid = GetComponent<Rigidbody>();
 
 
@@ -55,11 +55,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if(!LoginManager.Instance.HasLogined()) return;
+
         rotation.y = Input.GetAxis("Mouse X") * InputManager.Instance.GetMouseSensitivity();
         rotation.x = -Input.GetAxis("Mouse Y") * InputManager.Instance.GetMouseSensitivity();
 
         rigid.rotation *= Quaternion.Euler(rotation);
         rotation.z = 0;
+
+
+        if(lastSendTime + sendDelta <= Time.time)
+        {
+            lastSendTime = Time.time;
+            SocketClient.Instance.Send(new DataVO("move", JsonUtility.ToJson(new MoveVO(transform.position, transform.eulerAngles, GameManager.Instance.Player.ID))));
+        }
     }
 
 

@@ -70,6 +70,13 @@ public class SocketClient : MonoSingleton<SocketClient>
     /// <param name="vo">DataVO</param>
     public void Send(DataVO vo)
     {
-        ws.Send(JsonUtility.ToJson(vo));
+        try
+        {
+            ws.Send(JsonUtility.ToJson(vo));
+        }
+        catch(System.Exception ex)
+        {
+            Debug.LogError($"서버에 메세지를 보내는 중 오류가 발생했어요.\r\n{ex.Message}\r\n{ex.StackTrace}");
+        }
     }
 }
