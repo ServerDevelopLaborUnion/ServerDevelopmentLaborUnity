@@ -74,7 +74,11 @@ wsServer.on("connection", socket => {
                         broadcast(JSON.stringify(new DataVO(type, payload)));
                         break;
                     case "damage":
-                        if (socket.hp <= 0) {
+                        var { id, damage } = payload;
+                        UserUtil.getUserBySessionId(id).hp -= damage;
+
+                        if (UserUtil.getUserBySessionId(id).hp <= 0)
+                        {
                             broadcast(JSON.stringify(new DataVO("dead", payload)));
                         }
                         else

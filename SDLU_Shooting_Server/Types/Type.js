@@ -75,6 +75,28 @@ class Game
         return null;
     }
 
+    getUsers()
+    {
+        var users = [];
+        for(var i = 0; i < this.GameUsers.length; i++)
+        {
+            users.push(this.GameUsers[i].toDataVO());
+        }
+        return users;
+    }
+
+    getUserByNickname(nickname)
+    {
+        for(var i = 0; i < this.GameUsers.length; i++)
+        {
+            if(this.GameUsers[i].nickname == nickname)
+            {
+                return this.GameUsers[i];
+            }
+        }
+        return null;
+    }
+
     removeUser(user)
     {
         for(var i = 0; i < this.GameUsers.length; i++)
