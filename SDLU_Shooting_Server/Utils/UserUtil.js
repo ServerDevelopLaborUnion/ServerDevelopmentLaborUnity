@@ -64,6 +64,15 @@ class UserUtil
         console.log("userNotFinded...: " + this.userArr[i]);
         return null;
     }
+    getUserBySessionId(sessionId)
+    {
+        for (var i = 0; i < this.userArr.length; i++) {
+            if (this.userArr[i].socket.sessionId === sessionId) {
+                return this.userArr[i];
+            }
+        }
+        return null;
+    }
 }
 
 exports.UserUtil = new UserUtil();
