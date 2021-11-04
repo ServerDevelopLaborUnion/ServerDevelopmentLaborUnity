@@ -9,6 +9,11 @@ public class RemotePlayer : CharactorBase
     Vector3 targetPos = new Vector3();
     Vector3 tartetRot = new Vector3();
 
+    private void Awake() {
+        targetPos = transform.position;
+        tartetRot = transform.eulerAngles;
+    }
+
 
     public void SetTargetTransform(Vector3 pos, Vector3 rot)
     {
