@@ -1,4 +1,6 @@
-const { Vector3 } = require("../Utils/Vector3")
+const { broadcast } = require("../Utils/Broadcast");
+const { Vector3 } = require("../Utils/Vector3");
+const { DataVO } = require("../VO/DataVO");
 class User {
     /**
      * @param {WebSocket} socket
@@ -80,6 +82,7 @@ class Game
             if(this.GameUsers[i].uuid == user.uuid)
             {
                 this.GameUsers.splice(i, 1);
+                broadcast(new DataVO("disconnect", user.sessionId));
                 break;
             }
         }

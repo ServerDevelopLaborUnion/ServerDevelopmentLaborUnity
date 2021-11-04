@@ -30,8 +30,8 @@ wsServer.on("connection", socket => {
     console.log(`Client Connected. id: ${socket.sessionId}`);
 
     // connection packet
-    userConnectedHandler(socket);
     connectionHandler(socket);
+    userConnectedHandler(socket);
 
     // user
     let user = new User(socket, id, null, null, null, null, null);
@@ -100,6 +100,7 @@ wsServer.on("connection", socket => {
 
     socket.on("close", () => {
         UserUtil.removeUser(socket);
+        game.removeUser(socket);
         DBUtil.SetOffline(socket);
         console.log(`${socket.sessionId}: 접속 종료`);
     });

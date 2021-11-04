@@ -21,6 +21,7 @@ class LoginHandler
             if (game)
             {
                 game.addUser(user);
+                console.log(user);
             }
         }
         else
