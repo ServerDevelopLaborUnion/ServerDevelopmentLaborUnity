@@ -19,7 +19,11 @@ public class DeadHandler : MonoBehaviour
             // StartCoroutine(DeadMotion(data));
             Destroy(UserManager.Instance.Get(vo.id).gameObject);
             UserManager.Instance.Remove(vo.id);
-            Application.Quit();
+            if(vo.id == GameManager.Instance.Player.ID)
+            {
+                Application.Quit();
+
+            }
         });
     }
     #endregion
