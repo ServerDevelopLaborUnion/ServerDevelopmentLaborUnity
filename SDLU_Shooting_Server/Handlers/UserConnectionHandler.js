@@ -18,7 +18,6 @@ function userConnectedHandler(socket)
     console.log("UserConnectedHandler: " + payload);
 
     broadcast(JSON.stringify(new DataVO("connect", payload))); // 문자열로 바꿔줌
-
 }
 
 exports.userConnectedHandler = userConnectedHandler;

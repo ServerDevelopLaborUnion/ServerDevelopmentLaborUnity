@@ -4,20 +4,18 @@ class UserUtil
 {
     constructor()
     {
-        this.userDict = {}
+        this.userArr = [];
     }
 
     addUser(uuid, user)
     {
-        this.userDict[uuid] = user;
+        this.userArr.push(user);
     }
 
     removeUser(socket) {
-        for (var key in this.userDict) {
-            if (this.userDict[key].socket == socket) 
-            {
-                delete this.userDict[key];
-            }
+        var index = this.userArr.indexOf(socket.user);
+        if (index > -1) {
+            this.userArr.splice(index, 1);
         }
     }
 
@@ -27,14 +25,7 @@ class UserUtil
      */
     getUsers()
     {
-        let users = [];
-
-        for (var key in this.userDict) {
-            console.log("key:" + key);
-            users.push(key);
-        }
-
-        return users;
+        return this.userArr;
     }
 
     /**
@@ -54,7 +45,11 @@ class UserUtil
      */
     getUserByUUID(uuid)
     {
-        return this.userDict[uuid];
+        for (var i = 0; i < this.userArr.length; i++) {
+            if (this.userArr[i].uuid === uuid) {
+                return this.userArr[i];
+            }
+        }
     }
 }
 
