@@ -50,6 +50,7 @@ public class Bullet : MonoBehaviour
 
     private void DisableBullet()
     {
+        rigid.velocity = Vector3.zero;
         gameObject.SetActive(false);
     }
 }
