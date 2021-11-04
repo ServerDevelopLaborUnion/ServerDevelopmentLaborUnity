@@ -20,7 +20,7 @@ public class SocketClient : MonoSingleton<SocketClient>
     /// </summary>
     /// <param name="ip">IP</param>
     /// <param name="port">PORT</param>
-    public void Connect(string ip = "127.0.0.1", ushort port = 32000)
+    public void Connect(string ip = "172.31.1.60", ushort port = 32000)
     {
         if(ws != null && ws.IsAlive)
         {

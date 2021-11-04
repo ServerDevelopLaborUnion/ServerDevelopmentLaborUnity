@@ -39,10 +39,10 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         Debug.Log(other.gameObject.name);
-        Player player = other.gameObject.GetComponent<Player>();
-        player.Damaged(damage);
+        RemotePlayer otherPlayer = other.gameObject.GetComponent<RemotePlayer>();
+        otherPlayer.Damaged(damage);
         //TODO : 0바꾸기
-        SocketClient.Instance.Send(new DataVO("damage", JsonUtility.ToJson(new DamageVO(player.ID, damage))));
+        SocketClient.Instance.Send(new DataVO("damage", JsonUtility.ToJson(new DamageVO(otherPlayer.ID, damage))));
         //TODO : 1, 10 바꾸기
         _onCollision?.Invoke();
 
