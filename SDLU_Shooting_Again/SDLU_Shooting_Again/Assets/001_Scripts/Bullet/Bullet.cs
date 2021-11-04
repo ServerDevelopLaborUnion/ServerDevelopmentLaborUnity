@@ -15,6 +15,11 @@ public class Bullet : MonoBehaviour
         rigid = GetComponent<Rigidbody>(); // RequireComponent 으로 null 발생 불가능
     }
 
+    private void OnEnable()
+    {
+        Invoke(nameof(DisableBullet), 10.0f);
+    }
+
     /// <summary>
     /// 총알을 발사합니다.
     /// </summary>
@@ -40,5 +45,11 @@ public class Bullet : MonoBehaviour
         SocketClient.Instance.Send(new DataVO("damage", JsonUtility.ToJson(new DamageVO(player.ID, damage))));
         //TODO : 1, 10 바꾸기
         _onCollision();
+    }
+
+
+    private void DisableBullet()
+    {
+        gameObject.SetActive(false);
     }
 }
