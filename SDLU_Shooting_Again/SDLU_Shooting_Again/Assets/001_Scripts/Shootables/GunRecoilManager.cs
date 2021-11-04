@@ -6,6 +6,7 @@ using UnityEngine;
 public class GunRecoilManager : MonoBehaviour
 {
     [SerializeField] private Shootable shootable;
+    [SerializeField] private Transform firePos;
 
     // 총 푸쉬백
     [Header("Rand + pushBackAmount")]
@@ -62,6 +63,8 @@ public class GunRecoilManager : MonoBehaviour
             playerRecoilVector.x = Random.Range(playerRecoil, playerRecoil + playerRecoilRand);
             GameManager.Instance.Player.transform.eulerAngles += playerRecoilVector;
             // GameManager.Instance.Player.transform.eulerAngles = playerRecoilVector;
+            SocketClient.Instance.Send(new DataVO("shoot", JsonUtility.ToJson(new ShootVO(GameManager.Instance.Player.ID , firePos.position,GameManager.Instance.Player.transform.eulerAngles))));
+
         };
     }
 
