@@ -53,9 +53,6 @@ class DBUtil {
         console.log(user);
         socket.user.uuid = user[0].code;
 
-        // sql = `UPDATE Test SET isUsing = 1 WHERE code = ?`
-        // await promisePool.query(sql, [user[0].code]);
-
         return true;
     }
 
@@ -117,11 +114,6 @@ class DBUtil {
         }
 
         return user;
-    }
-
-    async SetOffline(socket){
-        let sql = `UPDATE Test SET isUsing = 0 WHERE code = ?`;
-        await promisePool.query(sql, [socket.user.uuid])
     }
 }
 
