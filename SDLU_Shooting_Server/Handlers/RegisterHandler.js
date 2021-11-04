@@ -10,12 +10,12 @@ class RegisterHandler {
      * @param {WebSocket} socket
      * @param {string} payload
      */
-    async Register(socket, payload) {
+    async Register(socket, payload, game) {
         let { id, password } = JSON.parse(payload);
 
         if (await DBUtil.Register(id, password, socket)) // DB에서 회원가입
         {
-            LoginHandler.Login(socket, payload);
+            LoginHandler.Login(socket, payload, game);
             socket.send(JSON.stringify(new DataVO("msg", "회원가입 성공!")));
         }
         else // 실패 반환시
