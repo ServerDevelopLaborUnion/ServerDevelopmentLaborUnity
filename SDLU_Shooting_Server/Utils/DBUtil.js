@@ -46,14 +46,15 @@ class DBUtil {
             return false;
         }
         if(user[0].isUsing == 1){
+            console.log("이미 사용중인 아이디입니다.");
             socket.send(JSON.stringify(new DataVO("errmsg", "지금 로그인 중인 아이디입니다.")));
             return false;
         }
         console.log(user);
         socket.user.uuid = user[0].code;
 
-        sql = `UPDATE Test SET isUsing = 1 WHERE code = ?`
-        await promisePool.query(sql, [user[0].code]);
+        // sql = `UPDATE Test SET isUsing = 1 WHERE code = ?`
+        // await promisePool.query(sql, [user[0].code]);
 
         return true;
     }

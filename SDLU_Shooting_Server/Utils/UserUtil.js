@@ -4,6 +4,7 @@ class UserUtil
 {
     constructor()
     {
+        /** @type {User} */
         this.userArr = [];
     }
 
@@ -50,6 +51,18 @@ class UserUtil
                 return this.userArr[i];
             }
         }
+        return null;
+    }
+    getUserByNickname(nickname)
+    {
+        for (var i = 0; i < this.userArr.length; i++) {
+            if (this.userArr[i].nickname === nickname) {
+                console.log("findUser!: " + this.userArr[i]);
+                return this.userArr[i];
+            }
+        }
+        console.log("userNotFinded...: " + this.userArr[i]);
+        return null;
     }
 }
 

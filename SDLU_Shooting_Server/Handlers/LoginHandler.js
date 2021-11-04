@@ -16,8 +16,15 @@ class LoginHandler
         if (await DBUtil.Login(id, password, socket))
         {
             var user = UserUtil.getUserBySocket(socket);
+            if (UserUtil.getUserByNickname(id) != null)
+            {
+                socket.send(JSON.stringify(new DataVO("errmsg", "이미 로그인중인 아이디 입니다.")));
+                socket.user.uuid = null;
+                return;
+            }
             console.log(`로그인 성공: ${user.nickname}`);
             socket.send(JSON.stringify(new DataVO("loginSuccess", "")));
+            user.nickname = id;
             if (game)
             {
                 game.addUser(user);
