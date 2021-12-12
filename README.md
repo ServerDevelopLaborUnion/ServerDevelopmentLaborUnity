@@ -5,7 +5,7 @@
 [서버개발 노동역사 리포 링크](https://github.com/gghteam/ServerDevelopmentLaborArchive)
 * * *
 
-### 뭐 하는 깃허브인가요?
+### 뭐 하는 리포인가요?
 * 동아리 성과물이 올라옵니다.
 
 * * *
