@@ -10,6 +10,7 @@ class TestVO {
 module.exports = {
     type: "testMessage",
     async handle(socket, payload) {
+        var testVO = new TestVO(JSON.parse(payload));
         
     }
 }
