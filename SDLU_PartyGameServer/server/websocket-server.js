@@ -1,4 +1,5 @@
 const { WebSocketServer } = require("ws");
+const fs = require("fs");
 const Logger = require('../util/logger');
 var path = require('path');
 
@@ -7,27 +8,28 @@ let prefix = '[WebSocketServer] ';
 class WebsocketServer {
     constructor(port) {
         this.handlers = {};
-        const handlerFiles = fs.readdirSync('./handler').filter(file => file.endsWith('.js'));
+        const handlerFiles = fs.readdirSync('handler').filter(file => file.endsWith('.js'));
         handlerFiles.forEach(file => {
-            const handler = require(path.join('./handler', file));
+            const handler = require(path.join('../handler', file));
             this.handlers[handler.type] = handler;
+            Logger.Debug(prefix + 'Handler loaded: ' + handler.type + '.js');
         });
 
         this.port = port;
         this.server = new WebSocketServer({ port }, () => {
-            Logger.Log.Info(prefix + 'Server started on port ' + port);
+            Logger.Info(prefix + 'Server started on port ' + port);
         });
 
         this.server.on('connection', (socket) => {
-            Logger.Log.Debug(`${prefix} connection ( ${socket.url} )- ${socket.upgradeReq.connection.remoteAddress}`);
+            Logger.Debug(`${prefix} connection ( ${socket.url} )- ${socket.upgradeReq.connection.remoteAddress}`);
 
             socket.on('message', (message) => {
-                Logger.Log.Debug(`${prefix} message ( ${socket.url} ) - ${message}`);
+                Logger.Debug(`${prefix} message ( ${socket.url} ) - ${message}`);
                 this.handleMessage(socket, message);
             });
 
             socket.on('close', (code, reason) => {
-                Logger.Log.Debug(`${prefix} close ( ${socket.url} ) - ${code} - ${reason}`);
+                Logger.Debug(`${prefix} close ( ${socket.url} ) - ${code} - ${reason}`);
             });
         });
     }

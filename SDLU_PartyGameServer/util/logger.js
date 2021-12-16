@@ -71,4 +71,22 @@ class Log {
     }
 }
 
-exports.Log = new Log(Level.DEBUG, `logs/${getDate()}.log`);
+const Logger = new Log(Level.DEBUG, 'logs/' + getDate() + '.log');
+
+module.exports = {
+    Debug(msg) {
+        Logger.Debug(msg);
+    },
+    Info(msg) {
+        Logger.Info(msg);
+    },
+    Warn(msg) {
+        Logger.Warn(msg);
+    },
+    Error(msg) {
+        Logger.Error(msg);
+    },
+    Fatal(msg) {
+        Logger.Fatal(msg);
+    }
+}

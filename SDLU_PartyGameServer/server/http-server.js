@@ -10,12 +10,12 @@ class HttpServer {
         this.port = port;
 
         this.app.listen(this.port, () => {
-            Logger.Log.Info(`${prefix} started at ${this.port}`);
+            Logger.Info(`${prefix} started at ${this.port}`);
         });
 
         this.app.get('/', (req, res) => {
             res.sendFile(path.resolve('public/index.html'));
-            Logger.Log.Debug(`${prefix} get ( ${req.url} )- ${req.ip}`);
+            Logger.Debug(`${prefix} get ( ${req.url} )- ${req.ip}`);
         });
     }
 }
