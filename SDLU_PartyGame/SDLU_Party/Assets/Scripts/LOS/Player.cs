@@ -4,15 +4,39 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private float speed;
 
-    // Update is called once per frame
+    private bool isMove = false;
+
+    private Ray ray;
+    RaycastHit hit;
+
     void Update()
     {
-        
+        if(Input.GetMouseButton(1)){
+            Debug.Log("Right mouse button clicked");
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if(Physics.Raycast(ray, out hit)){
+                Debug.Log(hit.point);
+                StartCoroutine(Move(hit));
+            }
+        }
+    }
+
+    private IEnumerator Move(RaycastHit hit){
+        Vector3 target = hit.point;
+        if(!isMove){
+            isMove = true;
+        }else{
+            isMove = false;
+        }
+
+        while(isMove){
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(hit.point.x, transform.position.y, hit.point.z), speed * Time.deltaTime);
+            isMove = transform.position.x!=target.x&&transform.position.z!=target.z;
+            yield return null;
+        }
+        isMove = false;
     }
 }

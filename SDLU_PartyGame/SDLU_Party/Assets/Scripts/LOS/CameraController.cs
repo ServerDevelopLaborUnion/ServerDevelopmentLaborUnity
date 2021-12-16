@@ -10,10 +10,22 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Vector3 offset;
 
+    void Start()
+    {
+        LookTarget(target);   
+    }
+
     void Update()
     {
-        //camera follows the player
-        transform.position = target.position + offset;
+        if(Input.GetKey(KeyCode.Space)){
+            LookTarget(target);
+        }
+    }
+
+    private void LookTarget(Transform target){
+        //move lerp
+        transform.position = Vector3.Lerp(transform.position, target.position + offset, 1f);
         transform.LookAt(target);
     }
+
 }
