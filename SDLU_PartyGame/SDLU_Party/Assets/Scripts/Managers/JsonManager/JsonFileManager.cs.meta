@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Noah's Ark/Assets/Scripts/Managers/JsonManager/JsonFileManager.cs.meta
+guid: 3c36b77a45d83bef6b22974bec381052
+========
+guid: e521ac4ad97b55d4f8c1e4a2a651523d
+>>>>>>>> ace082c25fa0afab961b29210a4e6e237d8bbdff:Noah's Ark/Assets/Scripts/Managers/TurretManager.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
