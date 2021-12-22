@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
         if(Input.GetKey(KeyCode.A)){
             Attack();
         }
+        if(Input.GetKey(KeyCode.S)){
+            isMove = false;
+        }
     }
 
     private void Attack(){
@@ -50,5 +53,9 @@ public class Player : MonoBehaviour
             isMove = transform.position.x!=target.x&&transform.position.z!=target.z;
             yield return null;
         }
+    }
+
+    private void Dead(){
+        Debug.Log("Dead");
     }
 }
