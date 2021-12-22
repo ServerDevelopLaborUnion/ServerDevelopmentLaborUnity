@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    private bool isMove = false;
+    protected bool isMove = false;
 
     protected Ray ray;
     protected RaycastHit hit;
@@ -52,7 +52,6 @@ public class Player : MonoBehaviour
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
             {
-                Debug.Log(hit.point);
                 if (moveCoroutine != null) StopCoroutine(moveCoroutine);
                 moveCoroutine = StartCoroutine(Move(hit));
             }
