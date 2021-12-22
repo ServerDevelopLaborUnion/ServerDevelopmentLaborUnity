@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float speed;
+    [SerializeField]
+    private LayerMask ground;
 
     private bool isMove = false;
     private bool isAttack = false;
@@ -20,7 +22,7 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButton(1)){
             Debug.Log("Right mouse button clicked");
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out hit)){
+            if(Physics.Raycast(ray, out hit, Mathf.Infinity, ground)){
                 Debug.Log(hit.point);
                 if (moveCoroutine != null) StopCoroutine(moveCoroutine);
                 moveCoroutine = StartCoroutine(Move(hit));
