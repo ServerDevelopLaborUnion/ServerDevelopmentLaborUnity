@@ -5,25 +5,26 @@ using UnityEngine;
 public class SkillFlash : MonoBehaviour
 {
     private Camera camera; 
-    private bool isMove; 
+    private bool isMove;
+    private bool canUseSkill = true;
     private Vector3 destination;
     [SerializeField]
     private float maxFlashDistance = 7f;
 
     private void Awake() 
-    { 
+    {
         camera = Camera.main; 
     }
 
     void Update() 
-    { 
+    {
         if (Input.GetKeyDown(KeyCode.E)) 
-        { 
+        {
             RaycastHit hit; 
-            if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit)) 
+            if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, LayerMask.GetMask("Ground"))) 
             {
-                if (hit.collider.tag != "Floor") return;
                 Flash(hit.point);
+                CreateEffect();
             }
             
         }
@@ -31,9 +32,8 @@ public class SkillFlash : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             RaycastHit hit;
-            if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit))
+            if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
             {
-                if (hit.collider.tag != "Floor") return;
                 SetDestination(hit.point);
             }
         }
@@ -57,14 +57,13 @@ public class SkillFlash : MonoBehaviour
                 return; 
             } 
             var dir = destination - transform.position;
-            transform.position += dir.normalized * Time.deltaTime * 10f;
+            transform.position += dir.normalized * Time.deltaTime * 15f;
         }
     }
 
     private void Flash(Vector3 dest)
     {
         isMove = false;
-        //Debug.Log(Vector3.Distance(dest, transform.position));
         if(Vector3.Distance(dest, transform.position) < 7f)
         {
             transform.position = dest;
@@ -74,5 +73,13 @@ public class SkillFlash : MonoBehaviour
             var dir = dest - transform.position;
             transform.position += dir.normalized * maxFlashDistance;
         }
+        CreateEffect();
+    }
+
+    private void CreateEffect()
+    {
+        //GameObject effect = null;
+        //effect.transform.position = transform.position;
+        
     }
 }
