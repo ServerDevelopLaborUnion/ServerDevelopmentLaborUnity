@@ -6,7 +6,9 @@ public class SkillFlash : MonoBehaviour
 {
     private Camera camera; 
     private bool isMove; 
-    private Vector3 destination; 
+    private Vector3 destination;
+    [SerializeField]
+    private float maxFlashDistance = 7f;
 
     private void Awake() 
     { 
@@ -20,18 +22,22 @@ public class SkillFlash : MonoBehaviour
             RaycastHit hit; 
             if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit)) 
             {
+                if (hit.collider.tag != "Floor") return;
                 Flash(hit.point);
             }
             
         }
-        if (Input.GetMouseButtonDown(1))
+
+        if (Input.GetMouseButton(1))
         {
             RaycastHit hit;
             if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit))
             {
+                if (hit.collider.tag != "Floor") return;
                 SetDestination(hit.point);
             }
         }
+
         Move();
     }
 
@@ -45,7 +51,7 @@ public class SkillFlash : MonoBehaviour
     { 
         if (isMove) 
         {
-            if (Vector3.Distance(destination, transform.position) <= 0.1f) 
+            if (Vector3.Distance(destination, transform.position) <= 0.1f)
             {
                 isMove = false; 
                 return; 
@@ -58,8 +64,15 @@ public class SkillFlash : MonoBehaviour
     private void Flash(Vector3 dest)
     {
         isMove = false;
-        var dir = dest - transform.position;
-        transform.position += dir.normalized * 3f;
+        //Debug.Log(Vector3.Distance(dest, transform.position));
+        if(Vector3.Distance(dest, transform.position) < 7f)
+        {
+            transform.position = dest;
+        }
+        else
+        {
+            var dir = dest - transform.position;
+            transform.position += dir.normalized * maxFlashDistance;
+        }
     }
-
 }
