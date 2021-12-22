@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        LookTarget(target);   
+        LookTarget(target);  
     }
 
     void Update()
