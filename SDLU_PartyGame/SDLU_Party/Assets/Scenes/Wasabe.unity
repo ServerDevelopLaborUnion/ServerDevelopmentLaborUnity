@@ -136,7 +136,6 @@ GameObject:
   - component: {fileID: 80818025}
   - component: {fileID: 80818024}
   - component: {fileID: 80818028}
-  - component: {fileID: 80818029}
   - component: {fileID: 80818030}
   m_Layer: 0
   m_Name: Player
@@ -239,23 +238,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &80818029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 80818023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d91427fc2d71ef646bb4a1075b23b366, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boom: {fileID: 1503531043}
-  explosionSize: 15
-  boomDuration: 0.15
-  fadeDuration: 0.2
-  boomPower: 5
 --- !u!114 &80818030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,10 +491,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 849508835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d91427fc2d71ef646bb4a1075b23b366, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cd07d0082610d54da6a5be82dca7165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boom: {fileID: 431113988}
+  speed: 0
+  boomBarrier: {fileID: 431113988}
   explosionSize: 15
   boomDuration: 0.15
   fadeDuration: 0.2

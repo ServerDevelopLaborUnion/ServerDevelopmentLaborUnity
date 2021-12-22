@@ -22,8 +22,10 @@ public class ChickenPlayer : Player
     private bool isBoom;
 
     private Rigidbody rb;
+    private CapsuleCollider col;
 
-    protected override void Awake() {
+    protected override void Awake()
+    {
         base.Awake();
         triggerEnter += (a) => { };
         boom += () => { };
@@ -31,23 +33,28 @@ public class ChickenPlayer : Player
 
     private void Start()
     {
+        col = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
         boomMaterial = boomBarrier.GetComponent<MeshRenderer>().material;
-        Debug.Log(boomMaterial);
+        Debug.Log(col.bounds.center);
     }
     protected override void Update()
     {
         base.Update();
         boom();
+        Debug.Log(IsGround());
     }
-    
-    protected override void Initvalue(){
+
+    protected override void Initvalue()
+    {
         base.Initvalue();
         triggerEnter += HitBomb;
         boom += Boom;
     }
-    private void Boom(){
-        if(Input.GetKeyDown(KeyCode.W) && !isBoom){
+    private void Boom()
+    {
+        if (Input.GetKeyDown(KeyCode.W) && !isBoom)
+        {
             isBoom = true;
             Explosion();
         }
@@ -88,11 +95,21 @@ public class ChickenPlayer : Player
             distance = other.transform.position - transform.position;
 
             distance.Normalize();
-            Debug.Log(other);
-            Debug.Log(distance);
-            Debug.Log(distance * boomPower);
             rb.AddForce(new Vector3(-distance.x, distance.y + 1, -distance.z) * boomPower, ForceMode.Impulse);
-            Debug.Log(rb.velocity);
+            StartCoroutine(WaitIsground());
         }
+    }
+
+    private IEnumerator WaitIsground()
+    {
+        move -= getMove;
+        isMove = false;
+        yield return new WaitUntil(() => IsGround() && rb.velocity.y < 0f);
+        move += getMove;
+    }
+
+    private bool IsGround()
+    {
+        return Physics.OverlapSphere(col.bounds.center, col.radius * col.height, LayerMask.GetMask("Ground")).Length > 0;
     }
 }
