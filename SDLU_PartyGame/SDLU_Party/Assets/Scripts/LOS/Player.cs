@@ -1,61 +1,86 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour
 {
+    #region Action
+    public event Action move;
+    public Action getMove {
+        get{
+            return Move;
+        }
+    }
+    #endregion
+
     [SerializeField]
     private float speed;
-    [SerializeField]
-    private LayerMask ground;
 
     private bool isMove = false;
 
     private Ray ray;
-    RaycastHit hit;
+    private RaycastHit hit;
 
-    Coroutine moveCoroutine = null;
+    private Coroutine moveCoroutine = null;
 
-    void Update()
+    private Vector3 diff = Vector3.zero;
+    private float rotation;
+
+    #region 이벤트
+    protected virtual void Awake() {
+        move += () => { };
+    }
+    private void OnEnable() {
+        Initvalue();
+    }
+    protected virtual void Update()
     {
-        if(Input.GetMouseButton(1)){
+        move();
+    }
+    #endregion
+
+    protected virtual void Initvalue(){
+        move += Move;
+    }
+    
+    private void Move()
+    {
+        if (Input.GetMouseButton(1))
+        {
             Debug.Log("Right mouse button clicked");
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out hit, Mathf.Infinity, ground)){
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
+            {
                 Debug.Log(hit.point);
                 if (moveCoroutine != null) StopCoroutine(moveCoroutine);
                 moveCoroutine = StartCoroutine(Move(hit));
             }
         }
-        if(Input.GetKey(KeyCode.A)){
-            Attack();
-        }
-        if(Input.GetKey(KeyCode.S)){
+
+        if (Input.GetKey(KeyCode.S))
+        {
             isMove = false;
         }
     }
-
-    private void Attack(){
-        if(Input.GetMouseButton(0)){
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out hit)&&hit.collider.tag=="Enemy"){
-                Debug.Log(hit.point);
-                Destroy(hit.collider.gameObject);
-            }
-        }
-    }
-
-    private IEnumerator Move(RaycastHit hit){
+    private IEnumerator Move(RaycastHit hit)
+    {
         Vector3 target = hit.point;
         isMove = true;
-        while(isMove){
+        while (isMove)
+        {
+            Rotate(hit.point);
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(hit.point.x, transform.position.y, hit.point.z), speed * Time.deltaTime);
-            isMove = transform.position.x!=target.x&&transform.position.z!=target.z;
+            isMove = transform.position.x != target.x && transform.position.z != target.z;
             yield return null;
         }
     }
 
-    private void Dead(){
-        Debug.Log("Dead");
+    private void Rotate(Vector3 hitPos){
+        diff = hitPos - transform.position;
+        diff.Normalize();
+        rotation = Mathf.Atan2(diff.x, diff.z) * Mathf.Rad2Deg;
+        transform.eulerAngles = new Vector3(0f, rotation, 0f);
+        //transform.rotation = Quaternion.AngleAxis(rotation, transform.position);
     }
 }
