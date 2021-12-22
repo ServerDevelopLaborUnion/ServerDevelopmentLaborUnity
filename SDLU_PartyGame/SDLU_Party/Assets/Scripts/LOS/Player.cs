@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
 
     private bool isMove = false;
 
-    private Ray ray;
-    private RaycastHit hit;
+    protected Ray ray;
+    protected RaycastHit hit;
 
     private Coroutine moveCoroutine = null;
 
