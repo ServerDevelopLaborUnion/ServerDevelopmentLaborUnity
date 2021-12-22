@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     private float speed;
 
     private bool isMove = false;
-    private bool isAttack = false;
 
     private Ray ray;
     RaycastHit hit;
@@ -26,16 +25,17 @@ public class Player : MonoBehaviour
                 moveCoroutine = StartCoroutine(Move(hit));
             }
         }
-        if(Input.GetKeyDown(KeyCode.A)){
-            isAttack = true;
+        if(Input.GetKey(KeyCode.A)){
+            Attack();
         }
-        if(isAttack){
-            if(Input.GetMouseButton(0)){
-                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if(Physics.Raycast(ray, out hit)&&hit.collider.tag=="Enemy"){
-                    Debug.Log(hit.point);
-                    Destroy(hit.collider.gameObject);
-                }
+    }
+
+    private void Attack(){
+        if(Input.GetMouseButton(0)){
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if(Physics.Raycast(ray, out hit)&&hit.collider.tag=="Enemy"){
+                Debug.Log(hit.point);
+                Destroy(hit.collider.gameObject);
             }
         }
     }
