@@ -11,7 +11,7 @@ module.exports = {
             Logger.Debug(prefix + 'No room found');
             return;
         }
-        const vo = new DataVO("JoinRoom", { "roomId" : room.getRoomId() });
+        const vo = new DataVO("JoinRoom", { "id" : room.getRoomId() });
         socket.send(vo);
     }
 }
