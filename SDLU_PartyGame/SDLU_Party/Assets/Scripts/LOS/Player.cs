@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    protected bool isMove = false;
+    public bool isMove = false;
 
     protected Ray ray;
     protected RaycastHit hit;
