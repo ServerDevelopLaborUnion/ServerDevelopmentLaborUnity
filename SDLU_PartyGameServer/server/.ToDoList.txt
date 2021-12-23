@@ -3,9 +3,9 @@
 
     매치메이킹 - Complete
         인원 남아있는 방 있으면 Join - Complete
-            준비, 준비 해제
-                모두가 준비하면 맵 투표
-                    동점 시에는 동점인 게임들 중 랜덤으로
+            준비, 준비 해제 - Complete
+                모두가 준비하면 맵 투표 - Complete
+                    동점 시에는 동점인 게임들 중 랜덤으로 - Complete
             나가기 - Complete
         인원 남은 방 없으면 Create - Complete
             다시 매치메이킹 - Complete
