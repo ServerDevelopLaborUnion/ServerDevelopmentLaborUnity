@@ -18,14 +18,14 @@ function GenerateRoomManager() {
             this.id = id;
             this.roomName = roomName;
             this.roomUsers = [];
+            this.voter = [];
+            this.vote = [];
         }
-
         broadcast(data) {
             for (let i = 0; i < this.roomUsers.length; i++) {
                 this.roomUsers[i].send(data);
             }
         }
-
         addUser(socket) {
             if (this.roomUsers.length >= maxRoomUser) {
                 Logger.Debug(`${prefix} room ${this.id} is full`);
@@ -35,34 +35,112 @@ function GenerateRoomManager() {
             this.broadcast(JSON.stringify({
                 type: 'RoomUserJoin',
                 data: {
-                    user: socket.user.id,
-                    room: this.id
+                    user: socket.user.id
                 }
             }));
             return true;
         }
-
         removeUser(socket) {
             this.roomUsers.splice(this.roomUsers.indexOf(socket), 1);
             this.broadcast(JSON.stringify({
                 type: 'RoomUserLeave',
                 data: {
-                    user: socket.user.id,
-                    room: this.id
+                    user: socket.user.id
                 }
             }));
         }
-
         getUsers() {
-            return this.roomUsers;
+            let users = [];
+            for (let i = 0; i < this.roomUsers.length; i++) {
+                users.push(this.roomUsers[i].user);
+            }
+            return users;
         }
-
         getRoomName() {
             return this.roomName;
         }
-
         getRoomId() {
             return this.id;
+        }
+        setReadyState(socket, state) {
+            if (state) {
+                socket.ready = true;
+            } else {
+                socket.ready = false;
+            }
+
+            this.broadcast(JSON.stringify({
+                type: 'RoomUserReady',
+                data: {
+                    user: socket.user.id,
+                    ready: state
+                }
+            }));
+
+            if (this.isAllReady()) {
+                this.startGameVote();
+            }
+        }
+        isAllReady() {
+            for (let i = 0; i < this.roomUsers.length; i++) {
+                if (!this.roomUsers[i].ready) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        startGameVote() {
+            this.voter = [];
+            for (let i = 0; i < this.roomUsers.length; i++) {
+                this.voter.push(this.roomUsers[i].user.id);
+            }
+            this.broadcast(JSON.stringify({
+                type: 'RoomStartVote',
+                data: {
+                    count: this.voter.length
+                }
+            }));
+        }
+        vote(socket, vote) {
+            if (this.voter.indexOf(socket.user.id) < 0) return;
+            this.voter.splice(this.voter.indexOf(socket.user.id), 1);
+
+            this.vote.push(vote);
+
+            this.broadcast(JSON.stringify({
+                type: 'RoomUserVote',
+                data: {
+                    user: socket.user.id
+                }
+            }));
+
+            if (this.voter.length <= 0) {
+                this.startGame();
+            }
+        }
+        getVoteResult() {
+            // return most voted
+            // if vote count is equal, return random
+            let max = 0;
+            let maxIndex = 0;
+            for (let i = 0; i < this.vote.length; i++) {
+                if (this.vote[i] > max) {
+                    max = this.vote[i];
+                    maxIndex = i;
+                }
+            }
+            if (this.vote.length == max) {
+                return this.roomUsers[Math.floor(Math.random() * this.roomUsers.length)].user.id;
+            }
+            return this.roomUsers[maxIndex].user.id;
+        }
+        startGame() {
+            this.broadcast(JSON.stringify({
+                type: 'RoomGameStart',
+                data: {
+                    game: this.getVoteResult()
+                }
+            }));
         }
     }
     globalObj.roomManager = new class {
