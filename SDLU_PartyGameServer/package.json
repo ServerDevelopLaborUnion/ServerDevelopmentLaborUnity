@@ -1,9 +1,13 @@
 {
   "dependencies": {
     "express": "^4.17.1",
+    "request": "^2.88.2",
     "ws": "^8.3.0"
   },
   "devDependencies": {
     "eslint": "^8.5.0"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }

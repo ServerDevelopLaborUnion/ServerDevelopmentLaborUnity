@@ -1,10 +1,14 @@
 const { WebSocketServer } = require("ws");
 const fs = require("fs");
 const Logger = require('../util/logger');
+const request = require('request');
+
 var path = require('path');
 
 let prefix = '[WebSocketServer] ';
 const globalObj = {};
+
+let randomSeed = Math.random();
 
 const maxRoomUser = 8;
 
@@ -16,16 +20,37 @@ function GenerateRoomManager() {
             this.roomUsers = [];
         }
 
+        broadcast(data) {
+            for (let i = 0; i < this.roomUsers.length; i++) {
+                this.roomUsers[i].send(data);
+            }
+        }
+
         addUser(socket) {
             if (this.roomUsers.length >= maxRoomUser) {
                 Logger.Debug(`${prefix} room ${this.id} is full`);
                 return false;
             }
             this.roomUsers.push(socket);
+            this.broadcast(JSON.stringify({
+                type: 'RoomUserJoin',
+                data: {
+                    user: socket.user.id,
+                    room: this.id
+                }
+            }));
+            return true;
         }
 
         removeUser(socket) {
             this.roomUsers.splice(this.roomUsers.indexOf(socket), 1);
+            this.broadcast(JSON.stringify({
+                type: 'RoomUserLeave',
+                data: {
+                    user: socket.user.id,
+                    room: this.id
+                }
+            }));
         }
 
         getUsers() {
@@ -106,15 +131,22 @@ function GenerateRoomManager() {
 
 function GenerateUserManager() {
     globalObj.user = class {
-        constructor(socket, name) {
-            this.socket = socket;
+        constructor(id, name) {
+            this.id = id;
             this.name = name;
         }
         getSocket() {
-            return this.socket;
+            globalObj.sockets.forEach(socket => {
+                if (socket.user.getUserName() == this.name) {
+                    return socket;
+                }
+            });
         }
-        getName() {
+        getUserName() {
             return this.name;
+        }
+        getUserId() {
+            return this.id;
         }
     }
     globalObj.userManager = new class {
@@ -122,7 +154,7 @@ function GenerateUserManager() {
             this.userList = [];
         }
         addUser(socket, vo) {
-            var user = new globalObj.user(socket, vo.name, vo.password);
+            var user = new globalObj.user(socket, vo.name);
             socket.user = user;
             this.userList.push(user);
             return user;
@@ -137,7 +169,7 @@ function GenerateUserManager() {
         }
         getUserByName(name) {
             for (let i = 0; i < this.userList.length; i++) {
-                if (this.userList[i].getName() == name) {
+                if (this.userList[i].getUserName() == name) {
                     return this.userList[i];
                 }
             }
@@ -150,6 +182,7 @@ class WebsocketServer {
     constructor(port) {
         GenerateRoomManager();
         GenerateUserManager();
+        globalObj.sockets = [];
 
         this.handlers = {};
         const handlerFiles = fs.readdirSync('handler').filter(file => file.endsWith('.js'));
@@ -164,7 +197,11 @@ class WebsocketServer {
             Logger.Info(prefix + 'Server started on port ' + port);
         });
 
-        this.server.on('connection', (socket) => {
+        globalObj.server = this.server;
+
+        this.server.on('connection', async (socket) => {
+            globalObj.userManager.addUser(socket, { name: await this.getRandomName() });
+            globalObj.sockets.push(socket);
             socket.globalObj = globalObj;
             Logger.Debug(`${prefix} connection ( ${socket.url} )- ${socket.upgradeReq.connection.remoteAddress}`);
 
@@ -175,6 +212,8 @@ class WebsocketServer {
 
             socket.on('close', (code, reason) => {
                 Logger.Debug(`${prefix} close ( ${socket.url} ) - ${code} - ${reason}`);
+                globalObj.userManager.leaveRoom(socket);
+                globalObj.sockets.splice(globalObj.sockets.indexOf(socket), 1);
             });
         });
     }
@@ -182,6 +221,18 @@ class WebsocketServer {
     handleMessage(socket, message) {
         const json = JSON.parse(message);
         this.handlers[json.type].handle(socket, json.payload);
+    }
+
+    getRandomName() {
+        return new Promise((resolve, reject) => {
+            request.get('https://nickname.hwanmoo.kr/?format=json&count=1&max_length=1', (error, response, body) => {
+                if (error) {
+                    reject(error);
+                }
+                const data = JSON.parse(body);
+                resolve(data.words[0]);
+            });
+        });
     }
 }
 
