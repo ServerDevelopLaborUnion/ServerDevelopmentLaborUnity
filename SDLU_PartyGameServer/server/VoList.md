@@ -28,6 +28,8 @@
 
 ### JoinRoomVO
 
+들어갈 수 있는 방의 정보를 보내는 VO입니다.
+
 ```js
 {
     type: 'JoinRoom',
@@ -160,6 +162,8 @@
 ```
 
 ### JoinRoomVO
+
+방에 입장을 요청할 때 보내는 VO입니다.
 
 ```js
 {
