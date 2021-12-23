@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5fb51bb85c84ad45bfd2fa1a1432d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashDistance: 7
+  maxFlashDistance: 7
 --- !u!1 &1709136751
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 1713007730}
   - component: {fileID: 1713007735}
   - component: {fileID: 1713007734}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Floor
   m_Icon: {fileID: 0}
