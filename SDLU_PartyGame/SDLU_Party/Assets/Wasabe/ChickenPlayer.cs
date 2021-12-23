@@ -44,7 +44,10 @@ public class ChickenPlayer : Player
 
     private void OnTriggerEnter(Collider other)
     {
-        triggerEnter(other);
+        if (IsGround())
+        {
+            triggerEnter(other);
+        }
     }
 
     public bool IsGround()
