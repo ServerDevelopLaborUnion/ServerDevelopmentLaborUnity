@@ -3,21 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class SkillQ : MonoBehaviour
+public class SkillQ : SkillScript
 {
     [SerializeField] private float skillRange = 0f;
     [SerializeField] private float skillSpeed = 0f;
     [SerializeField] private float skillPowerInHorizon = 0f;
     [SerializeField] private float skillPowerInVertical = 0f;
+    [SerializeField] private float skillCoolTime = 0f;
     [SerializeField] private GameObject rangeObject = null;
     [SerializeField] private Transform skillTransform = null;
     private float chargeTime;
     private bool isUsing = false;
     void Update()
     {
+        CoolDown(skillCoolTime, ref canUse);
+
+        if (!canUse) return;
+
         if (Input.GetKeyUp(KeyCode.Q))
         {
-            Q(); 
+            Q();
             ShowRange(false);
         }
         if (Input.GetKey(KeyCode.Q))
@@ -29,21 +34,26 @@ public class SkillQ : MonoBehaviour
             chargeTime = Time.time;
         }
 
-
         if (isUsing)
         {
             PushBack(CheckColInRange());
         }
     }
+        
 
     private void Q()
     {
         if (!isUsing)
         {
+            skillTransform.gameObject.SetActive(true);
+            skillTransform.SetParent(null);
             isUsing = true;
-            skillTransform.DOMove(new Vector3(transform.position.x, transform.position.y, skillRange), skillRange / skillSpeed).SetEase(Ease.Linear).onComplete += () => 
+            skillTransform.DOMove(skillTransform.forward * skillRange, skillRange / skillSpeed).SetEase(Ease.Linear).onComplete += () =>
             {
+                canUse = false;
                 isUsing = false;
+                skillTransform.SetParent(this.transform);
+                skillTransform.gameObject.SetActive(false);
                 skillTransform.localPosition = Vector3.zero;
             };
         }
@@ -72,7 +82,7 @@ public class SkillQ : MonoBehaviour
     {
         foreach(var col in colliders)
         {
-            col.GetComponent<Rigidbody>().AddForceAtPosition(Vector3.forward * skillPowerInVertical * 0.1f + Vector3.up * skillPowerInHorizon * 0.1f, skillTransform.position, ForceMode.Impulse);
+            col.GetComponent<Rigidbody>().AddForceAtPosition(skillTransform.forward * skillPowerInVertical * 0.1f + Vector3.up * skillPowerInVertical * 0.1f, skillTransform.position, ForceMode.Impulse);
         }
     }
 }
