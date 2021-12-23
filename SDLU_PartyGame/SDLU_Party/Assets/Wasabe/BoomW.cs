@@ -80,7 +80,10 @@ public class BoomW : MonoBehaviour
         player.move -= player.getMove;
         player.isMove = false;
         yield return new WaitUntil(() => player.IsGround() && rb.velocity.y < 0f);
-        player.move += player.getMove;
+        if (!isBoom)
+        {
+            player.move += player.getMove;
+        }
     }
 
 }
