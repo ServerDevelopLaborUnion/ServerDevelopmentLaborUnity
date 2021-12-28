@@ -237,6 +237,17 @@ function GenerateUserManager() {
             this.userList.push(user);
             return user;
         }
+        leaveRoom(socket) {
+            let user = this.getUserBySocket(socket);
+            if (user == null) {
+                Logger.Error(prefix + socket + ' is not in any room');
+                return false;
+            }
+            this.userList.splice(this.userList.indexOf(user), 1);
+            if (globalObj.roomManager.getRoomBySocket(socket) != null) {
+                globalObj.roomManager.leaveRoom(socket);
+            }
+        }
         getUserBySocket(socket) {
             for (let i = 0; i < this.userList.length; i++) {
                 if (this.userList[i].getSocket() == socket) {
@@ -281,15 +292,15 @@ class WebsocketServer {
             globalObj.userManager.addUser(socket, { name: await this.getRandomName() });
             globalObj.sockets.push(socket);
             socket.globalObj = globalObj;
-            Logger.Debug(`${prefix} connection ( ${socket.url} )- ${socket.upgradeReq.connection.remoteAddress}`);
+            Logger.Debug(`${prefix} connection ( ${socket.url} )`);
 
             socket.on('message', (message) => {
                 Logger.Debug(`${prefix} message ( ${socket.url} ) - ${message}`);
                 this.handleMessage(socket, message);
             });
 
-            socket.on('close', (code, reason) => {
-                Logger.Debug(`${prefix} close ( ${socket.url} ) - ${code} - ${reason}`);
+            socket.on('close', (code) => {
+                Logger.Debug(`${prefix} close ( ${socket.url} ) - ${code}`);
                 globalObj.userManager.leaveRoom(socket);
                 globalObj.sockets.splice(globalObj.sockets.indexOf(socket), 1);
             });
