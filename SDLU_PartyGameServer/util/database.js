@@ -18,6 +18,10 @@ function sendPost(type, params) {
     });
 }
 
+module.exports = {
+    sendPost: sendPost
+}
+
 // 디버그
 // sendPost("register", JSON.stringify({ id: "jan", pw: "1234" }));
 sendPost("login", JSON.stringify({ id: "jan", pw: "1234" }));
