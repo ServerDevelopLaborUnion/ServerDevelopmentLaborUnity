@@ -10,34 +10,19 @@ public class SkillQ : SkillScript
     [SerializeField] private float skillPowerInHorizon = 0f;
     [SerializeField] private float skillPowerInVertical = 0f;
     [SerializeField] private float skillCoolTime = 0f;
+    [SerializeField] private Transform skillObjectTransform = null;
     [SerializeField] private GameObject rangeObject = null;
     [SerializeField] private Transform skillTransform = null;
     private float chargeTime;
     private bool isUsing = false;
-    void Update()
+
+    protected override void Update()
     {
         CoolDown(skillCoolTime, ref canUse);
 
         if (!canUse) return;
 
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            Q();
-            ShowRange(false);
-        }
-        if (Input.GetKey(KeyCode.Q))
-        {
-            ShowRange(true);
-        }
-        else
-        {
-            chargeTime = Time.time;
-        }
-
-        if (isUsing)
-        {
-            PushBack(CheckColInRange());
-        }
+        UseSkill();
     }
         
 
@@ -52,9 +37,10 @@ public class SkillQ : SkillScript
             {
                 canUse = false;
                 isUsing = false;
-                skillTransform.SetParent(this.transform);
+                skillTransform.SetParent(skillObjectTransform);
                 skillTransform.gameObject.SetActive(false);
                 skillTransform.localPosition = Vector3.zero;
+                skillTransform.localRotation = Quaternion.Euler(Vector3.zero + Vector3.forward * 90);
             };
         }
     }
@@ -74,7 +60,7 @@ public class SkillQ : SkillScript
     Collider[] CheckColInRange()
     {
         Collider[] colliders = { null, };
-        colliders = Physics.OverlapSphere(skillTransform.position, 1, LayerMask.GetMask("Players"));
+        colliders = Physics.OverlapSphere(skillTransform.position, 3, LayerMask.GetMask("Players"));
         return colliders;
     }
 
@@ -83,6 +69,33 @@ public class SkillQ : SkillScript
         foreach(var col in colliders)
         {
             col.GetComponent<Rigidbody>().AddForceAtPosition(skillTransform.forward * skillPowerInVertical * 0.1f + Vector3.up * skillPowerInVertical * 0.1f, skillTransform.position, ForceMode.Impulse);
+        }
+    }
+
+    protected override void UseSkill()
+    {
+        base.UseSkill();
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            Q();
+            ShowRange(false);
+        }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground"));
+            Rotate(skillObjectTransform,hit.point);
+            ShowRange(true);
+        }
+        else
+        {
+            chargeTime = Time.time;
+        }
+
+        if (isUsing)
+        {
+            PushBack(CheckColInRange());
         }
     }
 }

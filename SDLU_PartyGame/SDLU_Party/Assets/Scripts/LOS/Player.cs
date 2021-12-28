@@ -68,18 +68,18 @@ public class Player : MonoBehaviour
         isMove = true;
         while (isMove)
         {
-            Rotate(hit.point);
+            Rotate(transform , hit.point);
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(hit.point.x, transform.position.y, hit.point.z), speed * Time.deltaTime);
             isMove = transform.position.x != target.x && transform.position.z != target.z;
             yield return null;
         }
     }
 
-    private void Rotate(Vector3 hitPos){
-        diff = hitPos - transform.position;
+    protected void Rotate(Transform objectPos, Vector3 hitPos){
+        diff = hitPos - objectPos.position;
         diff.Normalize();
         rotation = Mathf.Atan2(diff.x, diff.z) * Mathf.Rad2Deg;
-        transform.eulerAngles = new Vector3(0f, rotation, 0f);
+        objectPos.eulerAngles = new Vector3(0f, rotation, 0f);
         //transform.rotation = Quaternion.AngleAxis(rotation, transform.position);
     }
 }
