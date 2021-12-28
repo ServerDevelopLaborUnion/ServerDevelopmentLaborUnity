@@ -32,40 +32,42 @@ class Log {
     logWrite(msg) {
         msg = `${new Date().toISOString().replace('T', ' ').replace('Z', '')} ${msg}`;
         console.log(msg);
+        // eslint-disable-next-line no-control-regex
+        msg = msg.replace(/\x1b\[\d+m/g, '');
         fs.appendFileSync(this.path, msg + '\n');
     }
 
-    Debug(msg) {
+    Debug(prefix, msg) {
         if (this.level <= Level.DEBUG) {
-            msg = `[DEBUG]: ${msg}`;
+            msg = `\x1b[32m[DEBUG]: ${prefix}\x1b[0m ${msg}`;
             this.logWrite(msg);
         }
     }
 
-    Info(msg) {
+    Info(prefix, msg) {
         if (this.level <= Level.INFO) {
-            msg = `[INFO]: ${msg}`;
+            msg = `\x1b[34m[INFO]: ${prefix}\x1b[0m ${msg}`;
             this.logWrite(msg);
         }
     }
 
-    Warn(msg) {
+    Warn(prefix, msg) {
         if (this.level <= Level.WARN) {
-            msg = `[WARN]: ${msg}`;
+            msg = `\x1b[33m[WARN]: ${prefix}\x1b[0m ${msg}`;
             this.logWrite(msg);
         }
     }
 
-    Error(msg) {
+    Error(prefix, msg) {
         if (this.level <= Level.ERROR) {
-            msg = `[ERROR]: ${msg}`;
+            msg = `\x1b[31m[ERROR]: ${prefix}\x1b[0m ${msg}`;
             this.logWrite(msg);
         }
     }
 
-    Fatal(msg) {
+    Fatal(prefix, msg) {
         if (this.level <= Level.FATAL) {
-            msg = `[FATAL]: ${msg}`;
+            msg = `[FATAL]: ${prefix}\x1b[0m ${msg}`;
             this.logWrite(msg);
         }
     }
@@ -74,19 +76,23 @@ class Log {
 const Logger = new Log(Level.DEBUG, 'logs/' + getDate() + '.log');
 
 module.exports = {
-    Debug(msg) {
-        Logger.Debug(msg);
-    },
-    Info(msg) {
-        Logger.Info(msg);
-    },
-    Warn(msg) {
-        Logger.Warn(msg);
-    },
-    Error(msg) {
-        Logger.Error(msg);
-    },
-    Fatal(msg) {
-        Logger.Fatal(msg);
+    Get(prefix) {
+        return {
+            Debug(msg) {
+                Logger.Debug(`[${prefix}]`, `${msg}`);
+            },
+            Info(msg) {
+                Logger.Info(`[${prefix}]`, `${msg}`);
+            },
+            Warn(msg) {
+                Logger.Warn(`[${prefix}]`, `${msg}`);
+            },
+            Error(msg) {
+                Logger.Error(`[${prefix}]`, `${msg}`);
+            },
+            Fatal(msg) {
+                Logger.Fatal(`[${prefix}]`, `${msg}`);
+            }
+        }
     }
 }

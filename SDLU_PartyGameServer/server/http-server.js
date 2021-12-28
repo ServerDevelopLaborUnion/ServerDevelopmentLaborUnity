@@ -1,8 +1,6 @@
 var express = require('express')
-const Logger = require('../util/logger');
+const Logger = require('../util/logger').Get('HttpServer');
 var path = require('path');
-
-let prefix = '[HttpServer] ';
 
 class HttpServer {
     constructor(port) {
@@ -10,12 +8,12 @@ class HttpServer {
         this.port = port;
 
         this.app.listen(this.port, () => {
-            Logger.Info(`${prefix} started at ${this.port}`);
+            Logger.Info(`started at ${this.port}`);
         });
 
         this.app.get('/', (req, res) => {
             res.sendFile(path.resolve('public/index.html'));
-            Logger.Debug(`${prefix} get ( ${req.url} )- ${req.ip}`);
+            Logger.Debug(`get ( ${req.url} )- ${req.ip}`);
         });
     }
 }

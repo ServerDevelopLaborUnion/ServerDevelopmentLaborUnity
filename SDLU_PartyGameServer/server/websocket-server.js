@@ -1,11 +1,10 @@
 const { WebSocketServer } = require("ws");
 const fs = require("fs");
-const Logger = require('../util/logger');
+const Logger = require('../util/logger').Get('WebSocketServer');
 const request = require('request');
 
 var path = require('path');
 
-let prefix = '[WebSocketServer] ';
 const globalObj = {};
 
 let randomSeed = Math.random();
@@ -28,7 +27,7 @@ function GenerateRoomManager() {
         }
         addUser(socket) {
             if (this.roomUsers.length >= maxRoomUser) {
-                Logger.Debug(`${prefix} room ${this.id} is full`);
+                Logger.Debug(`room ${this.id} is full`);
                 return false;
             }
             this.roomUsers.push(socket);
@@ -155,7 +154,7 @@ function GenerateRoomManager() {
         joinRoom(id, socket) {
             let room = this.getRoomById(id);
             if (room == null) {
-                Logger.error(prefix + 'No room with id ' + id + ' found');
+                Logger.error('No room with id ' + id + ' found');
                 return false;
             }
             room.addUser(socket);
@@ -163,7 +162,7 @@ function GenerateRoomManager() {
         leaveRoom(socket) {
             let room = this.getRoomBySocket(socket);
             if (room == null) {
-                Logger.error(prefix + socket + ' is not in any room');
+                Logger.error(socket + ' is not in any room');
                 return false;
             }
             room.removeUser(socket);
@@ -195,7 +194,7 @@ function GenerateRoomManager() {
         getRoomData(id) {
             let room = this.getRoomById(id);
             if (room == null) {
-                Logger.error(prefix + 'No room with id ' + id + ' found');
+                Logger.error('No room with id ' + id + ' found');
                 return null;
             }
             return {
@@ -240,7 +239,7 @@ function GenerateUserManager() {
         leaveRoom(socket) {
             let user = this.getUserBySocket(socket);
             if (user == null) {
-                Logger.Error(prefix + socket + ' is not in any room');
+                Logger.Error(socket + ' is not in any room');
                 return false;
             }
             this.userList.splice(this.userList.indexOf(user), 1);
@@ -278,12 +277,12 @@ class WebsocketServer {
         handlerFiles.forEach(file => {
             const handler = require(path.join('../handler', file));
             this.handlers[handler.type] = handler;
-            Logger.Debug(prefix + 'Handler loaded: ' + handler.type + '.js');
+            Logger.Debug('Handler loaded: ' + handler.type + '.js');
         });
 
         this.port = port;
         this.server = new WebSocketServer({ port }, () => {
-            Logger.Info(prefix + 'Server started on port ' + port);
+            Logger.Info('Server started on port ' + port);
         });
 
         globalObj.server = this.server;
@@ -292,15 +291,15 @@ class WebsocketServer {
             globalObj.userManager.addUser(socket, { name: await this.getRandomName() });
             globalObj.sockets.push(socket);
             socket.globalObj = globalObj;
-            Logger.Debug(`${prefix} connection ( ${socket.url} )`);
+            Logger.Debug(`connection ( ${socket.url} )`);
 
             socket.on('message', (message) => {
-                Logger.Debug(`${prefix} message ( ${socket.url} ) - ${message}`);
+                Logger.Debug(`message ( ${socket.url} ) - ${message}`);
                 this.handleMessage(socket, message);
             });
 
             socket.on('close', (code) => {
-                Logger.Debug(`${prefix} close ( ${socket.url} ) - ${code}`);
+                Logger.Debug(`close ( ${socket.url} ) - ${code}`);
                 globalObj.userManager.leaveRoom(socket);
                 globalObj.sockets.splice(globalObj.sockets.indexOf(socket), 1);
             });

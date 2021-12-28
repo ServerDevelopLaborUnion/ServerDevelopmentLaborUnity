@@ -1,6 +1,6 @@
 const request = require('request');
 const url = "http://127.0.0.1/SDLU_PartyGameDatabaseServer/";
-
+const Logger = require('../util/logger').Get('Database');
 
 function sendPost(type, params) {
 
@@ -11,9 +11,9 @@ function sendPost(type, params) {
         }
     }, (err, res, body) => {
         try {
-            console.log(JSON.parse(body));
+            Logger.Debug(JSON.parse(body));
         } catch (e) {
-            console.log("err\r\n" + body);
+            Logger.Error(e);
         }
     });
 }
