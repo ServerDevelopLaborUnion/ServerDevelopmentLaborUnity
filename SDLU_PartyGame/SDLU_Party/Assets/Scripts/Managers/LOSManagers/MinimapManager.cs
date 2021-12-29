@@ -7,14 +7,28 @@ public class MinimapManager : MonoBehaviour
     [SerializeField]
     private Material otherPlayerPointer = null;
 
+    [SerializeField]
+    private RectTransform  minimap = null;
+
+    private RectTransform minimapMask = null;
+    private RectTransform minimapImage = null;
+
     void Start()
     {
+        minimapMask = minimap.GetChild(0).GetComponent<RectTransform>();
+        minimapImage = minimapMask.GetChild(0).GetComponent<RectTransform>();
+        minimapImage.SetParent(minimapMask, false);
         StartCoroutine(ShowPosition());
     }
 
     void Update()
     {
-        
+        FollowPlayer();
+    }
+
+    private void FollowPlayer()
+    {
+
     }
 
     private IEnumerator ShowPosition(){
