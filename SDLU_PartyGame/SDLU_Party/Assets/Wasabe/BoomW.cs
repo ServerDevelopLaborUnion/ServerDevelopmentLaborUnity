@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody))]
-public class BoomW : MonoBehaviour
+public class BoomW : SkillScript
 {
     [SerializeField]
     private GameObject boomBarrier;
@@ -12,13 +12,12 @@ public class BoomW : MonoBehaviour
     private float explosionSize;
     [SerializeField]
     private float boomDuration, fadeDuration, boomPower;
-
+    [SerializeField] private float skillCoolTime = 0f;
 
     private Material boomMaterial;
     private bool isBoom;
 
     private Rigidbody rb;
-    private ChickenPlayer player;
 
     private void Start()
     {
@@ -26,12 +25,23 @@ public class BoomW : MonoBehaviour
         player = GetComponent<ChickenPlayer>();
         boomMaterial = boomBarrier.GetComponent<MeshRenderer>().material;
         Debug.Log(boomMaterial);
-        player.boomW += Boom;
+        //player.boomW += Boom;
         player.triggerEnter += HitBomb;
     }
 
-    private void Boom()
+    private void Update()
     {
+        CoolDown(skillCoolTime);
+
+        if (!canUse) return;
+
+        UseSkill();
+    }
+
+
+    protected override void UseSkill()
+    {
+        base.UseSkill();
         if (Input.GetKeyDown(KeyCode.W) && !isBoom)
         {
             isBoom = true;
@@ -54,6 +64,7 @@ public class BoomW : MonoBehaviour
                 isBoom = false;
                 boomBarrier.SetActive(false);
                 player.move += player.getMove;
+                canUse = false;
             });
         });
 

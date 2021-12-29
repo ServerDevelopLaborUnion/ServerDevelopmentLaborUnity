@@ -8,9 +8,6 @@ public class ChickenPlayer : Player
 {
     #region Action
     public event Action<Collider> triggerEnter;
-    public event Action boomW;
-    public event Action skillQ;
-    public event Action flash;
     #endregion
 
     private Rigidbody rb;
@@ -20,10 +17,6 @@ public class ChickenPlayer : Player
     {
         base.Awake();
         triggerEnter += (a) => { };
-        boomW += () => { };
-        skillQ += () => { };
-        flash += () => { };
-
     }
 
     private void Start()
@@ -35,9 +28,6 @@ public class ChickenPlayer : Player
     protected override void Update()
     {
         base.Update();
-        boomW();
-        skillQ();
-        flash();
         Debug.Log(IsGround());
     }
 

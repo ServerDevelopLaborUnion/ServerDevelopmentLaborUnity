@@ -9,22 +9,23 @@ public class SkillQ : SkillScript
     [SerializeField] private float skillSpeed = 0f;
     [SerializeField] private float skillPowerInHorizon = 0f;
     [SerializeField] private float skillPowerInVertical = 0f;
-    [SerializeField] private float skillCoolTime = 0f;
     [SerializeField] private Transform skillObjectTransform = null;
     [SerializeField] private GameObject rangeObject = null;
     [SerializeField] private Transform skillTransform = null;
+    [SerializeField] private float skillCoolTime = 0f;
+
     private float chargeTime;
     private bool isUsing = false;
 
-    protected override void Update()
+
+    private void Update()
     {
-        CoolDown(skillCoolTime, ref canUse);
+        CoolDown(skillCoolTime);
 
         if (!canUse) return;
 
         UseSkill();
     }
-        
 
     private void Q()
     {
@@ -85,7 +86,7 @@ public class SkillQ : SkillScript
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground"));
-            Rotate(skillObjectTransform,hit.point);
+            player.Rotate(skillObjectTransform, hit.point);
             ShowRange(true);
         }
         else
