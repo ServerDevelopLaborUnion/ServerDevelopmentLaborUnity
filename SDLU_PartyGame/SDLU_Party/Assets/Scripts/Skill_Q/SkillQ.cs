@@ -30,7 +30,7 @@ public class SkillQ : SkillScript
         int count = Mathf.RoundToInt(skillRange / boxSizeZ + 0.1f);
         player = GetComponent<ChickenPlayer>();
         for (int i = 1; i <= count; i++){
-            GameObject g = Instantiate(skillBlock , skillTransform);
+            GameObject g = Instantiate(skillBlock , skillObjectTransform);
             g.transform.position += new Vector3(0f, 0f, (boxSizeZ + 0.1f) * i);
             blockList.Add(g);
         }
