@@ -31,7 +31,7 @@ class Log {
 
     logWrite(msg) {
         msg = `${new Date().toISOString().replace('T', ' ').replace('Z', '')} ${msg}`;
-        console.log(msg);
+        console.log("\x1b[0m", msg);
         // eslint-disable-next-line no-control-regex
         msg = msg.replace(/\x1b\[\d+m/g, '');
         fs.appendFileSync(this.path, msg + '\n');

@@ -11,6 +11,6 @@ module.exports = {
     type: "Vote",
     async handle(socket, payload) {
         const voteVO = new VoteVO(payload.item);
-        socket.roomManager.getRoomBySocket(socket).vote(socket, voteVO.item);
+        socket.user.room.voteGame(socket, voteVO.item);
     }
 }

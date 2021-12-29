@@ -7,16 +7,17 @@ var path = require('path');
 
 const globalObj = {};
 
-let randomSeed = Math.random();
+let TotalConnections = 0;
+let TotalRooms = 0;
 
 const maxRoomUser = 8;
 
 function GenerateRoomManager() {
     globalObj.room = class {
-        constructor(id, roomName) {
+        constructor(id) {
             this.id = id;
-            this.roomName = roomName;
             this.roomUsers = [];
+            this.status = 'waiting';
             this.voter = [];
             this.vote = [];
         }
@@ -33,7 +34,7 @@ function GenerateRoomManager() {
             this.roomUsers.push(socket);
             this.broadcast(JSON.stringify({
                 type: 'RoomUserJoin',
-                data: {
+                payload: {
                     user: socket.user.id
                 }
             }));
@@ -43,10 +44,14 @@ function GenerateRoomManager() {
             this.roomUsers.splice(this.roomUsers.indexOf(socket), 1);
             this.broadcast(JSON.stringify({
                 type: 'RoomUserLeave',
-                data: {
+                payload: {
                     user: socket.user.id
                 }
             }));
+
+            if (this.roomUsers.length <= 0) {
+                globalObj.roomManager.removeRoom(this.id);
+            }
         }
         getUsers() {
             let users = [];
@@ -55,13 +60,9 @@ function GenerateRoomManager() {
             }
             return users;
         }
-        getRoomName() {
-            return this.roomName;
-        }
-        getRoomId() {
-            return this.id;
-        }
         setReadyState(socket, state) {
+            if (state == socket.ready) return;
+
             if (state) {
                 socket.ready = true;
             } else {
@@ -70,17 +71,19 @@ function GenerateRoomManager() {
 
             this.broadcast(JSON.stringify({
                 type: 'RoomUserReady',
-                data: {
+                payload: {
                     user: socket.user.id,
                     ready: state
                 }
             }));
 
             if (this.isAllReady()) {
+                Logger.Debug(`room ${this.id} is all ready`);
                 this.startGameVote();
             }
         }
         isAllReady() {
+            if (this.roomUsers.length <= 2) return false;
             for (let i = 0; i < this.roomUsers.length; i++) {
                 if (!this.roomUsers[i].ready) {
                     return false;
@@ -90,17 +93,19 @@ function GenerateRoomManager() {
         }
         startGameVote() {
             this.voter = [];
+            this.status = 'voting';
             for (let i = 0; i < this.roomUsers.length; i++) {
                 this.voter.push(this.roomUsers[i].user.id);
             }
             this.broadcast(JSON.stringify({
                 type: 'RoomStartVote',
-                data: {
+                payload: {
                     count: this.voter.length
                 }
             }));
         }
-        vote(socket, vote) {
+        voteGame(socket, vote) {
+            Logger.Debug(`room ${this.id} vote ${vote}, voter: ${socket.user.id}, total: ${this.voter.length}`);
             if (this.voter.indexOf(socket.user.id) < 0) return;
             this.voter.splice(this.voter.indexOf(socket.user.id), 1);
 
@@ -108,7 +113,7 @@ function GenerateRoomManager() {
 
             this.broadcast(JSON.stringify({
                 type: 'RoomUserVote',
-                data: {
+                payload: {
                     user: socket.user.id
                 }
             }));
@@ -136,7 +141,7 @@ function GenerateRoomManager() {
         startGame() {
             this.broadcast(JSON.stringify({
                 type: 'RoomGameStart',
-                data: {
+                payload: {
                     game: this.getVoteResult()
                 }
             }));
@@ -147,9 +152,13 @@ function GenerateRoomManager() {
             this.roomList = [];
         }
         createRoom(vo) {
-            var room = new globalObj.room(this.roomList.length + 1, vo.title, vo.password);
+            var room = new globalObj.room(TotalRooms);
             this.roomList.push(room);
+            TotalRooms++;
             return room;
+        }
+        removeRoom(id) {
+            this.roomList.splice(this.roomList.indexOf(id), 1);
         }
         joinRoom(id, socket) {
             let room = this.getRoomById(id);
@@ -158,38 +167,45 @@ function GenerateRoomManager() {
                 return false;
             }
             room.addUser(socket);
+            socket.user.room = room;
         }
         leaveRoom(socket) {
-            let room = this.getRoomBySocket(socket);
+            const room = socket.user.room;
             if (room == null) {
-                Logger.error(socket + ' is not in any room');
+                Logger.Error('User ' + socket.user.id + ' is not in any room');
                 return false;
             }
             room.removeUser(socket);
+            Logger.Debug(socket.user.id + ' leave room ' + room.id);
         }
         getRoomById(id) {
             for (let i = 0; i < this.roomList.length; i++) {
-                if (this.roomList[i].getRoomId() == id) {
+                if (this.roomList[i].id == id) {
                     return this.roomList[i];
                 }
             }
             return null;
         }
-        getRoomBySocket(socket) {
-            for (let i = 0; i < this.roomList.length; i++) {
-                if (this.roomList[i].getUsers().indexOf(socket) != -1) {
-                    return this.roomList[i];
-                }
-            }
-            return null;
-        }
-        matchMaking() {
+        matchMaking(socket) {
+            Logger.Debug('Room Count: ' + this.roomList.length);
+            let matchedRoom = null;
             this.roomList.forEach(room => {
                 if (room.getUsers().length < maxRoomUser) {
-                    return room;
+                    if (room.status == 'waiting') {
+                        matchedRoom = room;
+                    }
                 }
             });
-            return this.createRoom();
+            if (matchedRoom == null) {
+                matchedRoom = this.createRoom();
+            }
+            this.joinRoom(matchedRoom.id, socket);
+
+            this.roomList.forEach(room => {
+                Logger.Debug(`Room ${room.id} has ${room.getUsers().length} users`);
+            });
+
+            return matchedRoom;
         }
         getRoomData(id) {
             let room = this.getRoomById(id);
@@ -208,9 +224,11 @@ function GenerateRoomManager() {
 
 function GenerateUserManager() {
     globalObj.user = class {
-        constructor(id, name) {
+        constructor(socket, id, name) {
+            this.socket = socket;
             this.id = id;
             this.name = name;
+            this.room = null;
         }
         getSocket() {
             globalObj.sockets.forEach(socket => {
@@ -219,33 +237,22 @@ function GenerateUserManager() {
                 }
             });
         }
-        getUserName() {
-            return this.name;
-        }
-        getUserId() {
-            return this.id;
-        }
     }
     globalObj.userManager = new class {
         constructor() {
             this.userList = [];
         }
-        addUser(socket, vo) {
-            var user = new globalObj.user(socket, vo.name);
+        addUser(socket, name) {
+            var user = new globalObj.user(socket, TotalConnections, name);
             socket.user = user;
             this.userList.push(user);
+            Logger.Debug(`User ${user.id} added, Total: ${this.userList.length}`);
+            TotalConnections++;
             return user;
         }
-        leaveRoom(socket) {
-            let user = this.getUserBySocket(socket);
-            if (user == null) {
-                Logger.Error(socket + ' is not in any room');
-                return false;
-            }
-            this.userList.splice(this.userList.indexOf(user), 1);
-            if (globalObj.roomManager.getRoomBySocket(socket) != null) {
-                globalObj.roomManager.leaveRoom(socket);
-            }
+        removeUser(socket) {
+            globalObj.roomManager.leaveRoom(socket);
+            this.userList.splice(this.userList.indexOf(socket.user), 1);
         }
         getUserBySocket(socket) {
             for (let i = 0; i < this.userList.length; i++) {
@@ -287,27 +294,43 @@ class WebsocketServer {
 
         globalObj.server = this.server;
 
-        this.server.on('connection', async (socket) => {
-            globalObj.userManager.addUser(socket, { name: await this.getRandomName() });
+        this.server.on('connection', (socket) => {
+
+            globalObj.userManager.addUser(socket, { name: 'null' });
             globalObj.sockets.push(socket);
             socket.globalObj = globalObj;
-            Logger.Debug(`connection ( ${socket.url} )`);
+
+            this.getRandomName().then(username => {
+                socket.user.name = username;
+                socket.send(JSON.stringify({
+                    type: 'UserName',
+                    payload: {
+                        name: username,
+                        id: socket.user.id
+                    }
+                }));
+                Logger.Debug(`Client connected: \x1b[32m${socket.user.id} + ${socket.user.name}`);
+            });
 
             socket.on('message', (message) => {
-                Logger.Debug(`message ( ${socket.url} ) - ${message}`);
+                Logger.Debug(`message ( ${socket.user.id} ) - ${message}`);
                 this.handleMessage(socket, message);
             });
 
             socket.on('close', (code) => {
-                Logger.Debug(`close ( ${socket.url} ) - ${code}`);
-                globalObj.userManager.leaveRoom(socket);
+                globalObj.userManager.removeUser(socket);
                 globalObj.sockets.splice(globalObj.sockets.indexOf(socket), 1);
+                Logger.Debug(`Client disconnected: \x1b[31m${socket.user.id} - ${socket.user.name}`);
             });
         });
     }
 
     handleMessage(socket, message) {
         const json = JSON.parse(message);
+        if (this.handlers[json.type] == null) {
+            Logger.Error('No handler for type ' + json.type);
+            return;
+        }
         this.handlers[json.type].handle(socket, json.payload);
     }
 

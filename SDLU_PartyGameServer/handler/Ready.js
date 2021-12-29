@@ -1,5 +1,4 @@
 const { DataVO } = require('../type/VO');
-const prefix = '[GetRoomData] ';
 
 class ReadyVO {
     constructor(state) {
@@ -11,6 +10,6 @@ module.exports = {
     type: "Ready",
     async handle(socket, payload) {
         const readyVO = new ReadyVO(payload.state);
-        socket.roomManager.getRoomBySocket(socket).setReadyState(socket.user.getUserId, readyVO.state);
+        socket.user.room.setReadyState(socket, readyVO.state);
     }
 }
