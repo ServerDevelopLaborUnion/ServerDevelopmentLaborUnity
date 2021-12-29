@@ -10,11 +10,15 @@ public class MinimapManager : MonoBehaviour
     [SerializeField]
     private RectTransform  minimap = null;
 
+    [SerializeField]
+    private Camera minimapCamera = null;
+
     private RectTransform minimapMask = null;
     private RectTransform minimapImage = null;
 
     void Start()
     {
+        
         minimapMask = minimap.GetChild(0).GetComponent<RectTransform>();
         minimapImage = minimapMask.GetChild(0).GetComponent<RectTransform>();
         minimapImage.SetParent(minimapMask, false);
@@ -28,7 +32,8 @@ public class MinimapManager : MonoBehaviour
 
     private void FollowPlayer()
     {
-
+        Vector3 playerPosition = FindObjectOfType<LOSPlayer>().transform.position;
+        minimapMask.position = minimapCamera.WorldToScreenPoint(playerPosition);
     }
 
     private IEnumerator ShowPosition(){
