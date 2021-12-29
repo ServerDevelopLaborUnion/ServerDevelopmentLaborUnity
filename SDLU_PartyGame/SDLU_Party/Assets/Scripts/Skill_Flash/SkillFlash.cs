@@ -2,79 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillFlash : MonoBehaviour
+public class SkillFlash : SkillScript
 {
-    private Camera camera; 
-    private bool isMove;
-    private bool canUseSkill = true;
-    private Vector3 destination;
     [SerializeField]
     private float maxFlashDistance = 7f;
-    [SerializeField]
-    private MeshRenderer meshRenderer = null;
-
-    private void Awake() 
-    {
-        camera = Camera.main; 
-    }
+    [SerializeField] private float skillCoolTime = 0f;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) 
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, LayerMask.GetMask("Ground"))) 
-            {
-                Flash(hit.point);
-            }
-            
-        }
+        CoolDown(skillCoolTime);
 
-        if (Input.GetMouseButton(1))
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
-            {
-                SetDestination(hit.point);
-            }
-        }
+        if (!canUse) return;
 
-        Move();
+        UseSkill();
     }
 
-
-    private void SetDestination(Vector3 dest) 
-    { 
-        destination = dest; 
-        isMove = true; 
-    }
-    
-    private void Move() 
-    { 
-        if (isMove) 
-        {
-            if (Vector3.Distance(destination, transform.position) <= 0.1f)
-            {
-                isMove = false; 
-                return; 
-            } 
-            var dir = destination - transform.position;
-            transform.position += dir.normalized * Time.deltaTime * 15f;
-        }
-    }
-
-    private void Flash(Vector3 dest)
+    private void Flash()
     {
-        isMove = false;
-        if(Vector3.Distance(dest, transform.position) < 7f)
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground"));
+        Vector3 dest = hit.point;
+        if (Vector3.Distance(dest, transform.position) < 7f)
         {
-            transform.position = dest;
+            transform.position = dest + Vector3.up;
         }
         else
         {
-            var dir = dest - transform.position;
+            var dir = dest + Vector3.up - transform.position;
             transform.position += dir.normalized * maxFlashDistance;
         }
+        canUse = false;
+        player.isMove = false;
+        CreateEffect();
+    }
+
+    protected override void UseSkill()
+    {
+        base.UseSkill();
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Flash();
+        }
+    }
+
+    private void CreateEffect()
+    {
+        //GameObject effect = null;
+        //effect.transform.position = transform.position;
+
     }
 }
-

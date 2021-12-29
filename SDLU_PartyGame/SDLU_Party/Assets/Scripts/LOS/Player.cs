@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
         gameObject.SetActive(!isDead);
     }
 
-    protected void Rotate(Transform objectPos, Vector3 hitPos){
+    public void Rotate(Transform objectPos, Vector3 hitPos){
         diff = hitPos - objectPos.position;
         diff.Normalize();
         rotation = Mathf.Atan2(diff.x, diff.z) * Mathf.Rad2Deg;
