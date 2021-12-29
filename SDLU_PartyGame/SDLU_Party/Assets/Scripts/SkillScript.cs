@@ -2,12 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillScript : ChickenPlayer
+public class SkillScript : MonoBehaviour
 {
     private float time = 0;
-    protected bool canUse = true;
+    protected bool canUse = false;
+    protected ChickenPlayer player = null;
 
-    protected void CoolDown(float coolTime, ref bool canUse)
+    private IEnumerator Start()
+    {
+        player = GetComponent<ChickenPlayer>();
+        yield return Yields.WaitSeconds(2);
+        canUse = true;
+    }
+
+
+    protected void CoolDown(float coolTime)
     {
         if (canUse) return;
 
@@ -24,6 +33,6 @@ public class SkillScript : ChickenPlayer
 
     protected virtual void UseSkill()
     {
-        if (!IsGround()) return;
+        if (!player.IsGround()) return;
     }
 }
