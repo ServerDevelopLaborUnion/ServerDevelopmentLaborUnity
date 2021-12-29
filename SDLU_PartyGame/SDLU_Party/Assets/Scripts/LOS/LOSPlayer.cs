@@ -24,6 +24,8 @@ public class LOSPlayer : Player
         }
     }
 
+    
+
     private void Attack(){
         if(Input.GetMouseButton(0)){
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);

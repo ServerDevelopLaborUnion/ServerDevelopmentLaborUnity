@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
 
     public bool isMove = false;
 
+    protected bool isDead = false;
+
     protected Ray ray;
     protected RaycastHit hit;
 
@@ -73,6 +75,11 @@ public class Player : MonoBehaviour
             isMove = transform.position.x != target.x && transform.position.z != target.z;
             yield return null;
         }
+    }
+
+    protected virtual void Dead(){
+        isDead = true;
+        gameObject.SetActive(!isDead);
     }
 
     protected void Rotate(Transform objectPos, Vector3 hitPos){
