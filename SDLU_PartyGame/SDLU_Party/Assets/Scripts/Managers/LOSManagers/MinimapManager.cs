@@ -14,14 +14,16 @@ public class MinimapManager : MonoBehaviour
     private Camera minimapCamera = null;
 
     private RectTransform minimapMask = null;
-    private RectTransform minimapImage = null;
+    private Transform minimapImage = null;
+
+    private Transform minimapImageTransformMemory = null;
 
     void Start()
     {
-        
         minimapMask = minimap.GetChild(0).GetComponent<RectTransform>();
-        minimapImage = minimapMask.GetChild(0).GetComponent<RectTransform>();
+        minimapImage = minimapMask.GetChild(0).GetComponent<Transform>();
         minimapImage.SetParent(minimapMask, false);
+        minimapImageTransformMemory = minimapImage.transform;
         StartCoroutine(ShowPosition());
     }
 
@@ -33,7 +35,9 @@ public class MinimapManager : MonoBehaviour
     private void FollowPlayer()
     {
         Vector3 playerPosition = FindObjectOfType<LOSPlayer>().transform.position;
-        minimapMask.position = minimapCamera.WorldToScreenPoint(playerPosition);
+        Vector3 playerPositionInMinimap = minimapCamera.WorldToViewportPoint(playerPosition);
+        minimapMask.anchoredPosition = new Vector2(playerPositionInMinimap.x * minimapMask.sizeDelta.x, playerPositionInMinimap.y * minimapMask.sizeDelta.y);
+        minimapImage.transform.position = minimapImageTransformMemory.position;
     }
 
     private IEnumerator ShowPosition(){
