@@ -13,7 +13,7 @@ public class BoomW : SkillScript
     [SerializeField]
     private float boomDuration, fadeDuration, boomPower;
     [SerializeField] private float skillCoolTime = 0f;
-
+    [SerializeField]
     private Material boomMaterial;
     private bool isBoom;
 
@@ -23,7 +23,7 @@ public class BoomW : SkillScript
     {
         rb = GetComponent<Rigidbody>();
         player = GetComponent<ChickenPlayer>();
-        boomMaterial = boomBarrier.GetComponent<MeshRenderer>().material;
+        //boomMaterial = boomBarrier.GetComponent<MeshRenderer>().material;
         Debug.Log(boomMaterial);
         //player.boomW += Boom;
         player.triggerEnter += HitBomb;
@@ -56,7 +56,7 @@ public class BoomW : SkillScript
         player.isMove = false;
         boomBarrier.SetActive(true);
         boomBarrier.transform.localScale = Vector3.one;
-        boomMaterial.color = new Color(boomMaterial.color.r, boomMaterial.color.g, boomMaterial.color.b, 0.6f);
+        boomMaterial.color = new Color(boomMaterial.color.r, boomMaterial.color.g, boomMaterial.color.b, 0.4f);
         boomBarrier.transform.DOScale(Vector3.one * explosionSize, boomDuration).OnComplete(() =>
         {
             boomMaterial.DOFade(0f, 1f).SetEase(Ease.InQuad).OnComplete(() =>
