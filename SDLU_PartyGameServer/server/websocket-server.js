@@ -12,6 +12,7 @@ let TotalRooms = 0;
 
 const maxRoomUser = 8;
 
+// 접어두는 것을 추천합니다
 function GenerateRoomManager() {
     globalObj.room = class {
         constructor(id) {
@@ -103,6 +104,7 @@ function GenerateRoomManager() {
                     count: this.voter.length
                 }
             }));
+            Logger.Debug(`room ${this.id} start vote`);
         }
         voteGame(socket, vote) {
             Logger.Debug(`room ${this.id} vote ${vote}, voter: ${socket.user.id}, total: ${this.voter.length}`);
@@ -123,20 +125,28 @@ function GenerateRoomManager() {
             }
         }
         getVoteResult() {
-            // return most voted
-            // if vote count is equal, return random
-            let max = 0;
-            let maxIndex = 0;
+            // 개별 항목의 투표 결과를 구합니다
+            let result = {};
             for (let i = 0; i < this.vote.length; i++) {
-                if (this.vote[i] > max) {
-                    max = this.vote[i];
-                    maxIndex = i;
+                if (!result[this.vote[i]]) {
+                    result[this.vote[i]] = 0;
+                }
+                result[this.vote[i]]++;
+            }
+
+            // 가장 많은 투표 결과를 구하고 만약 같은 결과가 있다면 랜덤으로 결정합니다
+            let max = 0;
+            let maxKey = null;
+            for (let key in result) {
+                if (result[key] > max) {
+                    max = result[key];
+                    maxKey = key;
                 }
             }
-            if (this.vote.length == max) {
-                return this.roomUsers[Math.floor(Math.random() * this.roomUsers.length)].user.id;
+            if (maxKey == null) {
+                maxKey = Math.floor(Math.random() * this.vote.length);
             }
-            return this.roomUsers[maxIndex].user.id;
+            return maxKey;
         }
         startGame() {
             this.broadcast(JSON.stringify({
@@ -145,6 +155,8 @@ function GenerateRoomManager() {
                     game: this.getVoteResult()
                 }
             }));
+            this.status = 'playing';
+            Logger.Debug(`room ${this.id} start game`);
         }
     }
     globalObj.roomManager = new class {
@@ -221,7 +233,7 @@ function GenerateRoomManager() {
         }
     };
 }
-
+// 접어두는 것을 추천합니다
 function GenerateUserManager() {
     globalObj.user = class {
         constructor(socket, id, name) {
@@ -282,6 +294,7 @@ class WebsocketServer {
         this.handlers = {};
         const handlerFiles = fs.readdirSync('handler').filter(file => file.endsWith('.js'));
         handlerFiles.forEach(file => {
+            if (file.startsWith('_')) return;
             const handler = require(path.join('../handler', file));
             this.handlers[handler.type] = handler;
             Logger.Debug('Handler loaded: ' + handler.type + '.js');
