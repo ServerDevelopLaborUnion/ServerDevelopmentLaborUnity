@@ -28,9 +28,10 @@ public class SkillQ : SkillScript
     {
         boxSizeZ = skillBlock.transform.localScale.z;
         int count = Mathf.RoundToInt(skillRange / boxSizeZ + 0.1f);
+        player = GetComponent<ChickenPlayer>();
         for (int i = 1; i <= count; i++){
-            GameObject g = Instantiate(skillBlock , skillObjectTransform);
-            g.transform.position += new Vector3(0f, 0f, count * i);
+            GameObject g = Instantiate(skillBlock , skillTransform);
+            g.transform.position += new Vector3(0f, 0f, (boxSizeZ + 0.1f) * i);
             blockList.Add(g);
         }
     }
@@ -74,12 +75,14 @@ public class SkillQ : SkillScript
     }
     private IEnumerator UpdownBlock(){
         for (int i = 0; i < blockList.Count; i++){
-            float duration = skillSpeed / Vector3.Distance(blockTransform.position, transform.position);
             blockTransform = blockList[i].transform;
-            Transform oldTransform = blockTransform;
-            blockTransform.DOMoveY(transform.parent.parent.position.y, duration).OnComplete(() =>
+            float duration = 1 / skillSpeed;
+            //float duration = Vector3.Distance(blockTransform.position, transform.position)/skillSpeed;
+            Debug.Log(duration);
+            Debug.Log(blockList[i].transform.position.y);
+            blockTransform.DOMoveY(transform.position.y, duration).OnComplete(() =>
             {
-                blockTransform.DOMoveY(oldTransform.position.y, duration);
+                blockTransform.DOMoveY(/*blockTransform.position.y*/-2f, duration*2);
             });
             yield return Yields.WaitSeconds(duration);
         }

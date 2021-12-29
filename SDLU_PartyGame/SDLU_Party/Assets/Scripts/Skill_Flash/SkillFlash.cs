@@ -13,7 +13,6 @@ public class SkillFlash : SkillScript
         CoolDown(skillCoolTime);
 
         if (!canUse) return;
-
         UseSkill();
     }
 

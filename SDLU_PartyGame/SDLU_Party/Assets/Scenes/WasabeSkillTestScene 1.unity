@@ -490,19 +490,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3087447879524929277
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3817144851396608059}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3817144851396608059
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,7 +501,6 @@ GameObject:
   - component: {fileID: 5066036289885586759}
   - component: {fileID: 5798640229868883541}
   - component: {fileID: 3955590118019500623}
-  - component: {fileID: 3087447879524929277}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -571,7 +557,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3817144851396608059}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.12, z: -1.33}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5804011043752359171}
@@ -1092,6 +1078,7 @@ MonoBehaviour:
   fadeDuration: 0.2
   boomPower: 5
   skillCoolTime: 2.5
+  boomMaterial: {fileID: 2100000, guid: c532de0cf9007f2479b5f1a27c0b62a4, type: 2}
 --- !u!114 &5804011045218887912
 MonoBehaviour:
   m_ObjectHideFlags: 0
