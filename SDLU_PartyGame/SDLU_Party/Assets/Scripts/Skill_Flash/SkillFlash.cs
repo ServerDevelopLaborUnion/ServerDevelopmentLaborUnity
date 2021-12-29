@@ -10,21 +10,22 @@ public class SkillFlash : MonoBehaviour
     private Vector3 destination;
     [SerializeField]
     private float maxFlashDistance = 7f;
+    [SerializeField]
+    private MeshRenderer meshRenderer = null;
 
     private void Awake() 
     {
         camera = Camera.main; 
     }
 
-    void Update() 
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E)) 
         {
-            RaycastHit hit; 
+            RaycastHit hit;
             if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, LayerMask.GetMask("Ground"))) 
             {
                 Flash(hit.point);
-                CreateEffect();
             }
             
         }
@@ -40,6 +41,7 @@ public class SkillFlash : MonoBehaviour
 
         Move();
     }
+
 
     private void SetDestination(Vector3 dest) 
     { 
@@ -73,13 +75,6 @@ public class SkillFlash : MonoBehaviour
             var dir = dest - transform.position;
             transform.position += dir.normalized * maxFlashDistance;
         }
-        CreateEffect();
-    }
-
-    private void CreateEffect()
-    {
-        //GameObject effect = null;
-        //effect.transform.position = transform.position;
-        
     }
 }
+
