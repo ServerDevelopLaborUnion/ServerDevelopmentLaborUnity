@@ -10,7 +10,7 @@ public class MatchMakingUI : MonoBehaviour
     private void Start()
     {
         btnMatch.onClick.AddListener(() => {
-            SocketClient.Instance.Send(new DataVO("MatchMaking", ""));
+            SocketClient.Instance.Send(new DataVO("MatchMaking", JsonUtility.ToJson(new { })));
         });
     }
 }
