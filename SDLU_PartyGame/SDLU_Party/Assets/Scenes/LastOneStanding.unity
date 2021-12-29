@@ -677,6 +677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   otherPlayerPointer: {fileID: 2100000, guid: 9ec1d0dbaec2b394bac541fe7b98d6e2, type: 2}
   minimap: {fileID: 309194219}
+  minimapCamera: {fileID: 350577933}
 --- !u!1 &1294924950
 GameObject:
   m_ObjectHideFlags: 0
