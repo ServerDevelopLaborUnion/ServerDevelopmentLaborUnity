@@ -5,18 +5,35 @@ using DG.Tweening;
 
 public class SkillQ : SkillScript
 {
+    private List<GameObject> blockList = new List<GameObject>();
+
     [SerializeField] private float skillRange = 0f;
     [SerializeField] private float skillSpeed = 0f;
     [SerializeField] private float skillPowerInHorizon = 0f;
     [SerializeField] private float skillPowerInVertical = 0f;
     [SerializeField] private Transform skillObjectTransform = null;
-    [SerializeField] private GameObject rangeObject = null;
     [SerializeField] private Transform skillTransform = null;
+    [SerializeField] private GameObject skillBlock = null;
+    [SerializeField] private GameObject rangeObject = null;
     [SerializeField] private float skillCoolTime = 0f;
+    
+    private Transform blockTransform;
 
     private float chargeTime;
+    private float boxSizeZ;
+
     private bool isUsing = false;
 
+    private void Start()
+    {
+        boxSizeZ = skillBlock.transform.localScale.z;
+        int count = Mathf.RoundToInt(skillRange / boxSizeZ + 0.1f);
+        for (int i = 1; i <= count; i++){
+            GameObject g = Instantiate(skillBlock , skillObjectTransform);
+            g.transform.position += new Vector3(0f, 0f, count * i);
+            blockList.Add(g);
+        }
+    }
 
     private void Update()
     {
@@ -43,9 +60,30 @@ public class SkillQ : SkillScript
                 skillTransform.localPosition = Vector3.zero;
                 skillTransform.localRotation = Quaternion.Euler(Vector3.zero + Vector3.forward * 90);
             };
+            StartCoroutine(UpdownBlock());
+            // for (int i = 0; i < count; i++)
+            // {
+            //     GameObject block = Instantiate(skillBlock);
+            //     blockTransform = block.transform;
+            //     blockTransform.position += new Vector3(0f, 0f, boxSizeZ + 0.1f);
+            //     blockTransform.DOMoveY(transform.parent.parent.position.y ,boxSizeZ )
+
+            // }
+
         }
     }
-
+    private IEnumerator UpdownBlock(){
+        for (int i = 0; i < blockList.Count; i++){
+            float duration = skillSpeed / Vector3.Distance(blockTransform.position, transform.position);
+            blockTransform = blockList[i].transform;
+            Transform oldTransform = blockTransform;
+            blockTransform.DOMoveY(transform.parent.parent.position.y, duration).OnComplete(() =>
+            {
+                blockTransform.DOMoveY(oldTransform.position.y, duration);
+            });
+            yield return Yields.WaitSeconds(duration);
+        }
+    }
     private void ShowRange(bool isShow)
     {
         if (!isUsing || !isShow)
@@ -67,7 +105,7 @@ public class SkillQ : SkillScript
 
     private void PushBack(Collider[] colliders)
     {
-        foreach(var col in colliders)
+        foreach (var col in colliders)
         {
             col.GetComponent<Rigidbody>().AddForceAtPosition(skillTransform.forward * skillPowerInVertical * 0.1f + Vector3.up * skillPowerInVertical * 0.1f, skillTransform.position, ForceMode.Impulse);
         }
