@@ -263,51 +263,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: -90, z: 0}
---- !u!1 &575684393
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 575684395}
-  - component: {fileID: 575684394}
-  m_Layer: 0
-  m_Name: Managers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &575684394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575684393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66e8bbf7eb411be4f9789ec2118084f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  userPointer: {fileID: 2100000, guid: 1a6369e2d86878c43ad8ae5c876e122c, type: 2}
-  otherPlayerPointer: {fileID: 2100000, guid: 9ec1d0dbaec2b394bac541fe7b98d6e2, type: 2}
---- !u!4 &575684395
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575684393}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &642179337
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,6 +506,7 @@ GameObject:
   - component: {fileID: 984606738}
   - component: {fileID: 984606739}
   - component: {fileID: 984606740}
+  - component: {fileID: 984606741}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -598,6 +554,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396803d5b13731749bcdfce55adfeb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &984606741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984606737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e8bbf7eb411be4f9789ec2118084f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherPlayerPointer: {fileID: 2100000, guid: 9ec1d0dbaec2b394bac541fe7b98d6e2, type: 2}
 --- !u!1 &1294924950
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +720,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 10
   m_Depth: -1
   m_CullingMask:
