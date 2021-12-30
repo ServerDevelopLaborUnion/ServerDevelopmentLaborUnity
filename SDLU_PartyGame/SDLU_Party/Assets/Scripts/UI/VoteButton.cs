@@ -17,8 +17,8 @@ public class VoteButton : MonoBehaviour
             string payload   = JsonUtility.ToJson(new { state = ReadyStatus });
             int    userCount = MatchMakingManager.Instance.GetUserCount();
 
-            readyText.text = ReadyStatus ? $"{VoteManager.Instance.ReadyUserCount} / {userCount}투표하기" : 
-                                           $"{VoteManager.Instance.ReadyUserCount} / {userCount}투표 취소하기";
+            readyText.text = ReadyStatus ? $"{VoteManager.Instance.ReadyUserCount} / {userCount}\r\n투표하기" : 
+                                           $"{VoteManager.Instance.ReadyUserCount} / {userCount}\r\n투표 취소하기";
 
             VoteManager.Instance.SetReadyUserCount(true);
 
