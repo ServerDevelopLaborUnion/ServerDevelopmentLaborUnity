@@ -13,7 +13,6 @@ public class BoomW : SkillScript
     [SerializeField]
     private float boomDuration, fadeDuration, boomPower;
     [SerializeField] private float skillCoolTime = 0f;
-    [SerializeField]
     private Material boomMaterial;
     private bool isBoom;
 
@@ -23,7 +22,7 @@ public class BoomW : SkillScript
     {
         rb = GetComponent<Rigidbody>();
         player = GetComponent<ChickenPlayer>();
-        //boomMaterial = boomBarrier.GetComponent<MeshRenderer>().material;
+        boomMaterial = boomBarrier.GetComponent<MeshRenderer>().material;
         Debug.Log(boomMaterial);
         //player.boomW += Boom;
         player.triggerEnter += HitBomb;

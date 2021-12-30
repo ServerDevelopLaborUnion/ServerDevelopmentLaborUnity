@@ -32,6 +32,7 @@ public class SkillQ : SkillScript
         for (int i = 1; i <= count; i++){
             GameObject g = Instantiate(skillBlock , skillObjectTransform);
             g.transform.position += new Vector3(0f, 0f, (boxSizeZ + 0.1f) * i);
+            g.SetActive(false);
             blockList.Add(g);
         }
     }
@@ -52,7 +53,7 @@ public class SkillQ : SkillScript
             skillTransform.gameObject.SetActive(true);
             skillTransform.SetParent(null);
             isUsing = true;
-            skillTransform.DOMove(skillTransform.forward * skillRange, skillRange / skillSpeed).SetEase(Ease.Linear).onComplete += () =>
+            skillTransform.DOMove(skillObjectTransform.forward * skillRange + skillObjectTransform.position, skillRange / skillSpeed).SetEase(Ease.Linear).onComplete += () =>
             {
                 canUse = false;
                 isUsing = false;
@@ -74,6 +75,12 @@ public class SkillQ : SkillScript
         }
     }
     private IEnumerator UpdownBlock(){
+
+        for (int i = 0; i < blockList.Count; i++)
+        {
+            blockList[i].SetActive(true);
+            blockList[i].transform.SetParent(null);
+        }
         for (int i = 0; i < blockList.Count; i++){
             blockTransform = blockList[i].transform;
             float duration = 1 / skillSpeed;
@@ -82,9 +89,18 @@ public class SkillQ : SkillScript
             Debug.Log(blockList[i].transform.position.y);
             blockTransform.DOMoveY(transform.position.y, duration).OnComplete(() =>
             {
-                blockTransform.DOMoveY(/*blockTransform.position.y*/-2f, duration*2);
+                blockTransform.DOMoveY(/*blockTransform.position.y*/-2f, duration * 10);
             });
             yield return Yields.WaitSeconds(duration);
+        }
+
+        for (int i = 0; i < blockList.Count; i++)
+        {
+            blockList[i].SetActive(false);
+            blockList[i].transform.SetParent(skillObjectTransform);
+            blockList[i].transform.localPosition = new Vector3(0, -2f, 0);
+            blockList[i].transform.localRotation = Quaternion.Euler(Vector3.zero);
+            blockList[i].transform.localPosition += new Vector3(0f, 0f, (boxSizeZ + 0.1f) * i);
         }
     }
     private void ShowRange(bool isShow)

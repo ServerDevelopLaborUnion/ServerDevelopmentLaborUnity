@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sphere
-  m_Shader: {fileID: -6465566751694194690, guid: 345e2c0fb3975124bb6850ed958e70d6, type: 3}
+  m_Name: Flash
+  m_Shader: {fileID: -6465566751694194690, guid: 2d815add9bbc02a449e408560297d9b9, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 68f6697bb528a6d498819060f5bbf4d7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -33,5 +37,5 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - _Color: {r: 0.4301884, g: 4, b: 3.268817, a: 1}
+    - _Color: {r: 2.603774, g: 0.5405305, b: 0, a: 0}
   m_BuildTextureStacks: []
