@@ -28,7 +28,6 @@ public class ChickenPlayer : Player
     protected override void Update()
     {
         base.Update();
-        Debug.Log(IsGround());
     }
 
 
