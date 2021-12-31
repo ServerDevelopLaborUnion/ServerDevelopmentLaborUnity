@@ -1,4 +1,4 @@
-const DataVO = require('../../type/VO');
+const DataVO = require('../../../type/VO');
 
 module.exports = {
     type: "test",

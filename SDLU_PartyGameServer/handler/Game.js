@@ -10,25 +10,16 @@ class GameVO {
     }
 }
 
-const games = {};
-
-const handlerFiles = fs.readdirSync('game').filter(file => file.endsWith('.js'));
-handlerFiles.forEach(file => {
-    const game = require(path.join('../game', file));
-    games[game.id] = game;
-    Logger.Debug('Game loaded: ' + new game(null).name);
-});
-
 module.exports = {
     type: "Game",
     async handle(socket, payload) {
         const data = new DataVO(payload);
-        const gameData = new GameVO(data);
-        const game = games[gameData.payload.type];
+        const game = socket.user.room.game;
         if (!game) {
-            Logger.Error(`Game ${gameData.payload.type} not found`);
+            Logger.Error("User is not in a game");
             return;
         }
-        game.handle(socket, gameData.payload);
+        const gameVO = new GameVO(data);
+        game.handle(socket, gameVO.payload);
     }
 }

@@ -5,6 +5,7 @@ module.exports = class GameBase {
         this.name = name;
         this.room = room;
         this.Logger = require('../util/logger').Get(this.name);
+        this.Logger.Debug(`Game loaded: ${this.name}`);
     }
 
     start() {
@@ -15,7 +16,12 @@ module.exports = class GameBase {
         throw new Error("Method not implemented.");
     }
 
-    handle(payload) {
-        throw new Error("Method not implemented.");
+    async handle(socket, payload) {
+        const handlers = socket.globalObj.games[this.id].handlers;
+        if (handlers[payload.type]) {
+            handlers[payload.type](socket, payload);
+        } else {
+            this.Logger.Error(`No handler for type: ${payload.type}`);
+        }
     }
 }

@@ -13,7 +13,7 @@
 ```js
 {
     type: 'RoomData',
-    data: {
+    payload: {
         id: RoomID: Number,
         name: RoomName: String,
         userList: [
@@ -33,7 +33,7 @@
 ```js
 {
     type: 'JoinRoom',
-    data: {
+    payload: {
         id: 방ID: Number
     }
 }
@@ -46,7 +46,7 @@
 ```js
 {
     type: 'RoomUserJoin',
-    data: {
+    payload: {
         user: 유저ID: Number
     }
 }
@@ -59,7 +59,7 @@
 ```js
 {
     type: 'RoomUserLeave',
-    data: {
+    payload: {
         user: 유저ID: Number
     }
 }
@@ -72,7 +72,7 @@
 ```js
 {
     type: 'RoomUserReady',
-    data: {
+    payload: {
         user: 유저ID: Number,
         ready: Boolean
     }
@@ -86,7 +86,7 @@
 ```js
 {
     type: 'RoomStartVote',
-    data: {
+    payload: {
         count: 투표인원:Number
     }
 }
@@ -99,7 +99,7 @@
 ```js
 {
     type: 'RoomUserVote',
-    data: {
+    payload: {
         user: 유저ID: Number
     }
 }
@@ -112,7 +112,7 @@
 ```js
 {
     type: 'RoomGameStart',
-    data: {
+    payload: {
         game: 게임ID: Number
     }
 }
@@ -129,7 +129,7 @@
 ```js
 {
     type: 'GetRoomData',
-    data: {
+    payload: {
         id: 방ID: Number,
     }
 }
@@ -142,7 +142,7 @@
 ```js
 {
     type: 'LeaveRoom',
-    data: {
+    payload: {
         // 비어도 됨.
     }
 }
@@ -155,7 +155,7 @@
 ```js
 {
     type: 'MatchMaking',
-    data: {
+    payload: {
         // 비어도 됨.
     }
 }
@@ -168,7 +168,7 @@
 ```js
 {
     type: 'JoinRoom',
-    data: {
+    payload: {
         id: 방ID: Number
     }
 }
@@ -181,7 +181,7 @@
 ```js
 {
     type: 'Ready',
-    data: {
+    payload: {
         state: Boolean
     }
 }
@@ -194,8 +194,58 @@
 ```js
 {
     type: 'Vote',
-    data: {
+    payload: {
         item: Number
     }
 }
 ```
+
+## 게임에 사용되는 VO
+
+### GameVO
+
+게임과 관련된 VO는 모두 GameVO 안에 GameID와 함께 전송됩니다.
+
+> Client와 Server 모두가 사용하는 VO 입니다
+
+```js
+{
+    type: 'Game',
+    payload: {
+        id: 게임ID: Number,
+        payload: 게임에 사용되는 VO // 직접 구현하셔야 합니다.
+    }
+}
+```
+
+### 게임 Handler와 서버 제작 관련 숙지사항
+
+`./game/{GameName}` 폴더를 생성하시고 `./game/{GameName}/{GameName}.js 파일을 만들어 게임 서버를 제작하시면 됩니다.
+
+`./game/{GameName}/handler` 폴더에 게임의 `handler`를 제작하시면 됩니다.
+
+기본적으로 `GameBase`를 상속받아 게임을 제작해야 합니다. (LOS를 참고해 주세요)
+
+`this.room.broadcast`를 이용하여 게임 인원 모두에게 전송이 가능합니다.
+
+`socket.user.name`을 이용하여 유저네임을 받아올 수 있습니다.
+
+`socket.user.id`를 이용하여 유저의 id를 받아올 수 있습니다.
+
+### EX) 게임 VO 구조
+
+```js
+{
+    type: 'Game',
+    payload: {
+        id: 게임ID: Number,
+        payload: {
+            type: 'Move',
+            payload: {
+                user: 유저ID: Number,
+                x: 좌표X: Number,
+                y: 좌표Y: Number
+            }
+        }
+    }
+}

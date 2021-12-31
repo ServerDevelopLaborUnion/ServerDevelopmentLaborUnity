@@ -12,6 +12,29 @@ let TotalRooms = 0;
 
 const maxRoomUser = 8;
 
+const games = {};
+
+const dirname = path.resolve('./');
+const gameFolders = fs.readdirSync(path.join('game'));
+gameFolders.forEach(folder => {
+    const game = require(path.join(dirname, './game', folder, `${folder}.js`));
+    const temp = new game();
+    games[temp.id] = {
+        class: game,
+        handlers: {}
+    }
+    const handlers = fs.readdirSync(path.join(dirname, './game', folder, 'handler'));
+    handlers.forEach(handler => {
+        const handlerFile = require(path.join(dirname, './game', folder, 'handler', handler));
+        games[temp.id].handlers[handlerFile.type] = handlerFile;
+        Logger.Debug(`Game ${temp.id} handler ${handlerFile.type} added`);
+    });
+
+    Logger.Debug(`Game loaded: ${temp.id} - ${temp.name}`);
+});
+
+globalObj.games = games;
+
 // 접어두는 것을 추천합니다
 function GenerateRoomManager() {
     globalObj.room = class {
@@ -21,6 +44,7 @@ function GenerateRoomManager() {
             this.status = 'waiting';
             this.voter = [];
             this.vote = [];
+            this.game = null;
         }
         broadcast(data) {
             for (let i = 0; i < this.roomUsers.length; i++) {
@@ -156,6 +180,9 @@ function GenerateRoomManager() {
                 }
             }));
             this.status = 'playing';
+            const game = games[this.getVoteResult()];
+            this.game = new game.class(this);
+            this.game.start();
             Logger.Debug(`room ${this.id} start game`);
         }
     }
