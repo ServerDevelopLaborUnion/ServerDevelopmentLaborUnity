@@ -2,14 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MatchMakingManager : MonoSingleton<MatchMakingManager>
 {
-    Exception UserIdDuplicateException = new Exception("_onMatchUserList already contains handled id.");
-
     public event Action OnUserAdded;
 
+
+    [SerializeField] private Text timeTakenText;
+    private bool _onMatch = false;
+
     private List<int> _onMatchUserList = new List<int>();
+    private Exception UserIdDuplicateException = new Exception("_onMatchUserList already contains handled id.");
 
     /// <summary>
     /// 유저를 메치 리스트에 추가합니다.
@@ -24,8 +28,11 @@ public class MatchMakingManager : MonoSingleton<MatchMakingManager>
         OnUserAdded();
     }
 
-    public int GetUserCount() {
+    public int GetUserCount()
+    {
         return _onMatchUserList.Count;
     }
+
+    public void SetMatchMakingStatus(bool status) => _onMatch = status;
 
 }

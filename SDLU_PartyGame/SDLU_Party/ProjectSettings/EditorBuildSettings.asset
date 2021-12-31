@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/ConnectionScene.unity
+    guid: b945c3224dda36b938766cd949d959eb
+  - enabled: 1
+    path: Assets/Scenes/MatchMakingScene.unity
+    guid: 18d9e40b92426fe21988e4300dd12769
   m_configObjects: {}

@@ -7,6 +7,7 @@ public class SkillFlash : SkillScript
     [SerializeField]
     private float maxFlashDistance = 7f;
     [SerializeField] private float skillCoolTime = 0f;
+    [SerializeField] private ParticleSystem flashParticle = null;
 
     private void Update()
     {
@@ -18,6 +19,7 @@ public class SkillFlash : SkillScript
 
     private void Flash()
     {
+        StartCoroutine(CreateEffect());
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground"));
@@ -33,7 +35,6 @@ public class SkillFlash : SkillScript
         }
         canUse = false;
         player.isMove = false;
-        CreateEffect();
     }
 
     protected override void UseSkill()
@@ -45,10 +46,13 @@ public class SkillFlash : SkillScript
         }
     }
 
-    private void CreateEffect()
+    private IEnumerator CreateEffect()
     {
-        //GameObject effect = null;
-        //effect.transform.position = transform.position;
+        flashParticle.transform.SetParent(null);
+        flashParticle.Play();
+        yield return Yields.WaitSeconds(0.2f);
+        flashParticle.transform.SetParent(transform);
+        flashParticle.transform.localPosition = Vector3.zero;
 
     }
 }
