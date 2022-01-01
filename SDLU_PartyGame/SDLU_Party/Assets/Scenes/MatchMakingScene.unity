@@ -778,6 +778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284408ec66ffba99997fcb31132d841f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeTakenText: {fileID: 1872324364}
 --- !u!4 &868907235
 Transform:
   m_ObjectHideFlags: 0
@@ -976,7 +977,7 @@ GameObject:
   - component: {fileID: 1872324365}
   - component: {fileID: 1872324364}
   m_Layer: 5
-  m_Name: TimeTaken
+  m_Name: TimeTakenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
