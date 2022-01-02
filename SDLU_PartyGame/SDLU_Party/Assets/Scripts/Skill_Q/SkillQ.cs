@@ -16,7 +16,7 @@ public class SkillQ : SkillScript
     [SerializeField] private GameObject skillBlock = null;
     [SerializeField] private GameObject rangeObject = null;
     [SerializeField] private float skillCoolTime = 0f;
-    
+
     private Transform blockTransform;
 
     private float chargeTime;
@@ -27,11 +27,14 @@ public class SkillQ : SkillScript
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         boxSizeZ = skillBlock.transform.localScale.z;
         int count = Mathf.RoundToInt(skillRange / boxSizeZ + 0.1f);
         player = GetComponent<ChickenPlayer>();
-        for (int i = 1; i <= count; i++){
-            GameObject g = Instantiate(skillBlock , skillObjectTransform);
+        player.triggerEnter += HitQ;
+        for (int i = 1; i <= count; i++)
+        {
+            GameObject g = Instantiate(skillBlock, skillObjectTransform);
             g.transform.position += new Vector3(0f, 0f, (boxSizeZ + 0.1f) * i);
             g.SetActive(false);
             blockList.Add(g);
@@ -40,6 +43,7 @@ public class SkillQ : SkillScript
 
     protected override void Update()
     {
+        Debug.Log(rb);
         base.Update();
         if (!hasStarted) return;
         CoolDown(skillCoolTime);
@@ -66,28 +70,21 @@ public class SkillQ : SkillScript
                 skillTransform.localRotation = Quaternion.Euler(Vector3.zero + Vector3.forward * 90);
             };
             StartCoroutine(UpdownBlock());
-            // for (int i = 0; i < count; i++)
-            // {
-            //     GameObject block = Instantiate(skillBlock);
-            //     blockTransform = block.transform;
-            //     blockTransform.position += new Vector3(0f, 0f, boxSizeZ + 0.1f);
-            //     blockTransform.DOMoveY(transform.parent.parent.position.y ,boxSizeZ )
-
-            // }
 
         }
     }
-    private IEnumerator UpdownBlock(){
+    private IEnumerator UpdownBlock()
+    {
 
         for (int i = 0; i < blockList.Count; i++)
         {
             blockList[i].SetActive(true);
             blockList[i].transform.SetParent(null);
         }
-        for (int i = 0; i < blockList.Count; i++){
+        for (int i = 0; i < blockList.Count; i++)
+        {
             blockTransform = blockList[i].transform;
             float duration = 1 / skillSpeed;
-            //float duration = Vector3.Distance(blockTransform.position, transform.position)/skillSpeed;
             Debug.Log(duration);
             Debug.Log(blockList[i].transform.position.y);
             blockTransform.DOMoveY(transform.position.y, duration).OnComplete(() =>
@@ -117,25 +114,46 @@ public class SkillQ : SkillScript
             }
         }
     }
-
-    Collider[] CheckColInRange()
+    private void HitQ(Collider other)
     {
-        Collider[] colliders = { null, };
-        colliders = Physics.OverlapSphere(skillTransform.position, 3, LayerMask.GetMask("Enemies"));
-        return colliders;
-    }
-
-    private void PushBack(Collider[] colliders)
-    {
-        foreach (var col in colliders)
+        if (other.CompareTag("SkillQ"))
         {
-            col.GetComponent<Rigidbody>().AddForceAtPosition(skillTransform.forward * skillPowerInVertical * 0.1f + Vector3.up * skillPowerInVertical * 0.1f, skillTransform.position, ForceMode.Impulse);
+            Debug.Log("힘 들어감");
+            if (other.gameObject == skillTransform.gameObject) return;
+            // Vector3 distance;
+
+            // distance = other.transform.position - skillTransform.position;
+
+            // distance.Normalize();
+            // rb.AddForce(new Vector3(-distance.x * skillPowerInHorizon, distance.y *skillPowerInVertical, -distance.z), ForceMode.Impulse);
+            rb.AddForceAtPosition(skillTransform.forward * skillPowerInHorizon * 0.1f + Vector3.up * skillPowerInVertical * 0.1f, skillTransform.position, ForceMode.Impulse);
+            canUse = false;
+            StartCoroutine(WaitIsground());
         }
     }
+    // Collider[] CheckColInRange()
+    // {
+    //     Collider[] colliders = { null, };
+    //     colliders = Physics.OverlapSphere(skillTransform.position, 3, LayerMask.GetMask("Enemies"));
+    //     return colliders;
+    // }
 
+    // private void PushBack(Collider[] colliders)
+    // {
+    //     foreach (var col in colliders)
+    //     {
+    //         col.GetComponent<Rigidbody>().AddForceAtPosition(skillTransform.forward * skillPowerInVertical * 0.1f + Vector3.up * skillPowerInVertical * 0.1f, skillTransform.position, ForceMode.Impulse);
+    //     }
+    // }
+    private IEnumerator WaitIsground()
+    {
+        player.isMove = false;
+        yield return new WaitUntil(() => player.IsGround() && rb.velocity.y < 0f);
+        canUse = true;
+    }
     private void UseSkill()
     {
-        if(!base.CheckSkillAvailable()) return;
+        if (!base.CheckSkillAvailable()) return;
         if (Input.GetKeyUp(KeyCode.Q))
         {
             Q();
@@ -156,9 +174,9 @@ public class SkillQ : SkillScript
             chargeTime = Time.time;
         }
 
-        if (isUsing&& !isHolding)
-        {
-            PushBack(CheckColInRange());
-        }
+        // if (isUsing&& !isHolding)
+        // {
+        //     PushBack(CheckColInRange());
+        // }
     }
 }

@@ -10,7 +10,6 @@ public class ChickenPlayer : Player
     public event Action<Collider> triggerEnter;
     #endregion
 
-    private Rigidbody rb;
     private CapsuleCollider col;
     [SerializeField] private ParticleSystem deadParticle = null;
 
@@ -24,7 +23,6 @@ public class ChickenPlayer : Player
     private void Start()
     {
         col = GetComponent<CapsuleCollider>();
-        rb = GetComponent<Rigidbody>();
         Debug.Log(col.bounds.center);
     }
 
@@ -64,6 +62,7 @@ public class ChickenPlayer : Player
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("왜 안될까");
         if (IsGround())
         {
             triggerEnter(other);

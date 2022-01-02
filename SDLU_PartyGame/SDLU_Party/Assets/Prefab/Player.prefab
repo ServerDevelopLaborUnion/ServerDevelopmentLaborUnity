@@ -31,7 +31,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3430665321855445588}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -71,8 +71,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillRange: 15
   skillSpeed: 30
-  skillPowerInHorizon: 5
-  skillPowerInVertical: 5
+  skillPowerInHorizon: 5.5
+  skillPowerInVertical: 5.5
   skillObjectTransform: {fileID: 3430665323618727880}
   skillTransform: {fileID: 3430665322265835112}
   skillBlock: {fileID: 5471574071155229424}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  isPlaying: 0
+  isPlaying: 1
   isMove: 1
   deadParticle: {fileID: 8278527717061208711}
 --- !u!33 &3430665321855445545
@@ -200,9 +200,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3430665322265835112}
+  - component: {fileID: 760710499}
   m_Layer: 0
   m_Name: Physics
-  m_TagString: Untagged
+  m_TagString: SkillQ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -221,6 +222,19 @@ Transform:
   m_Father: {fileID: 3430665323618727880}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!65 &760710499
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3430665322265835113}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.33935967, y: 1, z: 1}
+  m_Center: {x: -0.33032024, y: 4.2817515e-17, z: 0}
 --- !u!1 &3430665322333410363
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +372,6 @@ GameObject:
   - component: {fileID: 3430665323276675330}
   - component: {fileID: 3430665323276675331}
   - component: {fileID: 3430665323276675340}
-  - component: {fileID: 3430665323276675341}
   m_Layer: 0
   m_Name: range
   m_TagString: Untagged
@@ -429,19 +442,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3430665323276675341
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3430665323276675342}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3430665323618727881
 GameObject:
   m_ObjectHideFlags: 0

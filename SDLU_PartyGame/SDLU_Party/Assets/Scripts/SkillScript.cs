@@ -9,8 +9,10 @@ public class SkillScript : MonoBehaviour
     protected ChickenPlayer player = null;
     protected bool hasStarted = false;
 
+    protected Rigidbody rb;
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         player = GetComponent<ChickenPlayer>();
     }
 

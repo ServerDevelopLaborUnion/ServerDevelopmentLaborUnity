@@ -16,7 +16,6 @@ public class BoomW : SkillScript
     private Material boomMaterial;
     private bool isBoom;
 
-    private Rigidbody rb;
 
     private void Start()
     {
