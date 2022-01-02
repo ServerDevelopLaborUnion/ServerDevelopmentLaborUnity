@@ -23,7 +23,6 @@ public class ChickenPlayer : Player
     private void Start()
     {
         col = GetComponent<CapsuleCollider>();
-        Debug.Log(col.bounds.center);
     }
 
     protected override void Update()

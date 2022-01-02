@@ -25,8 +25,10 @@ public class SkillQ : SkillScript
     private bool isUsing = false;
     private bool isHolding = false;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+        key = 0;
         rb = GetComponent<Rigidbody>();
         boxSizeZ = skillBlock.transform.localScale.z;
         int count = Mathf.RoundToInt(skillRange / boxSizeZ + 0.1f);
@@ -43,7 +45,6 @@ public class SkillQ : SkillScript
 
     protected override void Update()
     {
-        Debug.Log(rb);
         base.Update();
         if (!hasStarted) return;
         CoolDown(skillCoolTime);
@@ -120,13 +121,13 @@ public class SkillQ : SkillScript
         {
             Debug.Log("힘 들어감");
             if (other.gameObject == skillTransform.gameObject) return;
-            // Vector3 distance;
+            Vector3 distance;
 
-            // distance = other.transform.position - skillTransform.position;
+            distance = other.transform.position - skillTransform.position;
 
-            // distance.Normalize();
-            // rb.AddForce(new Vector3(-distance.x * skillPowerInHorizon, distance.y *skillPowerInVertical, -distance.z), ForceMode.Impulse);
-            rb.AddForceAtPosition(skillTransform.forward * skillPowerInHorizon * 0.1f + Vector3.up * skillPowerInVertical * 0.1f, skillTransform.position, ForceMode.Impulse);
+            distance.Normalize();
+            rb.AddForce(new Vector3(-distance.x * skillPowerInHorizon, distance.y * skillPowerInVertical, -distance.z), ForceMode.Impulse);
+            //rb.AddForceAtPosition(skillTransform.forward * skillPowerInVertical * 0.1f + Vector3.up * skillPowerInVertical * 0.1f, skillTransform.position, ForceMode.Impulse);
             canUse = false;
             StartCoroutine(WaitIsground());
         }

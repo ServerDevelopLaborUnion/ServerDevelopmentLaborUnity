@@ -9,6 +9,11 @@ public class SkillFlash : SkillScript
     [SerializeField] private float skillCoolTime = 0f;
     [SerializeField] private ParticleSystem flashParticle = null;
 
+    protected override void Start()
+    {
+        base.Start();
+        key = 2;
+    }
 
     protected override void Update()
     {
@@ -56,6 +61,5 @@ public class SkillFlash : SkillScript
         yield return Yields.WaitSeconds(0.2f);
         flashParticle.transform.SetParent(transform);
         flashParticle.transform.localPosition = Vector3.zero;
-
     }
 }

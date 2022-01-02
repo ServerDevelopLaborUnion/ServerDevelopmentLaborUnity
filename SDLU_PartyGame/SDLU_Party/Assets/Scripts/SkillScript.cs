@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkillScript : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class SkillScript : MonoBehaviour
     protected bool hasStarted = false;
 
     protected Rigidbody rb;
-    private void Start()
+    protected int key;
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
-        player = GetComponent<ChickenPlayer>();
+        player = gameObject.GetComponent<ChickenPlayer>();
+        Debug.Log(player.gameObject.name);
     }
 
     protected virtual void Update()
@@ -21,7 +24,6 @@ public class SkillScript : MonoBehaviour
         if (!hasStarted)
         {
             CoolDown(2);
-            Debug.Log(1);
         }
     }
 
@@ -30,6 +32,7 @@ public class SkillScript : MonoBehaviour
         if (canUse) return;
 
         time += Time.deltaTime;
+        SetTimerUI(coolTime);
         if (time >= coolTime)
         {
             time = 0;
@@ -46,5 +49,10 @@ public class SkillScript : MonoBehaviour
         if (!player.IsGround()) return false;
         if (!player.isPlaying) return false;
         return true;
+    }
+
+    private void SetTimerUI(float goalTime)
+    {
+        UIManager.instance._cooltimeText[key].value = (time / goalTime);
     }
 }

@@ -17,12 +17,13 @@ public class BoomW : SkillScript
     private bool isBoom;
 
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+        key = 1;
         rb = GetComponent<Rigidbody>();
         player = GetComponent<ChickenPlayer>();
         boomMaterial = boomBarrier.GetComponent<MeshRenderer>().material;
-        Debug.Log(boomMaterial);
         //player.boomW += Boom;
         player.triggerEnter += HitBomb;
     }

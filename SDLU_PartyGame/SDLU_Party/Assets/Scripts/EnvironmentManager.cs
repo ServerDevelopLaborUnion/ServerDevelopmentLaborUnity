@@ -15,7 +15,7 @@ public class EnvironmentManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("다수의 NetworkManager가 돌아가고 있습니다. ");
+            Debug.LogError("다수의 EnvironManager가 돌아가고 있습니다. ");
         }
         instance = this;
         _vol = GetComponent<Volume>();
