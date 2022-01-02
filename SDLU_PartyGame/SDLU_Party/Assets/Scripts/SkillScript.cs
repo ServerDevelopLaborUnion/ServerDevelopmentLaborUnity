@@ -7,14 +7,21 @@ public class SkillScript : MonoBehaviour
     private float time = 0;
     protected bool canUse = false;
     protected ChickenPlayer player = null;
+    protected bool hasStarted = false;
 
-    private IEnumerator Start()
+    private void Start()
     {
         player = GetComponent<ChickenPlayer>();
-        yield return Yields.WaitSeconds(2);
-        canUse = true;
     }
 
+    protected virtual void Update()
+    {
+        if (!hasStarted)
+        {
+            CoolDown(2);
+            Debug.Log(1);
+        }
+    }
 
     protected void CoolDown(float coolTime)
     {
@@ -25,14 +32,17 @@ public class SkillScript : MonoBehaviour
         {
             time = 0;
             canUse = true;
+            hasStarted = true;
             return;
         }
-
-        return; 
+        
+        return;
     }
 
-    protected virtual void UseSkill()
+    protected virtual bool CheckSkillAvailable()
     {
-        if (!player.IsGround()) return;
+        if (!player.IsGround()) return false;
+        if (!player.isPlaying) return false;
+        return true;
     }
 }

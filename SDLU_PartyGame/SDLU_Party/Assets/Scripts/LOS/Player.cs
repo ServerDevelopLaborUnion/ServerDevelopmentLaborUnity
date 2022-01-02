@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed;
 
+    public bool isPlaying = false;
+
     public bool isMove = false;
 
     protected bool isDead = false;
@@ -27,6 +29,7 @@ public class Player : MonoBehaviour
     private Coroutine moveCoroutine = null;
 
     private Vector3 diff = Vector3.zero;
+    protected MeshRenderer meshRenderer = null;
     private float rotation;
 
     #region 이벤트
@@ -34,6 +37,9 @@ public class Player : MonoBehaviour
         move += () => { };
     }
     private void OnEnable() {
+
+        meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer.enabled = true;
         Initvalue();
     }
     protected virtual void Update()
@@ -70,6 +76,7 @@ public class Player : MonoBehaviour
         isMove = true;
         while (isMove)
         {
+            if (!isPlaying) yield break;
             Rotate(transform , hit.point);
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(hit.point.x, transform.position.y, hit.point.z), speed * Time.deltaTime);
             isMove = transform.position.x != target.x && transform.position.z != target.z;

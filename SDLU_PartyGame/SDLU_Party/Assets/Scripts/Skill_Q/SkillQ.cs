@@ -23,6 +23,7 @@ public class SkillQ : SkillScript
     private float boxSizeZ;
 
     private bool isUsing = false;
+    private bool isHolding = false;
 
     private void Start()
     {
@@ -37,8 +38,10 @@ public class SkillQ : SkillScript
         }
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+        if (!hasStarted) return;
         CoolDown(skillCoolTime);
 
         if (!canUse) return;
@@ -118,7 +121,7 @@ public class SkillQ : SkillScript
     Collider[] CheckColInRange()
     {
         Collider[] colliders = { null, };
-        colliders = Physics.OverlapSphere(skillTransform.position, 3, LayerMask.GetMask("Players"));
+        colliders = Physics.OverlapSphere(skillTransform.position, 3, LayerMask.GetMask("Enemies"));
         return colliders;
     }
 
@@ -130,16 +133,18 @@ public class SkillQ : SkillScript
         }
     }
 
-    protected override void UseSkill()
+    private void UseSkill()
     {
-        base.UseSkill();
+        if(!base.CheckSkillAvailable()) return;
         if (Input.GetKeyUp(KeyCode.Q))
         {
             Q();
+            isHolding = false;
             ShowRange(false);
         }
         if (Input.GetKey(KeyCode.Q))
         {
+            isHolding = true;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground"));
@@ -151,7 +156,7 @@ public class SkillQ : SkillScript
             chargeTime = Time.time;
         }
 
-        if (isUsing)
+        if (isUsing&& !isHolding)
         {
             PushBack(CheckColInRange());
         }

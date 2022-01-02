@@ -9,8 +9,12 @@ public class SkillFlash : SkillScript
     [SerializeField] private float skillCoolTime = 0f;
     [SerializeField] private ParticleSystem flashParticle = null;
 
-    private void Update()
+
+    protected override void Update()
     {
+        base.Update();
+        if (!hasStarted) return;
+
         CoolDown(skillCoolTime);
 
         if (!canUse) return;
@@ -37,15 +41,14 @@ public class SkillFlash : SkillScript
         player.isMove = false;
     }
 
-    protected override void UseSkill()
+    protected void UseSkill()
     {
-        base.UseSkill();
+        if (!base.CheckSkillAvailable()) return;
         if (Input.GetKeyDown(KeyCode.E))
         {
             Flash();
         }
     }
-
     private IEnumerator CreateEffect()
     {
         flashParticle.transform.SetParent(null);
