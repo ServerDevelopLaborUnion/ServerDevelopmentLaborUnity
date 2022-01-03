@@ -65,7 +65,7 @@ class WebsocketServer {
             socket.on('close', (code) => {
                 globalObj.userManager.removeUser(socket);
                 globalObj.sockets.splice(globalObj.sockets.indexOf(socket), 1);
-                Logger.Debug(`Client disconnected: \x1b[31m${socket.user.id} - ${socket.user.name}`);
+                Logger.Debug(`Client disconnected: \x1b[31m${socket.user.id} - ${socket.user.name} (${code})`);
             });
         });
     }

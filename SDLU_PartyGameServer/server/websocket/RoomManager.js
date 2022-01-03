@@ -172,6 +172,7 @@ class Room {
         }));
         this.status = 'playing';
         const game = games[this.getVoteResult()];
+        console.log(game);
         this.game = new game.class(this);
         this.game.start();
         this.Logger.Debug(`room ${this.id} start game`);

@@ -4,7 +4,7 @@ const fs = require('fs');
 const GameBase = require('../../base/GameBase');
 const Vector2 = require('../../type/Vector2.js');
 
-function getRandomPos(pos, radius) { // random direction and radius
+function getRandomPos(pos, radius) {
     const angle = Math.random() * Math.PI * 2;
     const r = Math.random() * radius;
     const x = pos.x + Math.cos(angle) * r;
@@ -27,7 +27,7 @@ class Entity {
         this.id = id;
         this.position = position;
         this.movePos = position;
-        this.movePerSec = 10;
+        this.movePerSec = 1;
     }
 
     update() {
@@ -61,27 +61,30 @@ class Bot extends Entity {
     }
 
     checkMap() {
-        if (this.position.x < -50) {
-            return false;
+        if (this.movePos.x < -50) {
+            const distance = this.position.x - this.movePos.x;
+            this.movePos.x += distance * 2;
         }
-        if (this.position.x > 50) {
-            return false;
+        if (this.movePos.x > 50) {
+            const distance = this.position.x - this.movePos.x;
+            this.movePos.x -= distance * 2;
         }
-        if (this.position.y < -50) {
-            return false;
+        if (this.movePos.y < -50) {
+            const distance = this.position.y - this.movePos.y;
+            this.movePos.y += distance * 2;
         }
-        if (this.position.y > 50) {
-            return false;
+        if (this.movePos.y > 50) {
+            const distance = this.position.y - this.movePos.y;
+            this.movePos.y -= distance * 2;
         }
     }
 
     update() {
-        this.randomTime -= 1 / 30;
+        this.randomTime -= 1 / 15;
         if (this.randomTime <= 0 || !super.update()) {
             this.randomTime = Math.random() * 1;
-            do {
-                this.movePos = getRandomPos(this.position, 10);
-            } while (this.checkMap() == false);
+            this.movePos = getRandomPos(this.position, 10);
+            this.checkMap();
             return false;
         } else {
             return true;
@@ -103,7 +106,7 @@ class Game {
                 this.update();
                 loopCount++;
                 console.log(loopCount);
-            }, 1000 / 30);
+            }, 1000 / 15);
         }
         catch (err) {
             console.log(err);
@@ -117,21 +120,23 @@ class Game {
     broadcastEntityPos(entity) {
         this.entities.forEach(p => {
             if (p.id !== entity.id) {
-                if (typeof p.socket !== 'undefined') {
-                    p.socket.send(JSON.stringify({
-                        type: "Game",
-                        payload: {
-                            id: this.id,
+                if (entity.position.distance(p.position) < 10) {
+                    if (typeof p.socket !== 'undefined') {
+                        p.socket.send(JSON.stringify({
+                            type: "Game",
                             payload: {
-                                type: "playerPos",
+                                id: this.id,
                                 payload: {
-                                    id: entity.id,
-                                    x: entity.position.x,
-                                    y: entity.position.y
+                                    type: "playerPos",
+                                    payload: {
+                                        id: entity.id,
+                                        x: entity.position.x,
+                                        y: entity.position.y
+                                    }
                                 }
                             }
-                        }
-                    }));
+                        }));
+                    }
                 }
             }
         });
@@ -147,7 +152,7 @@ class Game {
 
     stop() {
         console.log("stop");
-        clearInterval(this.loopInterval);
+        // clearInterval(this.loopInterval);
     }
 }
 
@@ -164,7 +169,9 @@ module.exports = class LOS extends GameBase {
         for (let i = 0; i < this.room.roomUsers.length; i++) {
             entities.push(new Player(this.room.roomUsers[i], i, getRandomStartPos(), this.room.roomUsers[i].name));
         }
-        entities.push(new Bot(entities.length, getRandomStartPos()));
+        for (let i = 0; i < 100; i++) {
+            entities.push(new Bot(i, getRandomStartPos()));
+        }
         this.game = new Game(this.room.roomUsers, entities);
     }
 

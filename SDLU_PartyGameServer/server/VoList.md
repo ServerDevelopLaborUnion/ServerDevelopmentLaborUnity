@@ -6,6 +6,18 @@
 
 서버가 클라이언트에게 보내는 VO들입니다.
 
+### UserNameVO
+
+```js
+{
+    type: "UserName",
+    payload: {
+        name: 닉네임: string,
+        id: 아이디: string
+    }
+}
+```
+
 ### RoomDataVO
 
 방의 정보를 보내는 VO입니다.
