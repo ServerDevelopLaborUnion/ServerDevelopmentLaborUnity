@@ -121,19 +121,19 @@ public class SkillQ : SkillScript
         {
             Debug.Log("힘 들어감");
             if (other.gameObject == skillTransform.gameObject) return;
-            Vector3 distance;
+            //Vector3 distance;
 
-            distance = other.transform.position - skillTransform.position;
+            //distance = other.transform.position - skillTransform.position;
 
-            distance.Normalize();
-            rb.AddForce(new Vector3(-distance.x * skillPowerInHorizon, distance.y * skillPowerInVertical, -distance.z), ForceMode.Impulse);
-            //rb.AddForceAtPosition(skillTransform.forward * skillPowerInVertical * 0.1f + Vector3.up * skillPowerInVertical * 0.1f, skillTransform.position, ForceMode.Impulse);
+            //distance.Normalize();
+            //rb.AddForce(new Vector3(-distance.x * skillPowerInHorizon, distance.y * skillPowerInVertical, -distance.z), ForceMode.Impulse);
+            rb.AddForceAtPosition(other.transform.forward * skillPowerInVertical + Vector3.up * skillPowerInVertical, other.transform.position, ForceMode.Impulse);
             canUse = false;
             StartCoroutine(WaitIsground());
         }
     }
     // Collider[] CheckColInRange()
-    // {
+    // {    
     //     Collider[] colliders = { null, };
     //     colliders = Physics.OverlapSphere(skillTransform.position, 3, LayerMask.GetMask("Enemies"));
     //     return colliders;
@@ -154,15 +154,9 @@ public class SkillQ : SkillScript
     }
     private void UseSkill()
     {
-        if (!base.CheckSkillAvailable()) return;
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            Q();
-            isHolding = false;
-            ShowRange(false);
-        }
         if (Input.GetKey(KeyCode.Q))
         {
+            if (!base.CheckSkillAvailable()) return;
             isHolding = true;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -174,7 +168,13 @@ public class SkillQ : SkillScript
         {
             chargeTime = Time.time;
         }
-
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            if (!base.CheckSkillAvailable()) return;
+            Q();
+            isHolding = false;
+            ShowRange(false);
+        }
         // if (isUsing&& !isHolding)
         // {
         //     PushBack(CheckColInRange());

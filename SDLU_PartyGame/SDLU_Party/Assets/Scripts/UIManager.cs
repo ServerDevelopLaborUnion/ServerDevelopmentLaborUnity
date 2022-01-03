@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-    public List<Slider> _cooltimeText = new List<Slider>();
-
+    public List<Slider> _cooltimeSlider = new List<Slider>();
+    public List<Image> _cooltimeImage = new List<Image>();
+        
     private void Awake()
     {
         if (instance != null)
@@ -15,5 +16,7 @@ public class UIManager : MonoBehaviour
             Debug.LogError("다수의 UIManager가 돌아가고 있습니다. ");
         }
         instance = this;
+
+        
     }
 }
