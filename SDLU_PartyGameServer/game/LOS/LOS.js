@@ -4,9 +4,11 @@ const fs = require('fs');
 const GameBase = require('../../base/GameBase');
 const Vector2 = require('../../type/Vector2.js');
 
-function getRandomPos(pos, radius) {
-    let x = pos.x + Math.random() * radius * 2 - radius;
-    let y = pos.y + Math.random() * radius * 2 - radius;
+function getRandomPos(pos, radius) { // random direction and radius
+    const angle = Math.random() * Math.PI * 2;
+    const r = Math.random() * radius;
+    const x = pos.x + Math.cos(angle) * r;
+    const y = pos.y + Math.sin(angle) * r;
     return new Vector2(x, y);
 }
 
@@ -25,42 +27,19 @@ class Entity {
         this.id = id;
         this.position = position;
         this.movePos = position;
-        this.movePerSec = 1;
+        this.movePerSec = 10;
     }
 
-    update() { // this is called every 1/30 second
-        // move to movePos with movePerSec
-        // if entity moved return true
-        let moved = false;
-        if (this.movePos.x != this.position.x) {
-            if (this.movePos.x > this.position.x) {
-                this.position.x += this.movePerSec;
-                if (this.position.x >= this.movePos.x) {
-                    this.position.x = this.movePos.x;
-                }
-            } else {
-                this.position.x -= this.movePerSec;
-                if (this.position.x <= this.movePos.x) {
-                    this.position.x = this.movePos.x;
-                }
-            }
-            moved = true;
+    update() {
+        if (this.position.distance(this.movePos) > this.movePerSec) {
+            let moveDir = this.movePos.subtract(this.position);
+            moveDir.normalize();
+            this.position.add(moveDir.multiply(this.movePerSec));
+            return true;
         }
-        if (this.movePos.y != this.position.y) {
-            if (this.movePos.y > this.position.y) {
-                this.position.y += this.movePerSec;
-                if (this.position.y >= this.movePos.y) {
-                    this.position.y = this.movePos.y;
-                }
-            } else {
-                this.position.y -= this.movePerSec;
-                if (this.position.y <= this.movePos.y) {
-                    this.position.y = this.movePos.y;
-                }
-            }
-            moved = true;
+        else {
+            return false;
         }
-        return moved;
     }
 }
 
@@ -75,45 +54,85 @@ class Player extends Entity {
 class Bot extends Entity {
     constructor(id, position) {
         super(id, position);
+        this.randomTime = Math.random() * 1;
+        do {
+            this.movePos = getRandomPos(this.position, 10);
+        } while (this.checkMap() == false);
+    }
+
+    checkMap() {
+        if (this.position.x < -50) {
+            return false;
+        }
+        if (this.position.x > 50) {
+            return false;
+        }
+        if (this.position.y < -50) {
+            return false;
+        }
+        if (this.position.y > 50) {
+            return false;
+        }
+    }
+
+    update() {
+        this.randomTime -= 1 / 30;
+        if (this.randomTime <= 0 || !super.update()) {
+            this.randomTime = Math.random() * 1;
+            do {
+                this.movePos = getRandomPos(this.position, 10);
+            } while (this.checkMap() == false);
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
 class Game {
     /**
      * 
-     * @param {number} id
      * @param {Array<Entity>} entities 
      */
-    constructor(id, players, entities) {
-        this.id = id;
+    constructor(players, entities) {
         this.players = players;
         this.entities = entities;
-        this.loopInterval = setInterval(() => {
-            this.update();
-        }, 1000 / 30);
+        let loopCount = 0;
+        try {
+            this.loopInterval = setInterval(() => {
+                this.update();
+                loopCount++;
+                console.log(loopCount);
+            }, 1000 / 30);
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 
     /**
      * 
      * @param {Entity} entity 
      */
-    broadcastPlayerPos(entity) {
+    broadcastEntityPos(entity) {
         this.entities.forEach(p => {
             if (p.id !== entity.id) {
-                p.socket.send(JSON.stringify({
-                    type: "Game",
-                    payload: {
-                        id: this.id,
-                        payload: {    
-                            type: "playerPos",
+                if (typeof p.socket !== 'undefined') {
+                    p.socket.send(JSON.stringify({
+                        type: "Game",
+                        payload: {
+                            id: this.id,
                             payload: {
-                                id: entity.id,
-                                x: entity.position.x,
-                                y: entity.position.y
+                                type: "playerPos",
+                                payload: {
+                                    id: entity.id,
+                                    x: entity.position.x,
+                                    y: entity.position.y
+                                }
                             }
                         }
-                    }
-                }));
+                    }));
+                }
             }
         });
     }
@@ -121,12 +140,13 @@ class Game {
     update() {
         this.entities.forEach(entity => {
             if (entity.update()) {
-                this.broadcastPlayerPos(entity);
+                this.broadcastEntityPos(entity);
             }
         });
     }
 
     stop() {
+        console.log("stop");
         clearInterval(this.loopInterval);
     }
 }
@@ -141,9 +161,11 @@ module.exports = class LOS extends GameBase {
     async start() {
         this.Logger.Debug('Game started');
         const entities = [];
-        for (let i = 0; i < this.room.playerCount; i++) {
-            entities.push(new Player(this.room.players[i].socket, i, getRandomStartPos(), this.room.players[i].name));
+        for (let i = 0; i < this.room.roomUsers.length; i++) {
+            entities.push(new Player(this.room.roomUsers[i], i, getRandomStartPos(), this.room.roomUsers[i].name));
         }
+        entities.push(new Bot(entities.length, getRandomStartPos()));
+        this.game = new Game(this.room.roomUsers, entities);
     }
 
     end() {

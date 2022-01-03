@@ -15,6 +15,7 @@ module.exports = class Vector2 {
             this.x *= invLength;
             this.y *= invLength;
         }
+        return this;
     }
 
     add(v) {
@@ -34,5 +35,17 @@ module.exports = class Vector2 {
 
     distance(v) {
         return Math.sqrt(Math.pow(this.x - v.x, 2) + Math.pow(this.y - v.y, 2));
+    }
+
+    subtract(v) {
+        return new Vector2(this.x - v.x, this.y - v.y);
+    }
+
+    multiply(v) {
+        return new Vector2(this.x * v, this.y * v);
+    }
+
+    copy() {
+        return new Vector2(this.x, this.y);
     }
 }

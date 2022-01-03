@@ -12,11 +12,13 @@ const globalObj = {
     room: Room,
     roomManager: new RoomManager(Logger),
     user: User,
-    userManager: new UserManager(Logger, RoomManager),
+    userManager: null,
     Logger: Logger,
     server: null,
     sockets: [],
 };
+
+globalObj.userManager = new UserManager(Logger, globalObj.roomManager),
 
 WebSocket.prototype.globalObj = globalObj;
 
