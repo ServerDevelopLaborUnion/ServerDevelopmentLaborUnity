@@ -16,20 +16,23 @@ public class BoomW : SkillScript
     private Material boomMaterial;
     private bool isBoom;
 
-    private Rigidbody rb;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+        key = 1;
         rb = GetComponent<Rigidbody>();
         player = GetComponent<ChickenPlayer>();
         boomMaterial = boomBarrier.GetComponent<MeshRenderer>().material;
-        Debug.Log(boomMaterial);
         //player.boomW += Boom;
         player.triggerEnter += HitBomb;
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+        if (!hasStarted) return;
+
         CoolDown(skillCoolTime);
 
         if (!canUse) return;
@@ -38,9 +41,9 @@ public class BoomW : SkillScript
     }
 
 
-    protected override void UseSkill()
+    protected void UseSkill()
     {
-        base.UseSkill();
+        if (!base.CheckSkillAvailable()) return;
         if (Input.GetKeyDown(KeyCode.W) && !isBoom)
         {
             isBoom = true;
