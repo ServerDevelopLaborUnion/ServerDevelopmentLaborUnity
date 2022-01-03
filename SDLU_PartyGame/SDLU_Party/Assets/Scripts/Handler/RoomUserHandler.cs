@@ -4,6 +4,11 @@ public class RoomUserHandler : MonoBehaviour
 {
     private void Start()
     {
+        BufferHandler.Instance.AddHandler("JoinRoom", (data) => {
+            JoinRoomVO vo = JsonUtility.FromJson<JoinRoomVO>(data);
+            RoomManager.Instance.RoomID = vo.id;
+        });
+
         BufferHandler.Instance.AddHandler("RoomUserJoin", (data) => {
             RoomUserEventVO vo = JsonUtility.FromJson<RoomUserEventVO>(data);
             RoomManager.Instance.AddUser(vo.user);

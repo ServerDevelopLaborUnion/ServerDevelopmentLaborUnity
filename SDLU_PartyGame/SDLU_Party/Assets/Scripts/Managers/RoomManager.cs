@@ -8,7 +8,7 @@ public class RoomManager : MonoSingleton<RoomManager>
     /// </summary>
     private Dictionary<int, bool> userDictionary = new Dictionary<int, bool>();
 
-    
+    public int RoomID { get; set; } = -1;
 
 
     #region 외부 공개 함수
@@ -39,6 +39,16 @@ public class RoomManager : MonoSingleton<RoomManager>
         userDictionary.Remove(id);
         return true;
     }
+
+    /// <summary>
+    /// 방에 접속중인 유저 수를 가져옵니다.
+    /// </summary>
+    public int GetUserCount()
+    {
+        return userDictionary.Count;
+    }
+
+    
 
     #endregion
 }

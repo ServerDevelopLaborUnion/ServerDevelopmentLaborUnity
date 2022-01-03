@@ -10,9 +10,11 @@ public class ConnectionUI : MonoBehaviour
 
     private void Start()
     {
+        string payload = JsonUtility.ToJson(new { });
+
         btnConnect.onClick.AddListener(() => {
             SocketClient.Instance.Connect("127.0.0.1", 32000);
-            SceneManager.Instance.LoadScene("MatchMakingScene");
+            SocketClient.Instance.Send(new DataVO("GetRoomData", payload));
         });
     }
 }
