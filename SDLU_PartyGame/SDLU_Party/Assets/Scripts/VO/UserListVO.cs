@@ -3,12 +3,12 @@ using System;
 [Serializable]
 public class UserListVO
 {
-    public int UserID;
-    public string UserName;
+    public int userID;
+    public string userName;
 
-    public UserListVO(int UserID, string UserName)
+    public UserListVO(string UserName, int UserID)
     {
-        this.UserID = UserID;
-        this.UserName = UserName;
+        this.userID = UserID;
+        this.userName = UserName;
     }
 }
