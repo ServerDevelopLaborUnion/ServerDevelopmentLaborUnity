@@ -24,4 +24,4 @@ module.exports = {
 
 // 디버그
 // sendPost("register", JSON.stringify({ id: "jan", pw: "1234" }));
-sendPost("login", JSON.stringify({ id: "jan", pw: "1234" }));
+// sendPost("login", JSON.stringify({ id: "jan", pw: "1234" }));
