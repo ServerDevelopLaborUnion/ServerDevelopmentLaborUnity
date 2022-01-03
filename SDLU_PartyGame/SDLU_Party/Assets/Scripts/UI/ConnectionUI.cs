@@ -11,7 +11,7 @@ public class ConnectionUI : MonoBehaviour
     private void Start()
     {
         btnConnect.onClick.AddListener(() => {
-            SocketClient.Instance.Connect();
+            SocketClient.Instance.Connect("127.0.0.1", 32000);
             SceneManager.Instance.LoadScene("MatchMakingScene");
         });
     }

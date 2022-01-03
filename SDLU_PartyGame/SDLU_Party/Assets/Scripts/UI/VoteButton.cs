@@ -12,6 +12,8 @@ public class VoteButton : MonoBehaviour
         Text readyText = GetComponentInChildren<Text>();
 
         GetComponent<Button>().onClick.AddListener(() => {
+            if(!MatchMakingManager.Instance.OnMatch) return;
+            
             ReadyStatus = !ReadyStatus;
 
             string payload   = JsonUtility.ToJson(new { state = ReadyStatus });

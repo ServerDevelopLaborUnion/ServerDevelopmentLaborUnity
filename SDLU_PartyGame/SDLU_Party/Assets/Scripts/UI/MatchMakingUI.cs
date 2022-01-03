@@ -11,7 +11,10 @@ public class MatchMakingUI : MonoBehaviour
 
     private void Start()
     {
+        text.text = MatchMakingManager.Instance.OnMatch ? "메치메이킹 중지하기" : "메치메이킹 시작하기";
+
         btnMatch.onClick.AddListener(() => {
+            MatchMakingManager.Instance.OnMatch = !MatchMakingManager.Instance.OnMatch;
             text.text = MatchMakingManager.Instance.OnMatch ? "메치메이킹 중지하기" : "메치메이킹 시작하기";
             SocketClient.Instance.Send(new DataVO("MatchMaking", JsonUtility.ToJson(new { })));
         });

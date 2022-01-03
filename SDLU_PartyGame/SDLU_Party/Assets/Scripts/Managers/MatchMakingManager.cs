@@ -9,7 +9,7 @@ public class MatchMakingManager : MonoSingleton<MatchMakingManager>
     public event Action OnUserAdded;
     [SerializeField] private Text timeTakenText;
 
-    private bool _onMatch = true;
+    private bool _onMatch = false;
     public bool OnMatch {
         get {
             return _onMatch;

@@ -43,6 +43,7 @@ public class BufferHandler : MonoSingleton<BufferHandler>
 
     public void Handle(string data)
     {
+        Debug.Log($"Arrived > {data}");
         DataVO vo = null;
 
         try
