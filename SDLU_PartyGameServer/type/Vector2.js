@@ -1,4 +1,9 @@
 module.exports = class Vector2 {
+    /**
+     * 
+     * @param {number} x 
+     * @param {number} y 
+     */
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -18,6 +23,10 @@ module.exports = class Vector2 {
         return this;
     }
 
+    /**
+     * 
+     * @param {Vector2} v 
+     */
     add(v) {
         this.x += v.x;
         this.y += v.y;
