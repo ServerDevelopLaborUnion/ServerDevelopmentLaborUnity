@@ -21,7 +21,7 @@ public class SkillScript : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (!hasStarted)
+        if (!hasStarted && !canUse)
         {
             CoolDown(2);
         }
@@ -32,15 +32,15 @@ public class SkillScript : MonoBehaviour
         if (canUse) return;
 
         time += Time.deltaTime;
-        SetTimerUI(coolTime);
         if (time >= coolTime)
         {
             time = 0;
             canUse = true;
             hasStarted = true;
+            SetTimerUI(coolTime);
             return;
         }
-        
+        SetTimerUI(coolTime);
         return;
     }
 
@@ -48,11 +48,21 @@ public class SkillScript : MonoBehaviour
     {
         if (!player.IsGround()) return false;
         if (!player.isPlaying) return false;
+        if (!player.isMe) return false;
         return true;
     }
 
     private void SetTimerUI(float goalTime)
     {
-        UIManager.instance._cooltimeText[key].value = (time / goalTime);
+
+        if(canUse)
+        {
+            UIManager.instance._cooltimeImage[key].color = Color.white;
+        }
+        else
+        {
+            UIManager.instance._cooltimeImage[key].color = Color.grey;
+            UIManager.instance._cooltimeSlider[key].value = (time / goalTime);
+        }
     }
 }

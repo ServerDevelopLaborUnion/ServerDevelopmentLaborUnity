@@ -33,7 +33,7 @@ public class SkillFlash : SkillScript
         RaycastHit hit;
         Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground"));
         Vector3 dest = hit.point;
-        if (Vector3.Distance(dest, transform.position) < 7f)
+        if (Vector3.Distance(dest, transform.position) <= maxFlashDistance)
         {
             transform.position = dest + Vector3.up;
         }
@@ -48,9 +48,9 @@ public class SkillFlash : SkillScript
 
     protected void UseSkill()
     {
-        if (!base.CheckSkillAvailable()) return;
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.E))
         {
+            if (!base.CheckSkillAvailable()) return;
             Flash();
         }
     }

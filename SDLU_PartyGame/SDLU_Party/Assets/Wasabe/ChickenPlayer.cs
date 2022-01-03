@@ -31,14 +31,16 @@ public class ChickenPlayer : Player
         if (!CheckPlayerInArea())
         {
             StartCoroutine(Eliminated());
-            if(isPlaying)
+            if (isMe)
                 EnvironmentManager.instance.DeadEnvironment();
+            isPlaying = false;
         }
         if(CheckPlayerInArea())
         {
             gameObject.SetActive(true);
-            if(isPlaying)
+            if(isMe)
                 EnvironmentManager.instance.AliveEnvironment();
+            isPlaying = true;
         }
     }
 
@@ -54,7 +56,7 @@ public class ChickenPlayer : Player
 
     private bool CheckPlayerInArea()
     {
-        if(Vector3.Distance(Vector3.zero + Vector3.up * transform.position.y, transform.position) >= 20)
+        if(Vector3.Distance(Vector3.zero + Vector3.up * transform.position.y, transform.position) >= 16)
             return false;
         return true;
     }

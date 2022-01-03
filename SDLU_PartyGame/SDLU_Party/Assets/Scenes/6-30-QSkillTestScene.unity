@@ -1013,11 +1013,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3430665321855445551, guid: c6e95d4db063f0a4f8828f5fd31018cf, type: 3}
       propertyPath: skillPowerInHorizon
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3430665321855445551, guid: c6e95d4db063f0a4f8828f5fd31018cf, type: 3}
       propertyPath: skillPowerInVertical
-      value: 100
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3430665321855445588, guid: c6e95d4db063f0a4f8828f5fd31018cf, type: 3}
       propertyPath: m_Name
@@ -1184,7 +1184,7 @@ Transform:
   m_GameObject: {fileID: 974351874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 4, y: 0, z: 4}
+  m_LocalScale: {x: 3.2, y: 0, z: 3.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1218,10 +1218,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421c430f397864a45809c3d3a44fc7da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooltimeText:
+  _cooltimeSlider:
   - {fileID: 246564742}
   - {fileID: 528187824}
   - {fileID: 379052360}
+  _cooltimeImage:
+  - {fileID: 2147264650}
+  - {fileID: 483974279}
+  - {fileID: 1458918621}
 --- !u!4 &1020612195
 Transform:
   m_ObjectHideFlags: 0
@@ -1230,7 +1234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020612193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -860.8659, y: 352.7881, z: 315.2926}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2087,16 +2091,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3430665321855445550, guid: c6e95d4db063f0a4f8828f5fd31018cf, type: 3}
+      propertyPath: isMe
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3430665321855445550, guid: c6e95d4db063f0a4f8828f5fd31018cf, type: 3}
       propertyPath: isPlaying
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3430665321855445551, guid: c6e95d4db063f0a4f8828f5fd31018cf, type: 3}
       propertyPath: skillPowerInHorizon
-      value: 30
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3430665321855445551, guid: c6e95d4db063f0a4f8828f5fd31018cf, type: 3}
       propertyPath: skillPowerInVertical
-      value: 30
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3430665321855445588, guid: c6e95d4db063f0a4f8828f5fd31018cf, type: 3}
       propertyPath: m_Name

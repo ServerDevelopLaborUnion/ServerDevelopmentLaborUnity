@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private float speed;
 
     public bool isPlaying = false;
+    public bool isMe = false;
 
     public bool isMove = false;
 
@@ -56,7 +57,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButton(1))
         {
-            Debug.Log("Right mouse button clicked");
+            //Debug.Log("Right mouse button clicked");
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
             {
@@ -76,9 +77,9 @@ public class Player : MonoBehaviour
         isMove = true;
         while (isMove)
         {
-            if (!isPlaying) yield break;
+            if (!isMe || !isPlaying) yield break;
             Rotate(transform , hit.point);
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(hit.point.x, transform.position.y, hit.point.z), speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3((target - Vector3.zero).normalized.x * 15f, transform.position.y, (target - Vector3.zero).normalized.z * 15), speed * Time.deltaTime);
             isMove = transform.position.x != target.x && transform.position.z != target.z;
             yield return null;
         }
