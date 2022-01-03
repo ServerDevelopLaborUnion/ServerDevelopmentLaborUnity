@@ -5,5 +5,5 @@ public class RoomUserEventVO
 {
     public int user;
 
-    public RoomUserEventVO(int user) => thid.user = user;
+    public RoomUserEventVO(int user) => this.user = user;
 }
