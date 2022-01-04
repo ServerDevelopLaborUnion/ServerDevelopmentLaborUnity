@@ -29,4 +29,12 @@ public class UserManager : MonoSingleton<UserManager>
         userDictionary[id].transform.position = pos;
         userDictionary[id].transform.rotation = rot;
     }
+
+    public GameObject GetUserObject(int id) 
+    {
+        if(!userDictionary.ContainsKey(id)) {
+            throw new System.ArgumentOutOfRangeException($"Request id:{id} not founded in dictionary");
+        }
+        return userDictionary[id].gameObject;
+    }
 }
