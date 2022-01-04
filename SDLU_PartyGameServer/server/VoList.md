@@ -133,6 +133,18 @@
 }
 ```
 
+### RoomUserChatVO
+
+방의 채팅이 보내질 때 보내는 VO입니다.
+
+```js
+{
+    type: 'RoomUserChat',
+    payload: {
+        message: 메시지: String
+    }
+}
+
 ## Client
 
 클라이언트가 서버에게 보내는 VO입니다.
@@ -211,6 +223,19 @@
     type: 'Vote',
     payload: {
         item: Number
+    }
+}
+```
+
+### ChatVO
+
+채팅을 보낼 때 보내는 VO입니다.
+
+```js
+{
+    type: 'Chat',
+    payloadL {
+        message: 메시지: String
     }
 }
 ```

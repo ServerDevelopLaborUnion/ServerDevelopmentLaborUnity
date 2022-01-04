@@ -149,6 +149,15 @@ class Room {
             this.startGame();
         }
     }
+    chat(socket, message) {
+        this.broadcast(JSON.stringify({
+            type: 'RoomUserChat',
+            payload: {
+                user: socket.user.id,
+                message: message
+            }
+        }));
+    }
     getVoteResult() {
         // 개별 항목의 투표 결과를 구합니다
         let result = {};
