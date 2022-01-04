@@ -7,9 +7,16 @@ using UnityEngine.UI;
 public class VoteHandler : MonoBehaviour
 {
     private void Start() {
-        BufferHandler.Instance.AddHandler("RoomStartVote", data =>
+        // BufferHandler.Instance.AddHandler("RoomStartVote", data =>
+        // {
+        //     RoomStartVoteVO vo = JsonUtility.FromJson<RoomStartVoteVO>(data);
+            
+        // });
+
+        BufferHandler.Instance.AddHandler("RoomUserVote", data =>
         {
-            RoomStartVoteVO vo = JsonUtility.FromJson<RoomStartVoteVO>(data);
+            RoomUserVoteVO vo = JsonUtility.FromJson<RoomUserVoteVO>(data);
+            VoteManager.Instance.voteDictionary = vo.voteDictionary;
         });
 
         BufferHandler.Instance.AddHandler("RoomGameStart", data =>
@@ -17,6 +24,7 @@ public class VoteHandler : MonoBehaviour
             RoomGameStartVO vo = JsonUtility.FromJson<RoomGameStartVO>(data);
 
             SceneManager.LoadScene(vo.gameNumber);
+            VoteManager.Instance.isVote = false;
         });
     }
 }

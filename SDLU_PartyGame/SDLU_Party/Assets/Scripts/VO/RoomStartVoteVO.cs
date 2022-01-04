@@ -7,8 +7,8 @@ public class RoomStartVoteVO
 {
     public int userCount;
 
-    public RoomStartVoteVO(int userCount)
-    {
+
+    public RoomStartVoteVO(int userCount) {
         this.userCount = userCount;
     }
 }

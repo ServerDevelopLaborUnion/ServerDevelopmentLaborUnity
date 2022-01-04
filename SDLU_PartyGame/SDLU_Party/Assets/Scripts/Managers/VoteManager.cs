@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class VoteManager : MonoSingleton<VoteManager>
 {
-    //TODO: VOTE Count 받아서 구현
-    private bool isVote { get; set; } = false;
-    // public int UserCount { get; private set; } = 0;
+    public Dictionary<string, int> voteDictionary{ get; set; } = new Dictionary<string, int>();
+    public bool isVote { get; set; } = false;
     public int ReadyUserCount { get; private set; } = 0;
-    //public int LastMenStandingVotedCount { get; private set; } = 0;
-
-    // public void SetUserCount(bool add)
-    // {
-    //     UserCount = add ? UserCount + 1 : UserCount - 1;
-    // }
 
     public void SetReadyUserCount(bool add)
     {
         ReadyUserCount = add ? ReadyUserCount + 1 : ReadyUserCount - 1;
     }
+    public void VoteGame(int id , string gameName){
+        if(isVote)return;
+        if(id == SocketPlayer.Instance.ID){
+            isVote = true;
+        }
+        if(!voteDictionary.ContainsKey(gameName)){
+            voteDictionary.Add(gameName, 0);
+        }
+        voteDictionary[gameName]++;
+        SocketClient.Instance.Send(new DataVO("RoomUserVote", JsonUtility.ToJson(new RoomUserVoteVO(SocketPlayer.Instance.ID, voteDictionary))));   
+    }
 
-    // public void SetLastMenStandingVotedCount(bool add)
-    // {
-    //     LastMenStandingVotedCount = add ? LastMenStandingVotedCount + 1 : LastMenStandingVotedCount - 1;
-    // }
 }

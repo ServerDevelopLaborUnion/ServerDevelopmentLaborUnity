@@ -10,7 +10,7 @@ public class RoomStartVoteHandler : MonoBehaviour
 
             RoomUserReadyVO vo = JsonUtility.FromJson<RoomUserReadyVO>(data);
 
-            VoteManager.Instance.SetReadyUserCount(vo.ready);
+            VoteManager.Instance.SetReadyUserCount(vo.ready); // 유저가 현재 레디 했는지 안했는지
         });
     }
 }

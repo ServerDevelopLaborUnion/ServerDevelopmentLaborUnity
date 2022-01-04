@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class RoomUserHandler : MonoBehaviour
 {
     [SerializeField]
-    private Text countText;
+    private Text countText; // 인원수 적혀있는 텍스트
 
     private void Start()
     {
