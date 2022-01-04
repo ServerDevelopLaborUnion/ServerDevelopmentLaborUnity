@@ -2,13 +2,13 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class PlayerGameInitDataVO
+public class MoveVO
 {
     public int id;
-    public Vector2 position; // x, z
+    public Vector3 position;
     public Quaternion rotation;
 
-    public PlayerGameInitDataVO(int id, Vector2 position, Quaternion rotation)
+    public MoveVO(int id, Vector3 position, Quaternion rotation)
     {
         this.id = id;
         this.position = position;

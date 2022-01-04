@@ -6,7 +6,6 @@ using System;
 
 public class ChickenPlayer : Player
 {
-    public int ID { get; set; }
 
     #region Action
     public event Action<Collider> triggerEnter;

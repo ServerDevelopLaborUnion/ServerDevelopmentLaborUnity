@@ -5,8 +5,8 @@ const { player2json } = require("../../util/players2json.js");
 // r = 15
 
 function getRandomStartPos() {
-    let x = Math.random() * 30 - 15;
-    let y = Math.random() * 30 - 15;
+    let x = Math.random() * 26 - 13;
+    let y = Math.random() * 26 - 13;
     return new Vector2(x, y);
 }
 
@@ -73,8 +73,8 @@ module.exports = class UhzzelParty extends GameBase {
         for (let i = 0; i < this.room.roomUsers.length; ++i) { // 플레이어 생성
             players.push(new Player(this.room.roomUsers[i], this.room.roomUsers[i].id, getRandomStartPos(), this.room.roomUsers.name));
         }
-        this.room.broadcast({ type: gameinit, payload: player2json(players) }); // 플레이어 정보 클라이언트로 전달
-        this.game = new Game(players);
+        this.room.broadcast({ type: "gameinit", payload: { players: player2json(players) } }); // 플레이어 정보 클라이언트로 전달
+        // this.game = new Game(players);
     }
 
     stop() {

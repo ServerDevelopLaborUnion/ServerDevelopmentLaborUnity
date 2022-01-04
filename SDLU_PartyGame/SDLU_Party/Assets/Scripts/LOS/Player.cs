@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public bool isMove = false;
 
     protected bool isDead = false;
+    public int ID { get; set; }
 
     protected Ray ray;
     protected RaycastHit hit;
