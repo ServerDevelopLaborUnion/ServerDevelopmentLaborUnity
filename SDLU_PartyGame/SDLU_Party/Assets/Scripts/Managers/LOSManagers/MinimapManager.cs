@@ -26,6 +26,9 @@ public class MinimapManager : MonoBehaviour
 
     private Transform minimapImageTransformMemory = null;
 
+    [SerializeField]
+    private GameObject player = null;
+
     void Start()
     {
         minimapMask = minimap.transform.GetChild(0).gameObject;
@@ -42,7 +45,9 @@ public class MinimapManager : MonoBehaviour
 
     private void FollowPlayer()
     {
-
+        minimapImage.SetParent(null);
+        minimapMask.transform.position = minimapCamera.WorldToScreenPoint(player.transform.position);
+        minimapImage.SetParent(minimapMask.transform);
     }
 
     private IEnumerator ShowPosition(){
