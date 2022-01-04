@@ -14,6 +14,7 @@ public class ChickenPlayer : Player
 
     private CapsuleCollider col;
     [SerializeField] private ParticleSystem deadParticle = null;
+    private AudioSource adSo;
 
     protected override void Awake()
     {
@@ -25,6 +26,7 @@ public class ChickenPlayer : Player
     private void Start()
     {
         col = GetComponent<CapsuleCollider>();
+        adSo = GetComponent<AudioSource>();
     }
 
     protected override void Update()
@@ -74,6 +76,13 @@ public class ChickenPlayer : Player
 
     public bool IsGround()
     {
-        return Physics.OverlapSphere(col.bounds.center, col.radius * col.height, LayerMask.GetMask("Ground")).Length > 0;
+        return Physics.OverlapSphere(col.bounds.center, col.radius * col.height, LayerMask.GetMask("Ground")).Length >= 0;
     }
+
+    public void PlaySound(float pitch)
+    {
+        adSo.pitch = pitch;
+        adSo.Play();
+    }
+
 }

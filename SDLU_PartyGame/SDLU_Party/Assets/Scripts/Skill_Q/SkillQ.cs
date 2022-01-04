@@ -6,6 +6,7 @@ using DG.Tweening;
 public class SkillQ : SkillScript
 {
     private List<GameObject> blockList = new List<GameObject>();
+    private List<AudioSource> audioBlocks = new List<AudioSource>();
 
     [SerializeField] private float skillRange = 0f;
     [SerializeField] private float skillSpeed = 0f;
@@ -40,6 +41,7 @@ public class SkillQ : SkillScript
             g.transform.position += new Vector3(0f, 0f, (boxSizeZ + 0.1f) * i);
             g.SetActive(false);
             blockList.Add(g);
+            audioBlocks.Add(g.GetComponent<AudioSource>());
         }
     }
 
@@ -92,6 +94,7 @@ public class SkillQ : SkillScript
             {
                 blockTransform.DOMoveY(/*blockTransform.position.y*/-2f, duration * 10);
             });
+            audioBlocks[i].Play();
             yield return Yields.WaitSeconds(duration);
         }
 
@@ -154,9 +157,10 @@ public class SkillQ : SkillScript
     }
     private void UseSkill()
     {
+        if (!base.CheckSkillAvailable()) return;
+
         if (Input.GetKey(KeyCode.Q))
         {
-            if (!base.CheckSkillAvailable()) return;
             isHolding = true;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -167,12 +171,12 @@ public class SkillQ : SkillScript
         else
         {
             chargeTime = Time.time;
+            isHolding = false;
         }
         if (Input.GetKeyUp(KeyCode.Q))
         {
             if (!base.CheckSkillAvailable()) return;
             Q();
-            isHolding = false;
             ShowRange(false);
         }
         // if (isUsing&& !isHolding)

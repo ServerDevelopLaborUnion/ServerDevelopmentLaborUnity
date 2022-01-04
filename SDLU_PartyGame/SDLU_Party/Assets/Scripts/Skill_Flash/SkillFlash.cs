@@ -42,15 +42,16 @@ public class SkillFlash : SkillScript
             var dir = dest + Vector3.up - transform.position;
             transform.position += dir.normalized * maxFlashDistance;
         }
+        player.PlaySound(1f);
         canUse = false;
         player.isMove = false;
     }
 
     protected void UseSkill()
     {
+            if (!base.CheckSkillAvailable()) return;
         if (Input.GetKeyUp(KeyCode.E))
         {
-            if (!base.CheckSkillAvailable()) return;
             Flash();
         }
     }
