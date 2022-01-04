@@ -16,18 +16,6 @@ public class VoteManager : MonoSingleton<VoteManager>
     public void SetVoteDictionary(Dictionary<string,int> voteDictionary){
         this.voteDictionary = voteDictionary;
     }
-    // public void VoteGame(int id , string gameName){
-    //     if(isVote)return;   
-    //     if(id == SocketPlayer.Instance.ID){
-    //         isVote = true;
-    //     }
-    //     if(!voteDictionary.ContainsKey(gameName)){
-    //         voteDictionary.Add(gameName, 0);
-    //     }
-    //     voteDictionary[gameName]++;
-    //     SocketClient.Instance.Send(new DataVO("RoomUserVote", JsonUtility.ToJson(new RoomUserVoteVO(SocketPlayer.Instance.ID, voteDictionary))));   
-    // }
-
 
     public void OnClickVote(int gameID){
         if(isVote)return;
