@@ -128,10 +128,20 @@ class Room {
 
         this.vote.push(vote);
 
+        const voteList = {};
+        this.vote.forEach(v => {
+            if (voteList[v]) {
+                voteList[v]++;
+            } else {
+                voteList[v] = 1;
+            }
+        });
+
         this.broadcast(JSON.stringify({
             type: 'RoomUserVote',
             payload: {
-                user: socket.user.id
+                user: socket.user.id,
+                voteList: voteList
             }
         }));
 

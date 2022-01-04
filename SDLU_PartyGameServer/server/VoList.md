@@ -113,6 +113,9 @@
     type: 'RoomUserVote',
     payload: {
         user: 유저ID: Number
+        voteList: [
+            "종목": 투표수: Number
+        ]
     }
 }
 ```
