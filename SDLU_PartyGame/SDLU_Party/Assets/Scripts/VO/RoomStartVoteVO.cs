@@ -1,13 +1,14 @@
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
+[Serializable]
 public class RoomStartVoteVO
 {
-    public int user;
-    public bool ready;
+    public int userCount;
 
-    public RoomStartVoteVO(int user, bool ready) 
-    {
-        this.user = user;
-        this.ready = ready;
+
+    public RoomStartVoteVO(int userCount) {
+        this.userCount = userCount;
     }
 }

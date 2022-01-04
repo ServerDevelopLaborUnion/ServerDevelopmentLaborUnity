@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class ConnectionUI : MonoBehaviour
 {
@@ -13,8 +11,8 @@ public class ConnectionUI : MonoBehaviour
         string payload = JsonUtility.ToJson(new { });
 
         btnConnect.onClick.AddListener(() => {
-            SocketClient.Instance.Connect("127.0.0.1", 32000);
-            SocketClient.Instance.Send(new DataVO("GetRoomData", payload));
+            SocketClient.Instance.Connect();
+            //SocketClient.Instance.Send(new DataVO("GetRoomData", payload));
         });
     }
 }

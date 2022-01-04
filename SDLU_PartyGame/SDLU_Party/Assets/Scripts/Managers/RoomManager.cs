@@ -12,11 +12,13 @@ public class RoomManager : MonoSingleton<RoomManager>
 
 
     #region 외부 공개 함수
+
+    
     /// <summary>
     /// 유저를 방에 추가합니다.
     /// </summary>
     /// <param name="id">추가할 유저의 id</param>
-    /// <returns>flase when fail</returns>
+    /// <returns>false when fail</returns>
     public bool AddUser(int id)
     {
         if(userDictionary.ContainsKey(id)) {
@@ -25,12 +27,22 @@ public class RoomManager : MonoSingleton<RoomManager>
         userDictionary.Add(id, false);
         return true;
     }
+    
+    /// <summary>
+    /// 유저의 레디상태를 바꾸어줍니다
+    /// </summary>
+    /// <param name="id">바꿀 유저의 id</param>
+    public void ChangeUser(int id , bool state){
+        userDictionary[id] = state;
+    }
+
+
 
     /// <summary>
     /// 유저를 방에서 제거합니다.
     /// </summary>
     /// <param name="id">제거할 유저의 id</param>
-    /// <returns>flase when fail</returns>
+    /// <returns>false when fail</returns>
     public bool RemoveUser(int id)
     {
         if (!userDictionary.ContainsKey(id)) {
