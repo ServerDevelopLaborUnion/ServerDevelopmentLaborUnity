@@ -72,6 +72,7 @@ public class SkillQ : SkillScript
                 skillTransform.localPosition = Vector3.zero;
                 skillTransform.localRotation = Quaternion.Euler(Vector3.zero + Vector3.forward * 90);
             };
+            SocketClient.Instance.Send(new DataVO("skill", JsonUtility.ToJson(new SkillVO("q"))));
             StartCoroutine(UpdownBlock());
 
         }
