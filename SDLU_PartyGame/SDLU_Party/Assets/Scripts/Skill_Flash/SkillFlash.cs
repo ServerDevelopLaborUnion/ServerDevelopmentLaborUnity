@@ -53,7 +53,7 @@ public class SkillFlash : SkillScript
         if (Input.GetKeyUp(KeyCode.E))
         {
             Flash();
-            SocketClient.Instance.Send(new DataVO("skill", JsonUtility.ToJson(new SkillVO("e"))));
+            SocketClient.Instance.Send(new DataVO("skill", JsonUtility.ToJson(new SkillVO(SocketPlayer.Instance.ID, "e"))));
         }
     }
     private IEnumerator CreateEffect()

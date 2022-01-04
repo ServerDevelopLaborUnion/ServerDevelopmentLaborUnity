@@ -47,7 +47,7 @@ public class BoomW : SkillScript
         if (Input.GetKeyUp(KeyCode.W) && !isBoom)
         {
             isBoom = true;
-            SocketClient.Instance.Send(new DataVO("skill", JsonUtility.ToJson(new SkillVO("w"))));
+            SocketClient.Instance.Send(new DataVO("skill", JsonUtility.ToJson(new SkillVO(SocketPlayer.Instance.ID, "w"))));
             Explosion();
         }
     }
