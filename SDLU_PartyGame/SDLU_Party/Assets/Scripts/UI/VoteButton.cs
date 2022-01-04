@@ -10,9 +10,9 @@ public class VoteButton : MonoBehaviour
     [SerializeField]
     private Text countText;
     [SerializeField]
-    private CanvasGroup voteCanvasGroup;
-    [SerializeField]
-    private GameObject roomPanel;
+    private GameObject votePanel;
+    // [SerializeField]
+    // private GameObject roomPanel;
 
     private Image image;
     private void Start()
@@ -35,8 +35,9 @@ public class VoteButton : MonoBehaviour
             if (VoteManager.Instance.ReadyUserCount == userCount) //모든 인원이 레디했는가
             {
                 SocketClient.Instance.Send(new DataVO("RoomStartVote", JsonUtility.ToJson(new RoomStartVoteVO(userCount))));
-                voteCanvasGroup.gameObject.SetActive(true);
-                roomPanel.SetActive(false);
+                votePanel.SetActive(true);
+                gameObject.SetActive(false);
+                //roomPanel.SetActive(false);
             }
         });
     }

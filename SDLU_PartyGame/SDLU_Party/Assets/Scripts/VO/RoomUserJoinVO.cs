@@ -1,9 +1,9 @@
 using System;
 
 [Serializable]
-public class RoomUserEventVO
+public class RoomUserJoinVO
 {
     public int user;
 
-    public RoomUserEventVO(int user) => this.user = user;
+    public RoomUserJoinVO(int user) => this.user = user;
 }

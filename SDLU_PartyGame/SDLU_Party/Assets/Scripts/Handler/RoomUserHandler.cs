@@ -18,14 +18,14 @@ public class RoomUserHandler : MonoBehaviour
 
         BufferHandler.Instance.AddHandler("RoomUserJoin", (data) =>
         {
-            RoomUserEventVO vo = JsonUtility.FromJson<RoomUserEventVO>(data);
+            RoomJoinVO vo = JsonUtility.FromJson<RoomJoinVO>(data);
             RoomManager.Instance.AddUser(vo.user);
             countText.text = string.Format("{0} / {0}", VoteManager.Instance.ReadyUserCount, RoomManager.Instance.GetUserCount());
         });
 
         BufferHandler.Instance.AddHandler("RoomUserLeave", (data) =>
         {
-            RoomUserEventVO vo = JsonUtility.FromJson<RoomUserEventVO>(data);
+            RoomJoinVO vo = JsonUtility.FromJson<RoomJoinVO>(data);
             RoomManager.Instance.RemoveUser(vo.user);
             countText.text = string.Format("{0} / {0}", VoteManager.Instance.ReadyUserCount, RoomManager.Instance.GetUserCount());
 

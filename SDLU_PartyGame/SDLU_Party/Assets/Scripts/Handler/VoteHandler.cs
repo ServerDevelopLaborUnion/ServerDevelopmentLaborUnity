@@ -16,7 +16,7 @@ public class VoteHandler : MonoBehaviour
         BufferHandler.Instance.AddHandler("RoomUserVote", data =>
         {
             RoomUserVoteVO vo = JsonUtility.FromJson<RoomUserVoteVO>(data);
-            VoteManager.Instance.voteDictionary = vo.voteDictionary;
+            VoteManager.Instance.SetVoteDictionary(vo.voteDictionary);
         });
 
         BufferHandler.Instance.AddHandler("RoomGameStart", data =>
