@@ -156,7 +156,7 @@ public class SkillQ : SkillScript
         yield return new WaitUntil(() => player.IsGround() && rb.velocity.y < 0f);
         canUse = true;
     }
-    private void UseSkill()
+    public void UseSkill()
     {
         if (!base.CheckSkillAvailable()) return;
 

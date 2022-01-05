@@ -41,7 +41,7 @@ public class BoomW : SkillScript
     }
 
 
-    protected void UseSkill()
+    public void UseSkill()
     {
         if (!base.CheckSkillAvailable()) return;
         if (Input.GetKeyUp(KeyCode.W) && !isBoom)

@@ -47,7 +47,7 @@ public class SkillFlash : SkillScript
         player.isMove = false;
     }
 
-    protected void UseSkill()
+    public void UseSkill()
     {
             if (!base.CheckSkillAvailable()) return;
         if (Input.GetKeyUp(KeyCode.E))
