@@ -24,7 +24,7 @@ public class SocketClient : MonoSingleton<SocketClient>
     /// </summary>
     /// <param name="ip">IP</param>
     /// <param name="port">PORT</param>
-    public void Connect(string ip = "183.101.5.142", ushort port = 32000)
+    public void     Connect(string ip = "183.101.5.142", ushort port = 32000)
     {
         if(ws != null && ws.IsAlive)
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ConnectionHandler : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class ConnectionHandler : MonoBehaviour
             Debug.Log(data);
             SocketPlayer.Instance.Name = vo.userName;
             SocketPlayer.Instance.ID = vo.userID;
+            SceneManager.LoadScene("SceneVote");
             SocketClient.Instance.Send(new DataVO("MatchMaking", null));
         });
     }

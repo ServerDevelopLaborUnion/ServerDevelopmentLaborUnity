@@ -13,7 +13,6 @@ public class RoomUserHandler : MonoBehaviour
         {
             JoinRoomVO vo = JsonUtility.FromJson<JoinRoomVO>(data);
             RoomManager.Instance.RoomID = vo.id;
-            SceneManager.LoadScene("SceneVote");
         });
 
         BufferHandler.Instance.AddHandler("RoomUserJoin", (data) =>
