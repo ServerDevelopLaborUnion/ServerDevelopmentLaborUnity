@@ -66,7 +66,6 @@ public class ChickenPlayer : Player
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("왜 안될까");
         if (IsGround())
         {
             triggerEnter(other);

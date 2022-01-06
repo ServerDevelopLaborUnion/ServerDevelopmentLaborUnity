@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 105671066}
   - component: {fileID: 105671065}
+  - component: {fileID: 105671067}
   m_Layer: 0
   m_Name: SocketClient
   m_TagString: Untagged
@@ -166,6 +167,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &105671067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105671064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b6f5cd7ac69e898b063b9b144dcea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &383564788
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 764272999}
   - component: {fileID: 764273000}
+  - component: {fileID: 764273001}
   m_Layer: 0
   m_Name: Handler
   m_TagString: Untagged
@@ -545,6 +559,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2584cacfc5f63364494a280a454f03ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &764273001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764272998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ddb6e2b0c3952548bce06346459dcc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &932197466
