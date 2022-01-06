@@ -13,6 +13,6 @@ module.exports = {
         const data = new GetRoomDataVO(payload.id);
         const vo = new DataVO("RoomData", JSON.stringify(socket.globalObj.roomManager.getRoomData(data.id)));
         Logger.Debug(`room data sent to ${socket.id}`);
-        socket.send(vo);
+        socket.send(JSON.stringify(vo));
     }
 }
