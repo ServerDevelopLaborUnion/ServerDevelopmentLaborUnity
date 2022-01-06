@@ -70,11 +70,7 @@ class Room {
         }
     }
     getUsers() {
-        let users = [];
-        for (let i = 0; i < this.roomUsers.length; i++) {
-            users.push(this.roomUsers[i].user);
-        }
-        return users;
+        return this.roomUsers;
     }
     setReadyState(socket, state) {
         if (state == socket.ready) return;
