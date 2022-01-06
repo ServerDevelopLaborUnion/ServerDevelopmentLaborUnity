@@ -50,9 +50,9 @@ class Room {
         this.roomUsers.push(socket);
         this.broadcast(JSON.stringify({
             type: 'RoomUserJoin',
-            payload: {
+            payload: JSON.stringify({
                 user: socket.user.id
-            }
+            })
         }));
         return true;
     }
@@ -60,9 +60,9 @@ class Room {
         this.roomUsers.splice(this.roomUsers.indexOf(socket), 1);
         this.broadcast(JSON.stringify({
             type: 'RoomUserLeave',
-            payload: {
+            payload: JSON.stringify({
                 user: socket.user.id
-            }
+            })
         }));
 
         if (this.roomUsers.length <= 0) {
@@ -83,10 +83,10 @@ class Room {
 
         this.broadcast(JSON.stringify({
             type: 'RoomUserReady',
-            payload: {
+            payload: JSON.stringify({
                 user: socket.user.id,
                 ready: state
-            }
+            })
         }));
 
         if (this.isAllReady()) {
@@ -111,9 +111,9 @@ class Room {
         }
         this.broadcast(JSON.stringify({
             type: 'RoomStartVote',
-            payload: {
+            payload: JSON.stringify({
                 count: this.voter.length
-            }
+            })
         }));
         this.Logger.Debug(`room ${this.id} start vote`);
     }
@@ -135,10 +135,10 @@ class Room {
 
         this.broadcast(JSON.stringify({
             type: 'RoomUserVote',
-            payload: {
+            payload: JSON.stringify({
                 user: socket.user.id,
                 voteList: voteList
-            }
+            })
         }));
 
         if (this.voter.length <= 0) {
@@ -148,10 +148,10 @@ class Room {
     chat(socket, message) {
         this.broadcast(JSON.stringify({
             type: 'RoomUserChat',
-            payload: {
+            payload: JSON.stringify({
                 user: socket.user.id,
                 message: message
-            }
+            })
         }));
     }
     getVoteResult() {
@@ -181,9 +181,9 @@ class Room {
     startGame() {
         this.broadcast(JSON.stringify({
             type: 'RoomGameStart',
-            payload: {
+            payload: JSON.stringify({
                 game: this.getVoteResult()
-            }
+            })
         }));
         this.status = 'playing';
         const game = games[this.getVoteResult()];

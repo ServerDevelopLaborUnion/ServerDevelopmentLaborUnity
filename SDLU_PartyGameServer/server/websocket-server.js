@@ -49,10 +49,10 @@ class WebsocketServer {
                 socket.user.name = username;
                 socket.send(JSON.stringify({
                     type: 'UserName',
-                    payload: {
+                    payload: JSON.stringify({
                         name: username,
                         id: socket.user.id
-                    }
+                    })
                 }));
                 Logger.Debug(`Client connected: \x1b[32m${socket.user.id} + ${socket.user.name}`);
             });
