@@ -5,7 +5,11 @@ module.exports = {
     type: "MatchMaking",
     async handle(socket) {
         const room = socket.globalObj.roomManager.matchMaking(socket);
-        const vo = new DataVO("JoinRoom", { "id" : room.id });
-        socket.send(JSON.stringify(vo));
+        socket.send(JSON.stringify({
+            type: "JoinRoom",
+            payload: {
+                "id": room.id
+            }
+        }));
     }
 }
